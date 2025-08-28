@@ -15,9 +15,7 @@ An intelligent daily planner that organizes tasks, assessments, and activities w
 -   Smart Task Organization: Automatically categorize tasks, assessments, and activities.
 -   Context-Aware Reminders: Never miss a deadline with timely alerts.
 -   Precise Due Dates: Schedule tasks with actionable due dates.
--   Custom UI: Built with JavaFX, custom fonts (Lexend), and animated transitions.
--   Perfect for Students & Professionals: Designed for productivity and efficient time management.
-
+-   Custom UI: Built with JavaFX, custom fonts (Lexend).
 ------------------------------------------------------------------------
 
 🛠️ Tech Stack
