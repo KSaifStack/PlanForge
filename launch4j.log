@@ -1,0 +1,617 @@
+
+
+Version:	3.50
+CmdLine:	C:\Users\saife\Downloads\PlanForge\ToDo.exe --l4j-debug
+JNI:		No
+WOW64:		Yes
+Working dir:	C:\Users\saife\Downloads\PlanForge\.
+Requires JDK:	No
+Requires 64-Bit: No
+Java min ver:	
+Java max ver:	
+Substitute:	JAVA_HOME = C:\Program Files\OpenJDK\jdk-22.0.2
+Substitute:	PATH = C:\Program Files\Common Files\Oracle\Java\javapath;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\Program Files\dotnet\;C:\Program Files\Git\cmd;C:\ProgramData\chocolatey\bin;C:\Program Files\OpenJDK\jdk-22.0.2\bin;C:\Program Files (x86)\Windows Kits\10\Windows Performance Toolkit\;C:\Users\saife\AppData\Local\Programs\Python\Launcher\;C:\Users\saife\AppData\Local\Microsoft\WindowsApps;C:\Users\saife\AppData\Local\Programs\Microsoft VS Code\bin;C:\Program Files\Java\jdk-23\bin;C:\Program Files\JetBrains\IntelliJ IDEA Community Edition 2025.1.1.1\bin;;C:\msys64\ucrt64\bin;C:\Windows\System32;;C:\Program Files\OpenJDK\jdk-22.0.2\bin
+JRE paths:	C:\Program Files\OpenJDK\jdk-22.0.2;C:\Program Files\Common Files\Oracle\Java\javapath;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\Program Files\dotnet\;C:\Program Files\Git\cmd;C:\ProgramData\chocolatey\bin;C:\Program Files\OpenJDK\jdk-22.0.2\bin;C:\Program Files (x86)\Windows Kits\10\Windows Performance Toolkit\;C:\Users\saife\AppData\Local\Programs\Python\Launcher\;C:\Users\saife\AppData\Local\Microsoft\WindowsApps;C:\Users\saife\AppData\Local\Programs\Microsoft VS Code\bin;C:\Program Files\Java\jdk-23\bin;C:\Program Files\JetBrains\IntelliJ IDEA Community Edition 2025.1.1.1\bin;;C:\msys64\ucrt64\bin;C:\Windows\System32;;C:\Program Files\OpenJDK\jdk-22.0.2\bin
+Check launcher:	C:\Program Files\OpenJDK\jdk-22.0.2\bin\javaw.exe (OK)
+Version string: 1.022.000_002 / 64-Bit (OK)
+Launcher:	C:\Program Files\OpenJDK\jdk-22.0.2\bin\javaw.exe
+Launcher args:	--module-path "javafx-sdk\lib" --add-modules javafx.controls,javafx.fxml,javafx.graphics -jar "C:\Users\saife\Downloads\PlanForge\ToDo.exe"
+Args length:	139/32768 chars
+Exit code:	0
+
+
+Version:	3.50
+CmdLine:	C:\Users\saife\Downloads\PlanForge\ToDo.exe --l4j-debug
+JNI:		No
+WOW64:		Yes
+Working dir:	C:\Users\saife\Downloads\PlanForge\.
+Requires JDK:	No
+Requires 64-Bit: No
+Java min ver:	1.019.000
+Java max ver:	
+Substitute:	JAVA_HOME = C:\Program Files\OpenJDK\jdk-22.0.2
+Substitute:	PATH = C:\Program Files\Common Files\Oracle\Java\javapath;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\Program Files\dotnet\;C:\Program Files\Git\cmd;C:\ProgramData\chocolatey\bin;C:\Program Files\OpenJDK\jdk-22.0.2\bin;C:\Program Files (x86)\Windows Kits\10\Windows Performance Toolkit\;C:\Users\saife\AppData\Local\Programs\Python\Launcher\;C:\Users\saife\AppData\Local\Microsoft\WindowsApps;C:\Users\saife\AppData\Local\Programs\Microsoft VS Code\bin;C:\Program Files\Java\jdk-23\bin;C:\Program Files\JetBrains\IntelliJ IDEA Community Edition 2025.1.1.1\bin;;C:\msys64\ucrt64\bin;C:\Windows\System32;;C:\Program Files\OpenJDK\jdk-22.0.2\bin
+JRE paths:	C:\Program Files\OpenJDK\jdk-22.0.2;C:\Program Files\Common Files\Oracle\Java\javapath;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\Program Files\dotnet\;C:\Program Files\Git\cmd;C:\ProgramData\chocolatey\bin;C:\Program Files\OpenJDK\jdk-22.0.2\bin;C:\Program Files (x86)\Windows Kits\10\Windows Performance Toolkit\;C:\Users\saife\AppData\Local\Programs\Python\Launcher\;C:\Users\saife\AppData\Local\Microsoft\WindowsApps;C:\Users\saife\AppData\Local\Programs\Microsoft VS Code\bin;C:\Program Files\Java\jdk-23\bin;C:\Program Files\JetBrains\IntelliJ IDEA Community Edition 2025.1.1.1\bin;;C:\msys64\ucrt64\bin;C:\Windows\System32;;C:\Program Files\OpenJDK\jdk-22.0.2\bin
+Check launcher:	C:\Program Files\OpenJDK\jdk-22.0.2\bin\javaw.exe (OK)
+Version string: 1.022.000_002 / 64-Bit (OK)
+Launcher:	C:\Program Files\OpenJDK\jdk-22.0.2\bin\javaw.exe
+Launcher args:	--module-path "javafx-sdk\lib" --add-modules javafx.controls,javafx.fxml,javafx.graphics -jar "C:\Users\saife\Downloads\PlanForge\ToDo.exe"
+Args length:	139/32768 chars
+Exit code:	0
+
+
+Version:	3.50
+CmdLine:	C:\Users\saife\Downloads\PlanForge\ToDo.exe --l4j-debug
+JNI:		No
+WOW64:		Yes
+Working dir:	C:\Users\saife\Downloads\PlanForge\.
+Requires JDK:	No
+Requires 64-Bit: No
+Java min ver:	1.019.000
+Java max ver:	
+Substitute:	JAVA_HOME = C:\Program Files\OpenJDK\jdk-22.0.2
+Substitute:	PATH = C:\Program Files\Common Files\Oracle\Java\javapath;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\Program Files\dotnet\;C:\Program Files\Git\cmd;C:\ProgramData\chocolatey\bin;C:\Program Files\OpenJDK\jdk-22.0.2\bin;C:\Program Files (x86)\Windows Kits\10\Windows Performance Toolkit\;C:\Users\saife\AppData\Local\Programs\Python\Launcher\;C:\Users\saife\AppData\Local\Microsoft\WindowsApps;C:\Users\saife\AppData\Local\Programs\Microsoft VS Code\bin;C:\Program Files\Java\jdk-23\bin;C:\Program Files\JetBrains\IntelliJ IDEA Community Edition 2025.1.1.1\bin;;C:\msys64\ucrt64\bin;C:\Windows\System32;;C:\Program Files\OpenJDK\jdk-22.0.2\bin
+JRE paths:	C:\Program Files\OpenJDK\jdk-22.0.2;C:\Program Files\Common Files\Oracle\Java\javapath;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\Program Files\dotnet\;C:\Program Files\Git\cmd;C:\ProgramData\chocolatey\bin;C:\Program Files\OpenJDK\jdk-22.0.2\bin;C:\Program Files (x86)\Windows Kits\10\Windows Performance Toolkit\;C:\Users\saife\AppData\Local\Programs\Python\Launcher\;C:\Users\saife\AppData\Local\Microsoft\WindowsApps;C:\Users\saife\AppData\Local\Programs\Microsoft VS Code\bin;C:\Program Files\Java\jdk-23\bin;C:\Program Files\JetBrains\IntelliJ IDEA Community Edition 2025.1.1.1\bin;;C:\msys64\ucrt64\bin;C:\Windows\System32;;C:\Program Files\OpenJDK\jdk-22.0.2\bin
+Check launcher:	C:\Program Files\OpenJDK\jdk-22.0.2\bin\javaw.exe (OK)
+Version string: 1.022.000_002 / 64-Bit (OK)
+Launcher:	C:\Program Files\OpenJDK\jdk-22.0.2\bin\javaw.exe
+Launcher args:	--module-path "javafx-sdk\lib" --add-modules javafx.controls,javafx.fxml,javafx.graphics -jar "C:\Users\saife\Downloads\PlanForge\ToDo.exe"
+Args length:	139/32768 chars
+Exit code:	0
+
+
+Version:	3.50
+CmdLine:	C:\Users\saife\Downloads\PlanForge\ToDo.exe --l4j-debug
+JNI:		No
+WOW64:		Yes
+Working dir:	C:\Users\saife\Downloads\PlanForge\.
+Requires JDK:	Yes
+Requires 64-Bit: No
+Java min ver:	1.019.000
+Java max ver:	
+Substitute:	JAVA_HOME = C:\Program Files\OpenJDK\jdk-22.0.2
+Substitute:	PATH = C:\Program Files\Common Files\Oracle\Java\javapath;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\Program Files\dotnet\;C:\Program Files\Git\cmd;C:\ProgramData\chocolatey\bin;C:\Program Files\OpenJDK\jdk-22.0.2\bin;C:\Program Files (x86)\Windows Kits\10\Windows Performance Toolkit\;C:\Users\saife\AppData\Local\Programs\Python\Launcher\;C:\Users\saife\AppData\Local\Microsoft\WindowsApps;C:\Users\saife\AppData\Local\Programs\Microsoft VS Code\bin;C:\Program Files\Java\jdk-23\bin;C:\Program Files\JetBrains\IntelliJ IDEA Community Edition 2025.1.1.1\bin;;C:\msys64\ucrt64\bin;C:\Windows\System32;;C:\Program Files\OpenJDK\jdk-22.0.2\bin
+JRE paths:	C:\Program Files\OpenJDK\jdk-22.0.2;C:\Program Files\Common Files\Oracle\Java\javapath;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\Program Files\dotnet\;C:\Program Files\Git\cmd;C:\ProgramData\chocolatey\bin;C:\Program Files\OpenJDK\jdk-22.0.2\bin;C:\Program Files (x86)\Windows Kits\10\Windows Performance Toolkit\;C:\Users\saife\AppData\Local\Programs\Python\Launcher\;C:\Users\saife\AppData\Local\Microsoft\WindowsApps;C:\Users\saife\AppData\Local\Programs\Microsoft VS Code\bin;C:\Program Files\Java\jdk-23\bin;C:\Program Files\JetBrains\IntelliJ IDEA Community Edition 2025.1.1.1\bin;;C:\msys64\ucrt64\bin;C:\Windows\System32;;C:\Program Files\OpenJDK\jdk-22.0.2\bin
+Check launcher:	C:\Program Files\OpenJDK\jdk-22.0.2\bin\javaw.exe (OK)
+Check javac:	C:\Program Files\OpenJDK\jdk-22.0.2\bin\javac.exe (OK)
+Version string: 1.022.000_002 / 64-Bit (OK)
+Launcher:	C:\Program Files\OpenJDK\jdk-22.0.2\bin\javaw.exe
+Launcher args:	--module-path "javafx-sdk\lib" --add-modules javafx.controls,javafx.fxml,javafx.graphics -jar "C:\Users\saife\Downloads\PlanForge\ToDo.exe"
+Args length:	139/32768 chars
+Exit code:	0
+
+
+Version:	3.50
+CmdLine:	C:\Users\saife\Downloads\PlanForge\ToDo.exe --l4j-debug
+JNI:		No
+WOW64:		Yes
+Working dir:	C:\Users\saife\Downloads\PlanForge\.
+Requires JDK:	Yes
+Requires 64-Bit: No
+Java min ver:	1.019.000
+Java max ver:	
+JRE paths:	C:\Program Files\Java\jdk-23
+Check launcher:	C:\Program Files\Java\jdk-23\bin\javaw.exe (OK)
+Check javac:	C:\Program Files\Java\jdk-23\bin\javac.exe (OK)
+Version string: 1.023.000_002 / 64-Bit (OK)
+Launcher:	C:\Program Files\Java\jdk-23\bin\javaw.exe
+Launcher args:	--module-path "javafx-sdk\lib" --add-modules javafx.controls,javafx.fxml,javafx.graphics -jar "C:\Users\saife\Downloads\PlanForge\ToDo.exe"
+Args length:	139/32768 chars
+Exit code:	0
+
+
+Version:	3.50
+CmdLine:	C:\Users\saife\Downloads\PlanForge\ToDo.exe --l4j-debug
+JNI:		No
+WOW64:		Yes
+Working dir:	C:\Users\saife\Downloads\PlanForge\.
+Requires JDK:	Yes
+Requires 64-Bit: No
+Java min ver:	1.019.000
+Java max ver:	
+JRE paths:	PlanForge\jdk-23
+Check launcher:	C:\Users\saife\Downloads\PlanForge\PlanForge\jdk-23\bin\javaw.exe (not found)
+64-bit search:	SOFTWARE\JavaSoft\Java Development Kit...
+32-bit search:	SOFTWARE\JavaSoft\Java Development Kit...
+64-bit search:	SOFTWARE\JavaSoft\JDK...
+Check:		SOFTWARE\JavaSoft\JDK\23.0.2
+Version string: 1.023.000_002 / 64-Bit (OK)
+Check launcher:	C:\Program Files\Java\jdk-23\bin\javaw.exe (OK)
+Check javac:	C:\Program Files\Java\jdk-23\bin\javac.exe (OK)
+Match:		1.023.000_002
+Runtime used:	1.023.000_002 (64-bit)
+Launcher:	C:\Program Files\Java\jdk-23\bin\javaw.exe
+Launcher args:	--module-path "javafx-sdk\lib" --add-modules javafx.controls,javafx.fxml,javafx.graphics -jar "C:\Users\saife\Downloads\PlanForge\ToDo.exe"
+Args length:	139/32768 chars
+Exit code:	0
+
+
+Version:	3.50
+CmdLine:	C:\Users\saife\Downloads\PlanForge\ToDo.exe --l4j-debug
+JNI:		No
+WOW64:		Yes
+Working dir:	C:\Users\saife\Downloads\PlanForge\.
+Requires JDK:	No
+Requires 64-Bit: No
+Java min ver:	1.023.000
+Java max ver:	
+JRE paths:	PlanForge\jre 
+Check launcher:	C:\Users\saife\Downloads\PlanForge\PlanForge\jre \bin\javaw.exe (not found)
+64-bit search:	SOFTWARE\JavaSoft\Java Runtime Environment...
+32-bit search:	SOFTWARE\JavaSoft\Java Runtime Environment...
+64-bit search:	SOFTWARE\JavaSoft\Java Development Kit...
+32-bit search:	SOFTWARE\JavaSoft\Java Development Kit...
+64-bit search:	SOFTWARE\JavaSoft\JRE...
+32-bit search:	SOFTWARE\JavaSoft\JRE...
+64-bit search:	SOFTWARE\JavaSoft\JDK...
+Check:		SOFTWARE\JavaSoft\JDK\23.0.2
+Version string: 1.023.000_002 / 64-Bit (OK)
+Check launcher:	C:\Program Files\Java\jdk-23\bin\javaw.exe (OK)
+Match:		1.023.000_002
+Runtime used:	1.023.000_002 (64-bit)
+Launcher:	C:\Program Files\Java\jdk-23\bin\javaw.exe
+Launcher args:	--module-path "javafx-sdk\lib" --add-modules javafx.controls,javafx.fxml,javafx.graphics -jar "C:\Users\saife\Downloads\PlanForge\ToDo.exe"
+Args length:	139/32768 chars
+Exit code:	0
+
+
+Version:	3.50
+CmdLine:	C:\Users\saife\Downloads\PlanForge\ToDo.exe --l4j-debug
+JNI:		No
+WOW64:		Yes
+Create mutex:	PlanForge
+Working dir:	C:\Users\saife\Downloads\PlanForge\.
+Requires JDK:	No
+Requires 64-Bit: No
+Java min ver:	1.023.000
+Java max ver:	
+JRE paths:	PlanForge\jre 
+Check launcher:	C:\Users\saife\Downloads\PlanForge\PlanForge\jre \bin\javaw.exe (not found)
+64-bit search:	SOFTWARE\JavaSoft\Java Runtime Environment...
+32-bit search:	SOFTWARE\JavaSoft\Java Runtime Environment...
+64-bit search:	SOFTWARE\JavaSoft\Java Development Kit...
+32-bit search:	SOFTWARE\JavaSoft\Java Development Kit...
+64-bit search:	SOFTWARE\JavaSoft\JRE...
+32-bit search:	SOFTWARE\JavaSoft\JRE...
+64-bit search:	SOFTWARE\JavaSoft\JDK...
+Check:		SOFTWARE\JavaSoft\JDK\23.0.2
+Version string: 1.023.000_002 / 64-Bit (OK)
+Check launcher:	C:\Program Files\Java\jdk-23\bin\javaw.exe (OK)
+Match:		1.023.000_002
+Runtime used:	1.023.000_002 (64-bit)
+Launcher:	C:\Program Files\Java\jdk-23\bin\javaw.exe
+Launcher args:	--module-path "javafx-sdk\lib" --add-modules javafx.controls,javafx.fxml,javafx.graphics -jar "C:\Users\saife\Downloads\PlanForge\ToDo.exe"
+Args length:	139/32768 chars
+Exit code:	0
+
+
+Version:	3.50
+CmdLine:	C:\Users\saife\Downloads\PlanForge\ToDo.exe --l4j-debug
+JNI:		No
+WOW64:		Yes
+Create mutex:	PlanForge
+Working dir:	C:\Users\saife\Downloads\PlanForge\.
+Requires JDK:	No
+Requires 64-Bit: No
+Java min ver:	1.023.000
+Java max ver:	
+JRE paths:	PlanForge\jre 
+Check launcher:	C:\Users\saife\Downloads\PlanForge\PlanForge\jre \bin\javaw.exe (not found)
+64-bit search:	SOFTWARE\JavaSoft\Java Runtime Environment...
+32-bit search:	SOFTWARE\JavaSoft\Java Runtime Environment...
+64-bit search:	SOFTWARE\JavaSoft\Java Development Kit...
+32-bit search:	SOFTWARE\JavaSoft\Java Development Kit...
+64-bit search:	SOFTWARE\JavaSoft\JRE...
+32-bit search:	SOFTWARE\JavaSoft\JRE...
+64-bit search:	SOFTWARE\JavaSoft\JDK...
+Check:		SOFTWARE\JavaSoft\JDK\23.0.2
+Version string: 1.023.000_002 / 64-Bit (OK)
+Check launcher:	C:\Program Files\Java\jdk-23\bin\javaw.exe (OK)
+Match:		1.023.000_002
+Runtime used:	1.023.000_002 (64-bit)
+Launcher:	C:\Program Files\Java\jdk-23\bin\javaw.exe
+Launcher args:	--module-path "javafx-sdk\lib" --add-modules javafx.controls,javafx.fxml,javafx.graphics -jar "C:\Users\saife\Downloads\PlanForge\ToDo.exe"
+Args length:	139/32768 chars
+Exit code:	0
+
+
+Version:	3.50
+CmdLine:	C:\Users\saife\Downloads\PlanForge\ToDo.exe --l4j-debug
+JNI:		Yes
+WOW64:		Yes
+Create mutex:	PlanForge
+Working dir:	C:\Users\saife\Downloads\PlanForge\.
+Requires JDK:	No
+Requires 64-Bit: No
+Java min ver:	1.023.000
+Java max ver:	
+JRE paths:	PlanForge\jre 
+Check launcher:	C:\Users\saife\Downloads\PlanForge\PlanForge\jre \bin\javaw.exe (not found)
+32-bit search:	SOFTWARE\JavaSoft\Java Runtime Environment...
+32-bit search:	SOFTWARE\JavaSoft\Java Development Kit...
+32-bit search:	SOFTWARE\JavaSoft\JRE...
+32-bit search:	SOFTWARE\JavaSoft\JDK...
+32-bit search:	SOFTWARE\IBM\Java Runtime Environment...
+32-bit search:	SOFTWARE\IBM\Java Development Kit...
+32-bit search:	SOFTWARE\IBM\Java2 Runtime Environment...
+32-bit search:	SOFTWARE\IBM\Java Development Kit...
+Error msg:	This application requires a Java Runtime Environment 23
+
+
+Version:	3.50
+CmdLine:	C:\Users\saife\Downloads\PlanForge\ToDo.exe --l4j-debug
+JNI:		Yes
+WOW64:		Yes
+Create mutex:	PlanForge
+Working dir:	C:\Users\saife\Downloads\PlanForge\.
+Requires JDK:	No
+Requires 64-Bit: No
+Java min ver:	1.023.000
+Java max ver:	
+JRE paths:	PlanForge\jre 
+Check launcher:	C:\Users\saife\Downloads\PlanForge\PlanForge\jre \bin\javaw.exe (not found)
+32-bit search:	SOFTWARE\JavaSoft\Java Runtime Environment...
+32-bit search:	SOFTWARE\JavaSoft\Java Development Kit...
+32-bit search:	SOFTWARE\JavaSoft\JRE...
+32-bit search:	SOFTWARE\JavaSoft\JDK...
+32-bit search:	SOFTWARE\IBM\Java Runtime Environment...
+32-bit search:	SOFTWARE\IBM\Java Development Kit...
+32-bit search:	SOFTWARE\IBM\Java2 Runtime Environment...
+32-bit search:	SOFTWARE\IBM\Java Development Kit...
+Error msg:	This application requires a Java Runtime Environment 23
+
+
+Version:	3.50
+CmdLine:	C:\Users\saife\Downloads\PlanForge\ToDo.exe --l4j-debug
+JNI:		Yes
+WOW64:		Yes
+Create mutex:	PlanForge
+Working dir:	C:\Users\saife\Downloads\PlanForge\.
+Requires JDK:	No
+Requires 64-Bit: No
+Java min ver:	1.023.000
+Java max ver:	
+JRE paths:	PlanForge\jdk-23
+Check launcher:	C:\Users\saife\Downloads\PlanForge\PlanForge\jdk-23\bin\javaw.exe (not found)
+32-bit search:	SOFTWARE\JavaSoft\Java Runtime Environment...
+32-bit search:	SOFTWARE\JavaSoft\Java Development Kit...
+32-bit search:	SOFTWARE\JavaSoft\JRE...
+32-bit search:	SOFTWARE\JavaSoft\JDK...
+32-bit search:	SOFTWARE\IBM\Java Runtime Environment...
+32-bit search:	SOFTWARE\IBM\Java Development Kit...
+32-bit search:	SOFTWARE\IBM\Java2 Runtime Environment...
+32-bit search:	SOFTWARE\IBM\Java Development Kit...
+Error msg:	This application requires a Java Runtime Environment 23
+
+
+Version:	3.50
+CmdLine:	C:\Users\saife\Downloads\PlanForge\ToDo.exe --l4j-debug
+JNI:		Yes
+WOW64:		Yes
+Create mutex:	PlanForge
+Working dir:	C:\Users\saife\Downloads\PlanForge\.
+Requires JDK:	No
+Requires 64-Bit: No
+Java min ver:	1.023.000
+Java max ver:	
+JRE paths:	PlanForge\jdk-23
+Check launcher:	C:\Users\saife\Downloads\PlanForge\PlanForge\jdk-23\bin\javaw.exe (not found)
+32-bit search:	SOFTWARE\JavaSoft\Java Runtime Environment...
+32-bit search:	SOFTWARE\JavaSoft\Java Development Kit...
+32-bit search:	SOFTWARE\JavaSoft\JRE...
+32-bit search:	SOFTWARE\JavaSoft\JDK...
+32-bit search:	SOFTWARE\IBM\Java Runtime Environment...
+32-bit search:	SOFTWARE\IBM\Java Development Kit...
+32-bit search:	SOFTWARE\IBM\Java2 Runtime Environment...
+32-bit search:	SOFTWARE\IBM\Java Development Kit...
+Error msg:	This application requires a Java Runtime Environment 23
+
+
+Version:	3.50
+CmdLine:	C:\Users\saife\Downloads\PlanForge\ToDo.exe --l4j-debug
+JNI:		Yes
+WOW64:		Yes
+Create mutex:	PlanForge
+Working dir:	C:\Users\saife\Downloads\PlanForge\.
+Requires JDK:	No
+Requires 64-Bit: No
+Java min ver:	
+Java max ver:	
+JRE paths:	PlanForge\jdk-23
+Check launcher:	C:\Users\saife\Downloads\PlanForge\PlanForge\jdk-23\bin\javaw.exe (not found)
+Error msg:	This application requires a Java Runtime Environment.
+
+
+Version:	3.50
+CmdLine:	C:\Users\saife\Downloads\PlanForge\ToDo.exe --l4j-debug
+JNI:		No
+WOW64:		Yes
+Create mutex:	PlanForge
+Working dir:	C:\Users\saife\Downloads\PlanForge\.
+Requires JDK:	No
+Requires 64-Bit: No
+Java min ver:	
+Java max ver:	
+JRE paths:	PlanForge\jdk-23
+Check launcher:	C:\Users\saife\Downloads\PlanForge\PlanForge\jdk-23\bin\javaw.exe (not found)
+Error msg:	This application requires a Java Runtime Environment.
+
+
+Version:	3.50
+CmdLine:	C:\Users\saife\Downloads\PlanForge\ToDo.exe --l4j-debug
+JNI:		No
+WOW64:		Yes
+Create mutex:	PlanForge
+Working dir:	C:\Users\saife\Downloads\PlanForge\.
+Requires JDK:	No
+Requires 64-Bit: No
+Java min ver:	
+Java max ver:	
+JRE paths:	PlanForge\jdk-23
+Check launcher:	C:\Users\saife\Downloads\PlanForge\PlanForge\jdk-23\bin\javaw.exe (not found)
+Error msg:	This application requires a Java Runtime Environment.
+
+
+Version:	3.50
+CmdLine:	C:\Users\saife\Downloads\PlanForge\ToDo.exe --l4j-debug
+JNI:		No
+WOW64:		Yes
+Create mutex:	PlanForge
+Working dir:	C:\Users\saife\Downloads\PlanForge\.
+Requires JDK:	No
+Requires 64-Bit: No
+Java min ver:	
+Java max ver:	
+JRE paths:	PlanForge\jdk-23
+Check launcher:	C:\Users\saife\Downloads\PlanForge\PlanForge\jdk-23\bin\javaw.exe (not found)
+Error msg:	This application requires a Java Runtime Environment.
+
+
+Version:	3.50
+CmdLine:	C:\Users\saife\Downloads\PlanForge\ToDo.exe --l4j-debug
+JNI:		No
+WOW64:		Yes
+Create mutex:	PlanForge
+Working dir:	C:\Users\saife\Downloads\PlanForge\.
+Requires JDK:	No
+Requires 64-Bit: No
+Java min ver:	
+Java max ver:	
+JRE paths:	PlanForge\jdk-23
+Check launcher:	C:\Users\saife\Downloads\PlanForge\PlanForge\jdk-23\bin\javaw.exe (not found)
+Error msg:	This application requires a Java Runtime Environment.
+
+
+Version:	3.50
+CmdLine:	C:\Users\saife\Downloads\PlanForge\ToDo.exe --l4j-debug
+JNI:		No
+WOW64:		Yes
+Create mutex:	PlanForge
+Working dir:	C:\Users\saife\Downloads\PlanForge\.
+Requires JDK:	No
+Requires 64-Bit: No
+Java min ver:	
+Java max ver:	
+JRE paths:	PlanForge\jdk-23
+Check launcher:	C:\Users\saife\Downloads\PlanForge\PlanForge\jdk-23\bin\javaw.exe (not found)
+Error msg:	This application requires a Java Runtime Environment.
+
+
+Version:	3.50
+CmdLine:	C:\Users\saife\Downloads\PlanForge\ToDo.exe --l4j-debug
+JNI:		No
+WOW64:		Yes
+Create mutex:	PlanForge
+Working dir:	C:\Users\saife\Downloads\PlanForge\.
+Requires JDK:	No
+Requires 64-Bit: No
+Java min ver:	
+Java max ver:	
+JRE paths:	PlanForge\jdk-23
+Check launcher:	C:\Users\saife\Downloads\PlanForge\PlanForge\jdk-23\bin\javaw.exe (not found)
+Error msg:	This application requires a Java Runtime Environment.
+
+
+Version:	3.50
+CmdLine:	C:\Users\saife\Downloads\PlanForge\ToDo.exe --l4j-debug
+JNI:		No
+WOW64:		Yes
+Create mutex:	PlanForge
+Working dir:	C:\Users\saife\Downloads\PlanForge\.
+Requires JDK:	No
+Requires 64-Bit: No
+Java min ver:	
+Java max ver:	
+JRE paths:	PlanForge\jdk-23
+Check launcher:	C:\Users\saife\Downloads\PlanForge\PlanForge\jdk-23\bin\javaw.exe (not found)
+Error msg:	This application requires a Java Runtime Environment.
+
+
+Version:	3.50
+CmdLine:	C:\Users\saife\Downloads\PlanForge\ToDo.exe --l4j-debug
+JNI:		No
+WOW64:		Yes
+Create mutex:	PlanForge
+Working dir:	C:\Users\saife\Downloads\PlanForge\.
+Requires JDK:	No
+Requires 64-Bit: No
+Java min ver:	
+Java max ver:	
+JRE paths:	PlanForge\jdk-23
+Check launcher:	C:\Users\saife\Downloads\PlanForge\PlanForge\jdk-23\bin\javaw.exe (not found)
+Error msg:	This application requires a Java Runtime Environment.
+
+
+Version:	3.50
+CmdLine:	C:\Users\saife\Downloads\PlanForge\ToDo.exe --l4j-debug
+JNI:		No
+WOW64:		Yes
+Working dir:	C:\Users\saife\Downloads\PlanForge\.
+Requires JDK:	No
+Requires 64-Bit: No
+Java min ver:	1.023.000
+Java max ver:	
+JRE paths:	PlanForge\jre 
+Check launcher:	C:\Users\saife\Downloads\PlanForge\PlanForge\jre \bin\javaw.exe (not found)
+64-bit search:	SOFTWARE\JavaSoft\Java Runtime Environment...
+32-bit search:	SOFTWARE\JavaSoft\Java Runtime Environment...
+64-bit search:	SOFTWARE\JavaSoft\Java Development Kit...
+32-bit search:	SOFTWARE\JavaSoft\Java Development Kit...
+64-bit search:	SOFTWARE\JavaSoft\JRE...
+32-bit search:	SOFTWARE\JavaSoft\JRE...
+64-bit search:	SOFTWARE\JavaSoft\JDK...
+Check:		SOFTWARE\JavaSoft\JDK\23.0.2
+Version string: 1.023.000_002 / 64-Bit (OK)
+Check launcher:	C:\Program Files\Java\jdk-23\bin\javaw.exe (OK)
+Match:		1.023.000_002
+Runtime used:	1.023.000_002 (64-bit)
+Launcher:	C:\Program Files\Java\jdk-23\bin\javaw.exe
+Launcher args:	--module-path "javafx-sdk\lib" --add-modules javafx.controls,javafx.fxml,javafx.graphics -jar "C:\Users\saife\Downloads\PlanForge\ToDo.exe"
+Args length:	139/32768 chars
+Exit code:	0
+
+
+Version:	3.50
+CmdLine:	C:\Users\saife\Downloads\PlanForge\ToDo.exe --l4j-debug
+JNI:		Yes
+WOW64:		Yes
+Working dir:	C:\Users\saife\Downloads\PlanForge\.
+Requires JDK:	No
+Requires 64-Bit: No
+Java min ver:	1.023.000
+Java max ver:	
+JRE paths:	PlanForge\jre 
+Check launcher:	C:\Users\saife\Downloads\PlanForge\PlanForge\jre \bin\javaw.exe (not found)
+32-bit search:	SOFTWARE\JavaSoft\Java Runtime Environment...
+32-bit search:	SOFTWARE\JavaSoft\Java Development Kit...
+32-bit search:	SOFTWARE\JavaSoft\JRE...
+32-bit search:	SOFTWARE\JavaSoft\JDK...
+32-bit search:	SOFTWARE\IBM\Java Runtime Environment...
+32-bit search:	SOFTWARE\IBM\Java Development Kit...
+32-bit search:	SOFTWARE\IBM\Java2 Runtime Environment...
+32-bit search:	SOFTWARE\IBM\Java Development Kit...
+Error msg:	This application requires a Java Runtime Environment 23
+
+
+Version:	3.50
+CmdLine:	C:\Users\saife\Downloads\PlanForge\ToDo.exe --l4j-debug
+JNI:		Yes
+WOW64:		Yes
+Working dir:	C:\Users\saife\Downloads\PlanForge\.
+Requires JDK:	No
+Requires 64-Bit: No
+Java min ver:	1.023.000
+Java max ver:	
+JRE paths:	PlanForge\jre 
+Check launcher:	C:\Users\saife\Downloads\PlanForge\PlanForge\jre \bin\javaw.exe (not found)
+32-bit search:	SOFTWARE\JavaSoft\Java Runtime Environment...
+32-bit search:	SOFTWARE\JavaSoft\Java Development Kit...
+32-bit search:	SOFTWARE\JavaSoft\JRE...
+32-bit search:	SOFTWARE\JavaSoft\JDK...
+32-bit search:	SOFTWARE\IBM\Java Runtime Environment...
+32-bit search:	SOFTWARE\IBM\Java Development Kit...
+32-bit search:	SOFTWARE\IBM\Java2 Runtime Environment...
+32-bit search:	SOFTWARE\IBM\Java Development Kit...
+Error msg:	This application requires a Java Runtime Environment 23
+
+
+Version:	3.50
+CmdLine:	C:\Users\saife\Downloads\PlanForge\ToDo.exe --l4j-debug
+JNI:		Yes
+WOW64:		Yes
+Working dir:	C:\Users\saife\Downloads\PlanForge\.
+Requires JDK:	No
+Requires 64-Bit: No
+Java min ver:	1.023.000
+Java max ver:	
+JRE paths:	PlanForge\jre 
+Check launcher:	C:\Users\saife\Downloads\PlanForge\PlanForge\jre \bin\javaw.exe (not found)
+32-bit search:	SOFTWARE\JavaSoft\Java Runtime Environment...
+32-bit search:	SOFTWARE\JavaSoft\Java Development Kit...
+32-bit search:	SOFTWARE\JavaSoft\JRE...
+32-bit search:	SOFTWARE\JavaSoft\JDK...
+32-bit search:	SOFTWARE\IBM\Java Runtime Environment...
+32-bit search:	SOFTWARE\IBM\Java Development Kit...
+32-bit search:	SOFTWARE\IBM\Java2 Runtime Environment...
+32-bit search:	SOFTWARE\IBM\Java Development Kit...
+Error msg:	This application requires a Java Runtime Environment 23
+
+
+Version:	3.50
+CmdLine:	C:\Users\saife\Downloads\PlanForge\ToDo.exe --l4j-debug
+JNI:		Yes
+WOW64:		Yes
+Working dir:	C:\Users\saife\Downloads\PlanForge\.
+Requires JDK:	No
+Requires 64-Bit: No
+Java min ver:	1.023.000
+Java max ver:	
+JRE paths:	PlanForge\jre 
+Check launcher:	C:\Users\saife\Downloads\PlanForge\PlanForge\jre \bin\javaw.exe (not found)
+32-bit search:	SOFTWARE\JavaSoft\Java Runtime Environment...
+32-bit search:	SOFTWARE\JavaSoft\Java Development Kit...
+32-bit search:	SOFTWARE\JavaSoft\JRE...
+32-bit search:	SOFTWARE\JavaSoft\JDK...
+32-bit search:	SOFTWARE\IBM\Java Runtime Environment...
+32-bit search:	SOFTWARE\IBM\Java Development Kit...
+32-bit search:	SOFTWARE\IBM\Java2 Runtime Environment...
+32-bit search:	SOFTWARE\IBM\Java Development Kit...
+Error msg:	This application requires a Java Runtime Environment 23
+
+
+Version:	3.50
+CmdLine:	C:\Users\saife\Downloads\PlanForge\ToDo.exe --l4j-debug
+JNI:		No
+WOW64:		Yes
+Working dir:	C:\Users\saife\Downloads\PlanForge\.
+Requires JDK:	No
+Requires 64-Bit: No
+Java min ver:	1.023.000
+Java max ver:	
+JRE paths:	PlanForge\jre 
+Check launcher:	C:\Users\saife\Downloads\PlanForge\PlanForge\jre \bin\javaw.exe (not found)
+64-bit search:	SOFTWARE\JavaSoft\Java Runtime Environment...
+32-bit search:	SOFTWARE\JavaSoft\Java Runtime Environment...
+64-bit search:	SOFTWARE\JavaSoft\Java Development Kit...
+32-bit search:	SOFTWARE\JavaSoft\Java Development Kit...
+64-bit search:	SOFTWARE\JavaSoft\JRE...
+32-bit search:	SOFTWARE\JavaSoft\JRE...
+64-bit search:	SOFTWARE\JavaSoft\JDK...
+Check:		SOFTWARE\JavaSoft\JDK\23.0.2
+Version string: 1.023.000_002 / 64-Bit (OK)
+Check launcher:	C:\Program Files\Java\jdk-23\bin\javaw.exe (OK)
+Match:		1.023.000_002
+Runtime used:	1.023.000_002 (64-bit)
+Launcher:	C:\Program Files\Java\jdk-23\bin\javaw.exe
+Launcher args:	--module-path "javafx-sdk\lib" --add-modules javafx.controls,javafx.fxml,javafx.graphics -jar "C:\Users\saife\Downloads\PlanForge\ToDo.exe"
+Args length:	139/32768 chars
+Exit code:	0
+
+
+Version:	3.50
+CmdLine:	C:\Users\saife\Downloads\PlanForge\ToDo.exe --l4j-debug
+JNI:		No
+WOW64:		Yes
+Working dir:	C:\Users\saife\Downloads\PlanForge\.
+Requires JDK:	No
+Requires 64-Bit: No
+Java min ver:	1.023.000
+Java max ver:	
+JRE paths:	PlanForge\jre 
+Check launcher:	C:\Users\saife\Downloads\PlanForge\PlanForge\jre \bin\javaw.exe (not found)
+64-bit search:	SOFTWARE\JavaSoft\Java Runtime Environment...
+32-bit search:	SOFTWARE\JavaSoft\Java Runtime Environment...
+64-bit search:	SOFTWARE\JavaSoft\Java Development Kit...
+32-bit search:	SOFTWARE\JavaSoft\Java Development Kit...
+64-bit search:	SOFTWARE\JavaSoft\JRE...
+32-bit search:	SOFTWARE\JavaSoft\JRE...
+64-bit search:	SOFTWARE\JavaSoft\JDK...
+Check:		SOFTWARE\JavaSoft\JDK\23.0.2
+Version string: 1.023.000_002 / 64-Bit (OK)
+Check launcher:	C:\Program Files\Java\jdk-23\bin\javaw.exe (OK)
+Match:		1.023.000_002
+Runtime used:	1.023.000_002 (64-bit)
+Launcher:	C:\Program Files\Java\jdk-23\bin\javaw.exe
+Launcher args:	--module-path "javafx-sdk\lib" --add-modules javafx.controls,javafx.fxml,javafx.graphics -jar "C:\Users\saife\Downloads\PlanForge\ToDo.exe"
+Args length:	139/32768 chars
+Exit code:	0
