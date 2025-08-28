@@ -1,4 +1,5 @@
-# PlanForge <img width="50" height="50" alt="logo" src="https://github.com/user-attachments/assets/fe46aa5b-5b5b-4b19-9e03-2f0869f1bd2c" />
+ <img width="50" height="50" alt="logo" src="https://github.com/user-attachments/assets/fe46aa5b-5b5b-4b19-9e03-2f0869f1bd2c" />
+# PlanForge
 
 An intelligent daily planner that organizes tasks, assessments, and activities with smart categorization. Get context-aware reminders, precise due dates, and a polished interface — built for those who want more than a basic calendar.
 
