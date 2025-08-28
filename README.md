@@ -1,4 +1,3 @@
- <img width="150" height="150" alt="logo" src="https://github.com/user-attachments/assets/fe46aa5b-5b5b-4b19-9e03-2f0869f1bd2c" />
 
 # PlanForge
 
@@ -73,3 +72,6 @@ Contributions are welcome!
 ------------------------------------------------------------------------
 
 PlanForge – More than just a calendar. Organize, learn, and achieve!
+
+ <img width="150" height="150" alt="logo" src="https://github.com/user-attachments/assets/fe46aa5b-5b5b-4b19-9e03-2f0869f1bd2c" />
+
