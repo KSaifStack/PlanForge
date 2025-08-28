@@ -6,7 +6,6 @@ An intelligent daily planner that organizes tasks, assessments, and activities w
 
 ------------------------------------------------------------------------
 
-📸 Screenshots  
 <img width="1964" height="973" alt="image" src="https://github.com/user-attachments/assets/d73bbcc9-9399-465d-bf0e-c71067d3986d" />  
 <img width="1964" height="982" alt="image" src="https://github.com/user-attachments/assets/1ffd4b5e-9b0e-4e6f-afe1-7795ec442fcb" />
 
