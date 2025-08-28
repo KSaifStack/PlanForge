@@ -53,6 +53,7 @@ You must download [JDK 23](https://jdk.java.net/23/) and place it inside the `Pl
     Simply double-click on `PlanForge.exe` in the `PlanForge` folder to start the application.
 
     > **Note:** The application requires JDK 23 to be present inside the `PlanForge` directory in order to work properly.
+ 
 
 ------------------------------------------------------------------------
 
@@ -70,7 +71,10 @@ Contributions are welcome!
 -   For questions or feature requests, open an issue.
 
 ------------------------------------------------------------------------
+# License
+This project is licensed under the MIT License – see the LICENSE file for details
 
+------------------------------------------------------------------------
 PlanForge – More than just a calendar. Organize, learn, and achieve!
 
  <img width="150" height="150" alt="logo" src="https://github.com/user-attachments/assets/fe46aa5b-5b5b-4b19-9e03-2f0869f1bd2c" />
