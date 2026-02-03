@@ -1,5 +1,4 @@
 <h1 align="center">DockTask</h1>
-<p align="center"><em>formerly PlanForge</em></p>
 
 <p align="center">
   <img src="https://github.com/user-attachments/assets/142dcb77-abfb-4551-86cd-4035ab3c019f" width="120" />
