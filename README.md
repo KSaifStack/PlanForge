@@ -11,10 +11,13 @@
 </p>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/Java-23-orange?style=for-the-badge&logo=openjdk" alt="Java 23" />
-  <img src="https://img.shields.io/badge/JavaFX-21-blue?style=for-the-badge" alt="JavaFX 21" />
-  <img src="https://img.shields.io/badge/Platform-Windows-0078D6?style=for-the-badge&logo=windows" alt="Windows" />
-  <img src="https://img.shields.io/badge/License-MIT-green?style=for-the-badge" alt="MIT License" />
+  <img src="https://img.shields.io/badge/Java-25-red?style=for-the-badge&logo=openjdk" alt="Java 25" />
+  <img src="https://img.shields.io/badge/JavaFX-25-orange?style=for-the-badge" alt="JavaFX 25" />
+  <img src="https://img.shields.io/badge/License-MIT-blue?style=for-the-badge" alt="MIT License" />
+</p>
+
+<p align="center">
+  <img src="https://img.shields.io/badge/Platform-Windows%20%7C%20macOS%20%7C%20Linux-2EA043?style=for-the-badge" alt="Platform" />
 </p>
 
 ---
@@ -56,7 +59,8 @@ https://github.com/user-attachments/assets/67e9159e-ff12-4f21-9128-568c9d12a31a
 |----------|----------|--------|
 | **Windows** | [DockTask-Setup-0.5.exe](https://github.com/KSaifStack/DockTask/releases/download/0.5/DockTask-Setup-v0.5.exe) | ✅ Available |
 | **MacOS** | Coming Soon | 🚧 In Development |
-| **Linux** | Coming Soon | 🚧 In Development |
+| **Ubuntu** | Coming Soon | 🚧 In Development |
+| **Fedora** | Coming Soon | 🚧 In Development |
 
 > **Self-contained installer** — No JDK installation required. Everything is bundled.
 
@@ -91,10 +95,10 @@ https://github.com/user-attachments/assets/67e9159e-ff12-4f21-9128-568c9d12a31a
 ##  Interface
 
 ### Light Mode
-<img width="1000" height="964" alt="LightTheme" src="https://github.com/user-attachments/assets/0bf9a7a2-608b-4104-829b-041e38a48728" />
+<img width="1000" height="964" alt="LightTheme" src="https://github.com/user-attachments/assets/ed4ceeef-e83a-4d64-864f-4610b028df38" />
 
 ### Dark Mode  
-<img width="1000" height="943" alt="DarkTheme" src="https://github.com/user-attachments/assets/27e52f91-d252-4895-90c2-4e5c9ef241a4" />
+<img width="1000" height="943" alt="DarkTheme" src="https://github.com/user-attachments/assets/20749c86-4ad6-4e03-8290-5a92b5ca309a" />
 
 ---
 
@@ -174,6 +178,40 @@ In version 0.1, countdown timers for completed or removed tasks continued runnin
 ---
 
 ##  Changelog
+
+### v0.6 – March 2026
+
+**Cross-Platform Expansion**
+- Added initial **Linux** and **macOS** support
+- Implemented platform-aware window border factory for native-style switching
+- Replaced legacy AWT tray icon handling with improved system tray integration
+- Resolved hardcoded file path issues for improved portability
+- Automatic data folder creation on first launch (if missing)
+
+**Framework & Dependency Upgrades**
+- Upgraded **JavaFX 21 → 25**
+- Updated NFX core library
+- Simplified build process — no additional build instructions required
+- Improved compatibility across Maven-supported IDEs
+
+**UI Refactoring & Codebase Improvements**
+- Refactored Login UI and Task UI for better separation of concerns and cleaner logic
+- Replaced system fonts with **Lexend** for consistent cross-platform typography
+- Added overlay shadows for improved depth and visual clarity
+- Fixed layout overflow when displaying more than four task cards
+- Improved pane centering, spacing, and reduced UI congestion
+- Enhanced "No Task Found" onboarding message
+- Significant internal code documentation added
+
+**Visual Enhancements**
+- Added four new color themes: Dark Slate Gray, Chocolate, Light Sea Green, Gold
+
+**Performance & Stability**
+- Fixed logout session data bleed issue
+- Fixed clock alignment bug (under 21 characters)
+- Stabilized window sizing inconsistencies on Linux
+- Improved overdue task date formatting — tasks overdue 168+ hours now display as `MM/DD/YYYY`
+  
 
 ### v0.5 – December 2025
 
@@ -361,5 +399,5 @@ This project is licensed under the **MIT License** — see [LICENSE](LICENSE) fi
 <p align="center">
   <img src="https://github.com/user-attachments/assets/142dcb77-abfb-4551-86cd-4035ab3c019f" width="100" alt="DockTask Logo" />
   <br>
-  <em>Built with Java 23 and JavaFX 21</em>
+  <em>Built with Java 25 and JavaFX 25</em>
 </p>
