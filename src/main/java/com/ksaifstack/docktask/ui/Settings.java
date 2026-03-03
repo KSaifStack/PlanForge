@@ -8,18 +8,16 @@ Allows the user to modify the following options:
 @code Remove CreateTask Text-Gives user the option to display createtask text or not
 @code Exit app-Allows user to exit the app
 Remove create task text at the bottom
-
  **/
 
 import com.ksaifstack.docktask.model.UserData;
-import com.ksaifstack.docktask.ui.WindowBorder;
 import com.ksaifstack.docktask.util.themeManager;
 import javafx.application.Platform;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.scene.text.Font;
-import javafx.application.HostServices;
 import javafx.stage.DirectoryChooser;
+import javafx.stage.Window;
 
 import java.io.File;
 import java.io.IOException;
@@ -27,14 +25,13 @@ import java.io.IOException;
 
 public class Settings {
     private String username = null;
-    private HostServices Host;
     private Confirmation confirmation = new Confirmation();
 
     //Runnable
     public Settings(String username){
         this.username=username;
     }
-    public Pane getContent(Font lexend14, Font lexend32, WindowBorder window, TaskUi t){
+    public Pane getContent(Font lexend14, Font lexend32, WindowActions window, TaskUi t){
         //Allows for grayed out background
         Pane pane = new Pane();
         pane.setPrefSize(2000, 2000);
@@ -44,18 +41,17 @@ public class Settings {
         Region background = new Region();
         background.setLayoutX(165);
         background.setLayoutY(10);
-        background.setPrefSize(605, 372);
+        background.setPrefSize(628, 382);
         background.getStyleClass().add("region");
 
         pane.getChildren().add(background);
 
         Button settingsLabel = new Button("Settings");
-        settingsLabel.setPrefSize(192,59);
+        settingsLabel.setPrefSize(200,60);
         settingsLabel.setFont(lexend32);
-        settingsLabel.setLayoutX(370);
+        settingsLabel.setLayoutX(372);
         settingsLabel.setLayoutY(15);
         settingsLabel.setId("noHoverBtn");
-
         pane.getChildren().add(settingsLabel);
 
         //Back to the Main pane(TaskUi)
@@ -73,7 +69,7 @@ public class Settings {
         settingsView.setStyle("-fx-border-color: transparent");
         settingsView.setPrefSize(510,180);
         //settingsView.setMaxHeight(200);
-        settingsView.setLayoutX(251);
+        settingsView.setLayoutX(255);
         settingsView.setLayoutY(115);
         //Left Side
         VBox leftSide = new VBox(30);
@@ -116,7 +112,7 @@ public class Settings {
         exportData.setOnAction(e->{
             DirectoryChooser folderPick = new DirectoryChooser();
             folderPick.setTitle("Export Data");
-            File selectedFile = folderPick.showDialog(window);
+            File selectedFile = folderPick.showDialog((Window) window);
             if(selectedFile!=null){
                 Pane n=confirmation.check("Export Data",selectedFile.getPath(),lexend14,()->{
                     if(UserData.exportData(selectedFile)){
@@ -137,7 +133,7 @@ public class Settings {
             DirectoryChooser folderPick = new DirectoryChooser();
             folderPick.setTitle("Import Data");
             folderPick.setInitialDirectory(UserData.getDatapath());
-            File selectedFile = folderPick.showDialog(window);
+            File selectedFile = folderPick.showDialog((Window) window);
             if(selectedFile != null) {
                     Pane conPane= confirmation.check("Import Data",selectedFile.getPath(),lexend14,()->{
                         try {
@@ -162,9 +158,7 @@ public class Settings {
         //Solves ui issues
         Button refreshApp = createSet("Refresh App",lexend14);
         refreshApp.setOnAction(e->{
-            System.gc();
             t.updateRun();
-            System.gc();
         });
 
 
@@ -186,13 +180,7 @@ public class Settings {
         //In main ui there is a button below which as '(Create Task)'.
         //This button will allow user to remove it or not.
         Button textToggle = createSet("Hide Create Text",lexend14);
-        textToggle.setOnAction(e->{
-            if(t.Createtasktext.isVisible()){
-             t.Createtasktext.setVisible(false);
-            }
-            else{
-                t.Createtasktext.setVisible(true);
-            }
+        textToggle.setOnAction(e->{ t.createTaskVisabitly();
         });
 
         leftSide.getChildren().addAll(darkswitch,importData,refreshApp);
@@ -200,38 +188,23 @@ public class Settings {
         settingHolder.getChildren().addAll(leftSide,rightSide);
 
         //Version Button
-        Button version = new Button("0.5v");
-        version.setPrefSize(50,29);
-        version.setFont(lexend14);
-        version.setLayoutX(710);
-        version.setLayoutY(347);
+        Button version = new Button("v0.6.0");
         version.setId("noHoverBtn");
+        version.setPrefSize(60,29);
+        version.setFont(lexend14);
+        version.setLayoutX(722);
+        version.setLayoutY(355);
         pane.getChildren().add(version);
 
         //WaterMark Button
-        Button WaterMark = new Button("@KSaifStack");
-        WaterMark.setPrefSize(100,25);
-        WaterMark.setFont(lexend14);
-        WaterMark.setLayoutY(15);
-        WaterMark.setLayoutX(660);
-        WaterMark.setId("noHoverBtn");
-        WaterMark.setTooltip(new Tooltip("Visit my GitHub!"));
-        WaterMark.setOnMouseEntered(e->{
-            WaterMark.setStyle("-fx-underline: true;-fx-cursor: hand;");
-        });
-        WaterMark.setOnMouseExited(e->{
-            WaterMark.setStyle("-fx-underline: false;");
-        });
-        WaterMark.setOnAction(e->{
-            LoginUi.openURL("https://github.com/KSaifStack");
-        });
+        Button WaterMark = getWaterMark(lexend14);
 
         //Back Button
         Button back = new Button("Back");
         back.setPrefSize(73,45);
         back.setFont(lexend14);
         back.setLayoutX(172);
-        back.setLayoutY(330);
+        back.setLayoutY(340);
         back.setOnAction(e->{
             String currentTheme="Light";
             if(themeManager.isDarkMode()){
@@ -251,6 +224,27 @@ public class Settings {
         pane.getChildren().add(settingsView);
         return pane;
     }
+
+    private static Button getWaterMark(Font lexend14) {
+        Button WaterMark = new Button("@KSaifStack");
+        WaterMark.setPrefSize(110,25);
+        WaterMark.setFont(lexend14);
+        WaterMark.setLayoutY(15);
+        WaterMark.setLayoutX(675);
+        WaterMark.setId("noHoverBtn");
+        WaterMark.setTooltip(new Tooltip("Visit my GitHub!"));
+        WaterMark.setOnMouseEntered(e->{
+            WaterMark.setStyle("-fx-underline: true;-fx-cursor: hand;");
+        });
+        WaterMark.setOnMouseExited(e->{
+            WaterMark.setStyle("-fx-underline: false;");
+        });
+        WaterMark.setOnAction(e->{
+            LoginUi.openURL("https://github.com/KSaifStack");
+        });
+        return WaterMark;
+    }
+
     public Button createSet(String text,Font font){
         Button btn = new Button(text);
         btn.setPrefSize(164,68);

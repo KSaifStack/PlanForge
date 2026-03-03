@@ -5,7 +5,6 @@ import javafx.scene.layout.*;
 import javafx.scene.text.Font;
 import java.util.List;
 import java.util.ArrayList;
-import java.io.InputStream;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -21,7 +20,7 @@ public class UpdateTaskUi {
     Font lexend14 = Font.loadFont(getClass().getResourceAsStream("/fonts/Lexend.ttf"), 14);
     Font lexend32 = Font.loadFont(getClass().getResourceAsStream("/fonts/Lexend.ttf"), 32);
     Font lexend30 = Font.loadFont(getClass().getResourceAsStream("/fonts/Lexend.ttf"), 20);
-    public Pane getContent(Font lexend14)
+    public Pane getContent()
     {
         //Gets Tasks and copys it to a array so it display data to change.
         //updateTask(String username, String taskname, String newDescription, int newRank,String TaskGroup,LocalDateTime dueDate)
@@ -45,13 +44,6 @@ public class UpdateTaskUi {
         pane.setStyle("-fx-background-color: rgba(0, 0, 0, 0.15);");
 
 
-        InputStream fontStream = getClass().getResourceAsStream("/fonts/Lato.ttf");
-        if (fontStream == null) {
-            System.err.println("Font resource not found!");
-            lexend14 = Font.font("System", 14);
-        } else {
-            lexend14 = Font.loadFont(fontStream, 14);
-        }
 
 
         Region background = new Region();
@@ -70,7 +62,8 @@ public class UpdateTaskUi {
         taskNamein.setFont(lexend14);
         pane.getChildren().add(taskNamein);
 
-        Button taskCheck = createStyledButton("Done", 180, 96, 48, 26, Font.font(lexend14.getName(), 12));
+        Button taskCheck = createStyledButton("Done", 180, 96, 52, 26, Font.font(lexend14.getName(), 12));
+
         taskCheck.setOnAction(e->{
             String input = taskNamein.getText().trim();
             boolean doubled = false;
@@ -113,7 +106,7 @@ public class UpdateTaskUi {
         descArea.setFont(lexend14);
         pane.getChildren().add(descArea);
 
-        Button checkDesc = createStyledButton("Done", 164, 250, 48, 26, Font.font(lexend14.getName(), 12));
+        Button checkDesc = createStyledButton("Done", 164, 250, 52, 26, Font.font(lexend14.getName(), 12));
         //Button taskCheck = createStyledButton("Done", 180, 96, 48, 26, Font.font(lexend14.getName(), 12));
         checkDesc.setOnMouseEntered(e -> checkDesc.setStyle(
                 " -fx-border-color: #626262; -fx-border-radius: 4px; -fx-background-radius: 4px; -fx-border-width: 1px;"
@@ -191,7 +184,7 @@ public class UpdateTaskUi {
         groupText.setStyle("  -fx-border-color: #626262; -fx-border-width: 1px; -fx-border-radius: 2px; -fx-prompt-text-fill: #737674;");
         pane.getChildren().add(groupText);
 
-        Button groupCheck = createStyledButton("Done", 390, 200.5,48, 26, Font.font(lexend14.getName(), 12));
+        Button groupCheck = createStyledButton("Done", 390, 200.5,52, 26, Font.font(lexend14.getName(), 12));
         groupCheck.setOnMouseEntered(e -> groupCheck.setStyle(
                 "  -fx-border-color: #626262; -fx-border-radius: 4px; -fx-background-radius: 4px; -fx-border-width: 1px;"
         ));
@@ -218,7 +211,7 @@ public class UpdateTaskUi {
             System.out.println("Trash button was pressed.");
             RemoveTaskUi RemoveTaskUi = new RemoveTaskUi(username,taskname,()->{onUpdate.run();});
             Pane RemovePane = new Pane();
-            RemovePane = RemoveTaskUi.getContent(finalLexend1,finalLexend2);
+            RemovePane = RemoveTaskUi.getContent();
             pane.getChildren().add(RemovePane);
         });
         pane.getChildren().add(trash);
@@ -255,7 +248,7 @@ public class UpdateTaskUi {
             if(datapicker.getDateTime()==null){
                 System.out.println("ERROR: Please enter proper time.");
             }else {
-                String input = CustomDatePicker.DateTimeUtils.formatDateTime(datapicker.getDateTime());
+                String input = CustomDatePicker.formatDateTime(datapicker.getDateTime());
                 upDateinput[0]=input;
                 upDate[0] = LocalDateTime.parse(upDateinput[0],DateTimeFormatter.ofPattern("yyyy MM dd hh mm a"));
                 UserData.updateTask(username, taskname, upName[0], upDesc[0], upRank[0], upGroup[0], upDate[0]);

@@ -39,7 +39,7 @@ public class CreateTaskUi {
         return overlayPane != null && overlayPane.isVisible();
     }
 
-    public Pane getContent(Font lexend14) {
+    public Pane getContent() {
         Pane pane = new Pane();
         pane.setPrefSize(980, 493);
         pane.setStyle("-fx-background-color: rgba(0, 0, 0, 0.15);");
@@ -67,6 +67,7 @@ public class CreateTaskUi {
         pane.getChildren().add(nameLabel);
 
         TextField taskNamein = new TextField();
+        taskNamein.setFont(lexend14);
         taskNamein.setPromptText("Give your task a name!");
         taskNamein.setLayoutX(415);
         taskNamein.setLayoutY(110);
@@ -82,6 +83,7 @@ public class CreateTaskUi {
         pane.getChildren().add(descLabel);
 
         TextArea descArea = new TextArea();
+        descArea.setFont(lexend14);
         descArea.setPromptText("Write a description!");
         descArea.setLayoutX(415);
         descArea.setLayoutY(180);
@@ -143,6 +145,7 @@ public class CreateTaskUi {
 
         //Create
         Button goBack = new Button("Back");
+        goBack.setFont(lexend14);
         goBack.setPrefSize(70, 45);
         goBack.setLayoutX(410);
         goBack.setLayoutY(395);
@@ -162,7 +165,7 @@ public class CreateTaskUi {
                 ErrorMeg.setVisible(true);
             }
             else {
-                String input = CustomDatePicker.DateTimeUtils.formatDateTime(datapicker.getDateTime());
+                String input = CustomDatePicker.formatDateTime(datapicker.getDateTime());
                 taskTime = LocalDateTime.parse(input, DateTimeFormatter.ofPattern("yyyy MM dd hh mm a"));
             }
             //String taskDue;

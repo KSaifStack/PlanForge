@@ -30,8 +30,8 @@ public class CalendarUi {
 
         lexend32 = Font.loadFont(getClass().getResourceAsStream("/fonts/Lexend.ttf"), 32);
         lexend14 = Font.loadFont(getClass().getResourceAsStream("/fonts/Lexend.ttf"), 14);
-        lexend12 = Font.loadFont(getClass().getResourceAsStream("/fonts/Lato.ttf"), 12);
-        lexend8 = Font.loadFont(getClass().getResourceAsStream("/fonts/Lato.ttf"), 8);
+        lexend12 = Font.loadFont(getClass().getResourceAsStream("/fonts/Lexend.ttf"), 12);
+        lexend8 = Font.loadFont(getClass().getResourceAsStream("/fonts/Lexend.ttf"), 8);
 
         Pane background = new Pane();
         background.setLayoutX(243.00);
@@ -64,6 +64,7 @@ public class CalendarUi {
         String[] days = {"Sun", "Mon", "Tues", "Wed", "Thurs", "Fri", "Sat"};
         for (int i = 0; i < days.length; i++) {
             Button colBg = new Button();
+            colBg.setFont(lexend14);
             colBg.setPrefSize(65, 330);
             colBg.setTranslateX(i * 65);
             colBg.setTranslateY(50);

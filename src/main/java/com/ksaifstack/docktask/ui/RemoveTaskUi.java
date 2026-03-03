@@ -1,4 +1,5 @@
-package com.ksaifstack.docktask.ui;// UI for Removing tasks
+// UI for Removing tasks
+package com.ksaifstack.docktask.ui;
 import com.ksaifstack.docktask.model.UserData;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
@@ -11,22 +12,18 @@ public class RemoveTaskUi {
     private final String username;
     private final String taskname;
     private final Runnable onUpdate;
+    Font lexend14 = Font.loadFont(getClass().getResourceAsStream("/fonts/Lexend.ttf"), 14);
     public RemoveTaskUi(String username, String taskname,Runnable onUpdate) {
         this.username = username;
         this.taskname = taskname;
         this.onUpdate = onUpdate;
     }
-    public Pane getContent(Font lexend14,Font lexend32){
+    public Pane getContent(){
         Pane pane = new Pane();
         pane.setPrefSize(980, 493);
         pane.setStyle("-fx-background-color: rgba(0, 0, 0, 0.15);");
         InputStream fontStream = getClass().getResourceAsStream("/fonts/Lato.ttf");
-        if (fontStream == null) {
-            System.err.println("Font resource not found!");
-            lexend14 = Font.font("System", 14);
-        } else {
-            lexend14 = Font.loadFont(fontStream, 14);
-        }
+
         Region background = new Region();
         background.setLayoutX(150);
         background.setLayoutY(155);

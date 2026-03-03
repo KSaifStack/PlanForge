@@ -1,12 +1,9 @@
-//Starting Page/LoginUi/(Kareem right here)
 package com.ksaifstack.docktask.ui;
-
-
-import java.io.InputStream;
 
 import com.ksaifstack.docktask.model.UserData;
 import javafx.animation.*;
 import javafx.application.Application;
+import javafx.application.HostServices;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -14,57 +11,52 @@ import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.Duration;
-import javafx.application.HostServices;
 
-public class LoginUi extends Application  {
+import java.io.InputStream;
+
+public class LoginUi extends Application {
+
+
+    private static final String BG_COLOR     = "#ffffff";
+    private static final String TEXT_COLOR   = "#1b1b1b";
+    private static final String BORDER_COLOR = "#626262";
+    private static final String ERROR_COLOR  = "#bd1111";
+    private static final String HOVER_COLOR  = "#d3d3d3";
+    private static final String FONT_PATH    = "/fonts/lexend.ttf";
+
+    private static final double WINDOW_WIDTH  = 766;
+    private static final double WINDOW_HEIGHT = 378;
+
 
     private static HostServices hostServices;
-    private static final String BG_COLOR = "#ffffff";
-    private static final String TEXT_COLOR = "#1b1b1b";
-    private static final String BORDER_COLOR = "#626262";
-    private static final String FONT_PATH = "/fonts/lexend.ttf;";
-    private static boolean startup = true;
-    private WindowBorder appWindow;
-    public LoginUi(){
-    }
+    private static boolean      startup = true;
 
-    Label timeErrorLabel = new Label(null);
+    private WindowActions appWindow;
+    private final Label  errorLabel = new Label();
+
+
+    public LoginUi() {}
 
     @Override
-
-    /*
-    This helps check if the user is going back after logging in.
-     */
     public void start(Stage primaryStage) {
-
-        if(startup) {
+        if (startup) {
+            startup = false;
             showSplash(() -> showMainApp(primaryStage));
-            startup=false;
-        }else{
-
+        } else {
             showMainApp(primaryStage);
         }
     }
 
-/*
-Self made splash screen using StageStyle.Transparent.
- */
+    // Splash Screen
+
     private void showSplash(Runnable onFinish) {
-        startup=false;
         UserData.initializeData();
-        Stage splashStage = new Stage(StageStyle.TRANSPARENT);
-        StackPane root = new StackPane();
-        root.setStyle("-fx-background-color: transparent;");
-        root.setAlignment(Pos.CENTER);
-
-
 
         InputStream logoStream = getClass().getResourceAsStream("/images/logo.png");
         if (logoStream == null) {
@@ -76,21 +68,17 @@ Self made splash screen using StageStyle.Transparent.
         ImageView logoView = new ImageView(new Image(logoStream));
         logoView.setFitWidth(250);
         logoView.setPreserveRatio(true);
-        root.getChildren().add(logoView);
 
-        Scene scene = new Scene(root, 300, 300, Color.TRANSPARENT);
-        splashStage.setScene(scene);
+        StackPane root = new StackPane(logoView);
+        root.setStyle("-fx-background-color: transparent;");
+
+        Stage splashStage = new Stage(StageStyle.TRANSPARENT);
+        splashStage.setScene(new Scene(root, 300, 300, Color.TRANSPARENT));
         splashStage.show();
 
-        FadeTransition fadeIn = new FadeTransition(Duration.seconds(1), logoView);
-        fadeIn.setFromValue(0);
-        fadeIn.setToValue(1);
-
-        PauseTransition pause = new PauseTransition(Duration.seconds(1.5));
-
-        FadeTransition fadeOut = new FadeTransition(Duration.seconds(1), logoView);
-        fadeOut.setFromValue(1);
-        fadeOut.setToValue(0);
+        FadeTransition fadeIn  = fade(logoView, 1.0, 0.0, 1.0);
+        FadeTransition fadeOut = fade(logoView, 1.0, 1.0, 0.0);
+        PauseTransition pause  = new PauseTransition(Duration.seconds(1.5));
 
         SequentialTransition sequence = new SequentialTransition(fadeIn, pause, fadeOut);
         sequence.setOnFinished(e -> {
@@ -100,8 +88,256 @@ Self made splash screen using StageStyle.Transparent.
         sequence.play();
     }
 
-    private void setStageIcon(Stage stage) {
+    private FadeTransition fade(ImageView node, double seconds, double from, double to) {
+        FadeTransition ft = new FadeTransition(Duration.seconds(seconds), node);
+        ft.setFromValue(from);
+        ft.setToValue(to);
+        return ft;
+    }
 
+
+    public void showMainApp(Stage primaryStage) {
+        hostServices = getHostServices();
+
+        if (appWindow != null) {
+            appWindow.toFront();
+            return;
+        }
+
+        setStageIcon(primaryStage);
+        primaryStage.setTitle("DockTask");
+        primaryStage.setResizable(false);
+
+         appWindow = WindowBorder.create("DockTask", buildHomePage(primaryStage), WINDOW_WIDTH, WINDOW_HEIGHT);
+        ((Stage)appWindow).setWidth(WINDOW_WIDTH);
+        ((Stage)appWindow).setHeight(WINDOW_HEIGHT);
+        ((Stage)appWindow).show();
+
+    }
+
+    private Pane buildHomePage(Stage primaryStage) {
+        Pane root = new Pane();
+        root.setStyle("-fx-background-color: " + BG_COLOR + ";");
+        root.setPrefSize(WINDOW_WIDTH, WINDOW_HEIGHT);
+
+        ImageView logo = loadImage("/images/lightIcon.png", 150);
+        logo.setLayoutX(308);
+        logo.setLayoutY(50);
+
+        Font lexend32 = loadFont(32);
+        Label titleLabel = styledLabel("DockTask", lexend32, TEXT_COLOR);
+        titleLabel.setLayoutX(308);
+        titleLabel.setLayoutY(0);
+        titleLabel.setPrefSize(300, 60);
+
+        Label orLabel = styledLabel("--OR--", null, TEXT_COLOR);
+        orLabel.setFont(loadFont(12));
+        orLabel.setLayoutX(365);
+        orLabel.setLayoutY(241);
+
+        Button loginBtn  = buildNavButton("Log-In",  405, 203.66, () -> showLoginPage(primaryStage));
+        Button signUpBtn = buildNavButton("Sign-Up", 245, 203.66, () -> showSignupPage(primaryStage));
+
+        root.getChildren().addAll(logo, titleLabel, orLabel, loginBtn, signUpBtn);
+        return root;
+    }
+
+
+    private void showLoginPage(Stage primaryStage) {
+        appWindow.colorChange(" ");
+        appWindow.setContent(buildAuthForm("Welcome!", "Log-In", false, primaryStage));
+    }
+
+    private void showSignupPage(Stage primaryStage) {
+        appWindow.colorChange(" ");
+        appWindow.setContent(buildAuthForm("Welcome!", "Sign-Up", true, primaryStage));
+    }
+
+    public void showBack(Stage primaryStage) {
+        appWindow.setContent(buildHomePage(primaryStage));
+    }
+
+    /**
+     * Builds a unified login/signup form.
+     * @param isSignup true = sign-up mode, false = login mode
+     */
+    private VBox buildAuthForm(String titleText, String buttonText, boolean isSignup, Stage primaryStage) {
+        TextField     usernameField = createTextField("Username");
+        PasswordField passwordField = createPasswordField("Password");
+        Button        actionButton  = createButton(buttonText, 140, 45);
+        Button        backButton    = createBackButton(primaryStage);
+
+        resetError();
+
+        actionButton.setOnAction(e -> handleAuth(usernameField, passwordField, isSignup, primaryStage));
+        actionButton.setOnKeyPressed(ev -> { if (ev.getCode() == KeyCode.ENTER) actionButton.fire(); });
+        usernameField.setOnAction(e -> actionButton.fire());
+        passwordField.setOnAction(e -> actionButton.fire());
+
+        GridPane form = new GridPane();
+        form.setHgap(10);
+        form.setVgap(15);
+        form.setAlignment(Pos.CENTER);
+        form.add(usernameField, 0, 0);
+        form.add(passwordField, 0, 1);
+
+        Label titleLabel = styledLabel(titleText, loadFont(28), TEXT_COLOR);
+
+        VBox layout = new VBox(20, titleLabel, form, actionButton, backButton, errorLabel);
+        layout.setPadding(new Insets(20));
+        layout.setAlignment(Pos.TOP_CENTER);
+        layout.setStyle("-fx-background-color: " + BG_COLOR + ";");
+        return layout;
+    }
+
+    private void handleAuth(TextField usernameField, PasswordField passwordField,
+                            boolean isSignup, Stage primaryStage) {
+        String username = usernameField.getText().trim().toLowerCase();
+        String password = passwordField.getText().trim().toLowerCase();
+
+        if (username.isEmpty() || password.isEmpty()) {
+            showError("No username or password input!");
+            return;
+        }
+
+        if (isSignup) {
+            handleSignup(username, password);
+        } else {
+            handleLogin(username, password);
+        }
+    }
+
+    private void handleLogin(String username, String password) {
+        if (!UserData.usernameExists(username)) {
+            showError("ERROR: Cannot find username or password.");
+        } else if (UserData.findUser(username, password)) {
+            launchTaskUi(username);
+        } else {
+            showError("ERROR: Wrong password.");
+        }
+    }
+
+    private void handleSignup(String username, String password) {
+        if (UserData.usernameExists(username)) {
+            showError("ERROR: Username is already registered.");
+        } else {
+            UserData.saveUser(username, password);
+            launchTaskUi(username);
+        }
+    }
+
+    private void launchTaskUi(String username) {
+        TaskUi taskUi = new TaskUi(username);
+        taskUi.start(appWindow, this);
+    }
+
+
+    private void showError(String message) {
+        errorLabel.setText(message);
+        errorLabel.setFont(loadFont(14));
+        errorLabel.setStyle("-fx-text-fill: " + ERROR_COLOR + ";");
+        errorLabel.setVisible(true);
+        System.err.println(message);
+    }
+
+    private void resetError() {
+        errorLabel.setText("");
+        errorLabel.setVisible(false);
+    }
+
+
+    private Button buildNavButton(String text, double x, double y, Runnable action) {
+        Button btn = new Button(text);
+        btn.setFont(loadFont(14));
+        btn.setLayoutX(x);
+        btn.setLayoutY(y);
+        btn.setPrefSize(116, 104);
+        applyButtonStyle(btn);
+        btn.setOnAction(e -> action.run());
+        return btn;
+    }
+
+    private Button createButton(String text, double width, double height) {
+        Button btn = new Button(text);
+        btn.setFont(loadFont(14));
+        btn.setPrefSize(width, height);
+        applyButtonStyle(btn);
+        return btn;
+    }
+
+    private Button createBackButton(Stage primaryStage) {
+        Button btn = new Button("Back");
+        btn.setFont(loadFont(12));
+        btn.setStyle("-fx-background-color: transparent; -fx-text-fill: " + TEXT_COLOR + ";");
+        btn.setOnAction(e -> showBack(primaryStage));
+        return btn;
+    }
+
+    private void applyButtonStyle(Button btn) {
+        String normal = buttonStyle(BG_COLOR);
+        String hover  = buttonStyle(HOVER_COLOR);
+        btn.setStyle(normal);
+        btn.setOnMouseEntered(e -> btn.setStyle(hover));
+        btn.setOnMouseExited(e  -> btn.setStyle(normal));
+    }
+
+    private String buttonStyle(String bgColor) {
+        return String.format(
+                "-fx-background-color: %s; -fx-text-fill: %s; " +
+                        "-fx-border-color: %s; -fx-border-radius: 4px; " +
+                        "-fx-background-radius: 4px; -fx-border-width: 1px;",
+                bgColor, TEXT_COLOR, BORDER_COLOR
+        );
+    }
+
+    private TextField createTextField(String placeholder) {
+        TextField tf = new TextField();
+        tf.setPromptText(placeholder);
+        tf.setFont(loadFont(14));
+        tf.setPrefWidth(200);
+        tf.setStyle(inputStyle());
+        return tf;
+    }
+
+    private PasswordField createPasswordField(String placeholder) {
+        PasswordField pf = new PasswordField();
+        pf.setPromptText(placeholder);
+        pf.setPrefWidth(200);
+        pf.setStyle(inputStyle());
+        return pf;
+    }
+
+    private String inputStyle() {
+        return """
+            -fx-background-color: #ffffff;
+            -fx-text-fill: #1b1b1b;
+            -fx-border-color: #626262;
+            -fx-border-radius: 2px;
+            -fx-border-width: 1px;
+            -fx-prompt-text-fill: #737674;
+        """;
+    }
+
+    private Label styledLabel(String text, Font font, String color) {
+        Label label = new Label(text);
+        if (font != null) label.setFont(font);
+        label.setStyle("-fx-text-fill: " + color + ";");
+        return label;
+    }
+
+    private ImageView loadImage(String path, double fitWidth) {
+        ImageView iv = new ImageView(new Image(getClass().getResourceAsStream(path)));
+        iv.setFitWidth(fitWidth);
+        iv.setPreserveRatio(true);
+        return iv;
+    }
+
+
+    private Font loadFont(double size) {
+        return Font.loadFont(getClass().getResourceAsStream("/fonts/Lexend.ttf"), size);
+    }
+
+    private void setStageIcon(Stage stage) {
         InputStream iconStream = getClass().getResourceAsStream("/images/logo.png");
         if (iconStream != null) {
             stage.getIcons().add(new Image(iconStream));
@@ -110,448 +346,19 @@ Self made splash screen using StageStyle.Transparent.
         }
     }
 
-    public void showMainApp(Stage primaryStage) {
-        hostServices = getHostServices();
-        if(appWindow==null) {
-            setStageIcon(primaryStage);
-            primaryStage.setTitle("DockTask");
+    public static HostServices getHost() { return hostServices; }
 
-            Pane root = new Pane();
-            root.setStyle("-fx-background-color: #ffffff;");
-            root.setPrefSize(766, 378);
-            primaryStage.setResizable(false);
-
-            ImageView logo = new ImageView(new Image(getClass().getResourceAsStream("/images/lightIcon.png")));
-            logo.setFitWidth(150);
-            logo.setPreserveRatio(true);
-            logo.setLayoutX(308); // centered horizontally for 766px width
-            logo.setLayoutY(50);  // adjust as needed
-
-            root.getChildren().add(logo);
-
-
-            //Font customFont = loadCustomFont(FONT_PATH, 18);
-            Font lexend32 = Font.loadFont(getClass().getResourceAsStream("/fonts/lexend.ttf"), 32);
-            //Title
-            Label Title = new Label("DockTask");
-            Title.setLayoutX(308);
-            Title.setLayoutY(0);
-            Title.setPrefSize(300, 60);
-            Title.setFont(lexend32 != null ? lexend32 : Font.font(36));
-            Title.setStyle("-fx-text-fill: #1b1b1b;");
-            //"OR"
-            Label element6 = new Label("--OR--");
-            element6.setLayoutX(365);
-            element6.setLayoutY(241);
-            element6.setPrefWidth(70);
-            element6.setPrefHeight(20);
-            element6.setStyle("-fx-text-fill: #1b1b1b;");
-            //Settings
-            Button settingicon = new Button("Settings");
-            settingicon.setLayoutX(660.00);
-            settingicon.setLayoutY(9.66);
-            settingicon.setPrefWidth(78.00);
-            settingicon.setPrefHeight(27.00);
-            settingicon.setDisable(false);
-            settingicon.setStyle("-fx-background-color: #ffffff; -fx-text-fill: #1b1b1b; -fx-border-color: #626262; -fx-border-radius: 4px; -fx-background-radius: 4px; -fx-border-width: 1px;");
-            settingicon.setOnAction(e -> {
-                //Setting Actions here...
-            });
-            settingicon.setOnMouseEntered(e -> settingicon.setStyle(
-                    "-fx-background-color: #d3d3d3; -fx-text-fill: #1b1b1b; -fx-border-color: #626262; -fx-border-radius: 4px; -fx-background-radius: 4px; -fx-border-width: 1px;"
-            ));
-            settingicon.setOnMouseExited(e -> settingicon.setStyle(
-                    "-fx-background-color: #ffffff; -fx-text-fill: #1b1b1b; -fx-border-color: #626262; -fx-border-radius: 4px; -fx-background-radius: 4px; -fx-border-width: 1px;"
-            ));
-
-            //LOGIN
-            Button loginBtn = new Button("Log-In");
-            loginBtn.setLayoutX(405);
-            loginBtn.setLayoutY(203.66);
-            loginBtn.setPrefWidth(116.00);
-            loginBtn.setPrefHeight(104.00);
-            loginBtn.setDisable(false);
-            loginBtn.setStyle("-fx-background-color: #ffffff; -fx-text-fill: #1b1b1b; -fx-border-color: #626262; -fx-border-radius: 4px; -fx-background-radius: 4px; -fx-border-width: 1px;");
-            loginBtn.setOnMouseEntered(e -> loginBtn.setStyle(
-                    "-fx-background-color: #d3d3d3; -fx-text-fill: #1b1b1b; -fx-border-color: #626262; -fx-border-radius: 4px; -fx-background-radius: 4px; -fx-border-width: 1px;"
-            ));
-            loginBtn.setOnMouseExited(e -> loginBtn.setStyle(
-                    "-fx-background-color: #ffffff; -fx-text-fill: #1b1b1b; -fx-border-color: #626262; -fx-border-radius: 4px; -fx-background-radius: 4px; -fx-border-width: 1px;"
-            ));
-
-            loginBtn.setOnAction(e -> showLoginWindow(primaryStage));
-            //Sign-up
-            Button SignUp = new Button("Sign-Up");
-            SignUp.setLayoutX(245);
-            SignUp.setLayoutY(203.66);
-            SignUp.setPrefWidth(116.00);
-            SignUp.setPrefHeight(104.00);
-            SignUp.setDisable(false);
-            SignUp.setStyle("-fx-background-color: #ffffff; -fx-text-fill: #1b1b1b; -fx-border-color: #626262; -fx-border-radius: 4px; -fx-background-radius: 4px; -fx-border-width: 1px;");
-            SignUp.setOnAction(e -> {
-
-                showSignupWindow(primaryStage);
-            });
-            SignUp.setOnMouseEntered(e -> SignUp.setStyle(
-                    "-fx-background-color: #d3d3d3; -fx-text-fill: #1b1b1b; -fx-border-color: #626262; -fx-border-radius: 4px; -fx-background-radius: 4px; -fx-border-width: 1px;"
-            ));
-            SignUp.setOnMouseExited(e -> SignUp.setStyle(
-                    "-fx-background-color: #ffffff; -fx-text-fill: #1b1b1b; -fx-border-color: #626262; -fx-border-radius: 4px; -fx-background-radius: 4px; -fx-border-width: 1px;"
-            ));
-
-
-            // Create your content
-            root.getChildren().addAll(loginBtn, SignUp, Title, element6);
-
-// Create the custom NFX window
-            appWindow =
-                    new WindowBorder("PlanForge", root, 766, 378);
-
-// Show the NFX window
-            appWindow.setWidth(766);
-            appWindow.setHeight(378);
-            appWindow.show();
-        }
-        else{
-            appWindow.toFront();
-        }
-    }
-
-
-
-    private void showLoginWindow(Stage primaryStage) {
-        VBox layout = createFormLayout("Welcome!", "Login", primaryStage);
-        appWindow.colorChange(" ");
-        appWindow.setContent(layout);
-    }
-
-
-    private VBox createFormLayout(String titleText, String buttonText, Stage primaryStage) {
-        VBox layout = new VBox(20);
-        layout.setPadding(new Insets(20));
-        layout.setAlignment(Pos.TOP_CENTER);
-        layout.setStyle("-fx-background-color: " + BG_COLOR + ";");
-
-        Label title = new Label(titleText);
-        title.setFont(loadCustomFont(FONT_PATH, 28));
-        title.setStyle("-fx-text-fill: " + TEXT_COLOR + ";");
-
-        GridPane form = new GridPane();
-        form.setHgap(10);
-        form.setVgap(15);
-        form.setAlignment(Pos.CENTER);
-
-        TextField username = createStyledTextField("Username");
-        PasswordField password = createStyledPasswordField("Password");
-
-        form.add(username, 0, 0);
-        form.add(password, 0, 1);
-
-        Button actionButton = createInteractiveButton(buttonText);
-        actionButton.setOnMouseEntered(e -> actionButton.setStyle(
-                "-fx-background-color: #d3d3d3; -fx-text-fill: #1b1b1b; -fx-border-color: #626262; -fx-border-radius: 4px; -fx-background-radius: 4px; -fx-border-width: 1px;"
-        ));
-        actionButton.setOnMouseExited(e -> actionButton.setStyle(
-                "-fx-background-color: #ffffff; -fx-text-fill: #1b1b1b; -fx-border-color: #626262; -fx-border-radius: 4px; -fx-background-radius: 4px; -fx-border-width: 1px;"
-        ));
-
-        timeErrorLabel.setFont(loadCustomFont(FONT_PATH, 16));
-        timeErrorLabel.setStyle("-fx-text-fill: " + "#bd1111" + ";");
-        timeErrorLabel.setVisible(false);
-        actionButton.setOnAction(e ->{
-            String Username = username.getText();
-            String Password = password.getText();
-            Stage taskStage = new Stage();
-            Username = Username.toLowerCase();
-            Password = Password.toLowerCase();
-            if(Username.equals("")||password.getText().equals("")){
-                System.out.println("No username or password input!");
-                timeErrorLabel.setText("No username or password input!");
-                timeErrorLabel.setVisible(true);
-            }else {
-                if(UserData.usernameExists(Username)==false) {
-                    System.out.println("ERROR: Cant find username Or Password.");
-                    timeErrorLabel.setText("ERROR: Cant find username Or Password.");
-                    timeErrorLabel.setVisible(true);
-
-                } else if(UserData.findUser(Username,Password)==true){
-                    TaskUi taskUi = new TaskUi(Username);
-                    LoginUi self = this;
-                    taskUi.start(appWindow,self);
-                }
-                else{
-                    System.out.println("ERROR: wrong password.");
-                    timeErrorLabel.setText("ERROR: Wrong password.");
-                    timeErrorLabel.setVisible(true);
-                }
-            }
-        });
-        actionButton.setOnKeyPressed(event -> {
-            if (event.getCode() == KeyCode.ENTER) {
-                actionButton.fire();
-            }
-        });
-        username.setOnAction(e -> actionButton.fire());
-        password.setOnAction(e -> actionButton.fire());
-
-
-
-
-        Button backButton = new Button("Back");
-        backButton.setFont(loadCustomFont(FONT_PATH, 12));
-        backButton.setStyle("-fx-background-color: transparent; -fx-text-fill: " + TEXT_COLOR + ";");
-        backButton.setOnAction(e -> showBack(primaryStage));
-
-        layout.getChildren().addAll(title, form,actionButton,backButton,timeErrorLabel);
-        return layout;
-    }
-    private void showSignupWindow(Stage primaryStage) {
-        VBox layout = createFormsLayout("Welcome!", "Signup", primaryStage);
-        appWindow.colorChange(" ");
-        appWindow.setContent(layout);
-    }
-    public void showBack(Stage primaryStage) {
-
-        Pane root = new Pane();
-        root.setStyle("-fx-background-color: #ffffff;");
-        root.setPrefSize(766, 378);
-
-        // Logo
-        ImageView logo = new ImageView(
-                new Image(getClass().getResourceAsStream("/images/lightIcon.png"))
-        );
-        logo.setFitWidth(150);
-        logo.setPreserveRatio(true);
-        logo.setLayoutX(308);
-        logo.setLayoutY(50);
-
-        // Title
-        Font lexend32 = Font.loadFont(getClass().getResourceAsStream("/fonts/lexend.ttf"), 32);
-        Label Title = new Label("DockTask");
-        Title.setLayoutX(308);
-        Title.setLayoutY(0);
-        Title.setPrefSize(300, 60);
-        Title.setFont(lexend32 != null ? lexend32 : Font.font(36));
-        Title.setStyle("-fx-text-fill: #1b1b1b;");
-
-        // OR label
-        Label element6 = new Label("--OR--");
-        element6.setLayoutX(365);
-        element6.setLayoutY(241);
-        element6.setStyle("-fx-text-fill: #1b1b1b;");
-
-        // Buttons
-        Button loginBtn = new Button("Log-In");
-        loginBtn.setLayoutX(405);
-        loginBtn.setLayoutY(203.66);
-        loginBtn.setPrefSize(116, 104);
-        loginBtn.setStyle("-fx-background-color: #ffffff; -fx-text-fill: #1b1b1b; -fx-border-color: #626262; -fx-border-radius: 4px; -fx-background-radius: 4px; -fx-border-width: 1px;");
-        loginBtn.setOnMouseEntered(e -> loginBtn.setStyle(
-                "-fx-background-color: #d3d3d3; -fx-text-fill: #1b1b1b; -fx-border-color: #626262; -fx-border-radius: 4px; -fx-background-radius: 4px; -fx-border-width: 1px;"
-        ));
-        loginBtn.setOnMouseExited(e -> loginBtn.setStyle(
-                "-fx-background-color: #ffffff; -fx-text-fill: #1b1b1b; -fx-border-color: #626262; -fx-border-radius: 4px; -fx-background-radius: 4px; -fx-border-width: 1px;"
-        ));
-        loginBtn.setOnAction(e -> showLoginWindow(primaryStage));
-
-        Button signUpBtn = new Button("Sign-Up");
-        signUpBtn.setLayoutX(245);
-        signUpBtn.setLayoutY(203.66);
-        signUpBtn.setPrefSize(116, 104);
-        signUpBtn.setStyle("-fx-background-color: #ffffff; -fx-text-fill: #1b1b1b; -fx-border-color: #626262; -fx-border-radius: 4px; -fx-background-radius: 4px; -fx-border-width: 1px;");
-        signUpBtn.setOnMouseEntered(e -> signUpBtn.setStyle(
-                "-fx-background-color: #d3d3d3; -fx-text-fill: #1b1b1b; -fx-border-color: #626262; -fx-border-radius: 4px; -fx-background-radius: 4px; -fx-border-width: 1px;"
-        ));
-        signUpBtn.setOnMouseExited(e -> signUpBtn.setStyle(
-                "-fx-background-color: #ffffff; -fx-text-fill: #1b1b1b; -fx-border-color: #626262; -fx-border-radius: 4px; -fx-background-radius: 4px; -fx-border-width: 1px;"
-        ));
-        signUpBtn.setOnAction(e -> showSignupWindow(primaryStage));
-
-        root.getChildren().addAll(logo, Title, element6, loginBtn, signUpBtn);
-
-       appWindow.setContent(root);
-    }
-
-
-
-    private VBox createFormsLayout(String titleText, String buttonText, Stage primaryStage) {
-        VBox layout = new VBox(20);
-        layout.setPadding(new Insets(20));
-        layout.setAlignment(Pos.TOP_CENTER);
-        layout.setStyle("-fx-background-color: " + BG_COLOR + ";");
-
-        Label title = new Label(titleText);
-        title.setFont(loadCustomFont(FONT_PATH, 28));
-        title.setStyle("-fx-text-fill: " + TEXT_COLOR + ";");
-
-        GridPane form = new GridPane();
-        form.setHgap(10);
-        form.setVgap(15);
-        form.setAlignment(Pos.CENTER);
-
-        TextField username = createStyledTextField("Username");
-        PasswordField password = createStyledPasswordField("Password");
-
-        form.add(username, 0, 0);
-        form.add(password, 0, 1);
-
-        Button actionButton = createInteractiveButton(buttonText);
-        actionButton.setOnMouseEntered(e -> actionButton.setStyle(
-                "-fx-background-color: #d3d3d3; -fx-text-fill: #1b1b1b; -fx-border-color: #626262; -fx-border-radius: 4px; -fx-background-radius: 4px; -fx-border-width: 1px;"
-        ));
-        actionButton.setOnMouseExited(e -> actionButton.setStyle(
-                "-fx-background-color: #ffffff; -fx-text-fill: #1b1b1b; -fx-border-color: #626262; -fx-border-radius: 4px; -fx-background-radius: 4px; -fx-border-width: 1px;"
-        ));
-
-        timeErrorLabel.setFont(loadCustomFont(FONT_PATH, 28));
-        timeErrorLabel.setStyle("-fx-text-fill: " + "#bd1111" + ";");
-        timeErrorLabel.setVisible(false);
-        actionButton.setOnAction(e ->{
-            String Username = username.getText();
-            String Password = password.getText();
-            Username= Username.toLowerCase();
-            Password = Password.toLowerCase();
-            if(Username.equals("")||password.getText().equals("")){
-                System.out.println("No username or password input!");
-                timeErrorLabel.setText("No username or password input!");
-                timeErrorLabel.setVisible(true);
-
-            }else {
-                System.out.println("Username:" + username.getText());
-                System.out.println("Password: " + password.getText());
-                if(UserData.usernameExists(Username)==true){
-                    System.out.println("ERROR: user is already registered within the system. ");
-                    timeErrorLabel.setText("ERROR: user is already registered within the system.");
-                    timeErrorLabel.setVisible(true);
-
-                }
-                else if(UserData.findUser(Username,Password)==false) {
-                    UserData.saveUser(Username, Password);
-                    TaskUi taskUi = new TaskUi(Username);
-                    LoginUi self = this;
-                    taskUi.start(appWindow,self);
-                }
-            }
-        });
-        actionButton.setOnKeyPressed(event -> {
-            if (event.getCode() == KeyCode.ENTER) {
-                actionButton.fire();
-            }
-        });
-        username.setOnAction(e -> actionButton.fire());
-        password.setOnAction(e -> actionButton.fire());
-
-
-        Button backButton = new Button("Back");
-        backButton.setFont(loadCustomFont(FONT_PATH, 12));
-        backButton.setStyle("-fx-background-color: transparent; -fx-text-fill: " + TEXT_COLOR + ";");
-        backButton.setOnAction(e -> showBack(primaryStage));
-
-        layout.getChildren().addAll(title, form, actionButton, backButton,timeErrorLabel);
-        return layout;
-    }
-
-    private TextField createStyledTextField(String placeholder) {
-        TextField tf = new TextField();
-        tf.setPromptText(placeholder);
-        tf.setFont(loadCustomFont(FONT_PATH, 14));
-        tf.setPrefWidth(200);
-        tf.setStyle("""
-            -fx-background-color: #ffffff;
-            -fx-text-fill: #1b1b1b;
-            -fx-border-color: #626262;
-            -fx-border-radius: 2px;
-            -fx-border-width: 1px;
-            -fx-prompt-text-fill: #737674;
-        """);
-        return tf;
-    }
-
-    private PasswordField createStyledPasswordField(String placeholder) {
-        PasswordField pf = new PasswordField();
-        pf.setPromptText(placeholder);
-        pf.setFont(loadCustomFont(FONT_PATH, 14));
-        pf.setPrefWidth(200);
-        pf.setStyle("""
-            -fx-background-color: #ffffff;
-            -fx-text-fill: #1b1b1b;
-            -fx-border-color: #626262;
-            -fx-border-radius: 2px;
-            -fx-border-width: 1px;
-            -fx-prompt-text-fill: #737674;
-        """);
-        return pf;
-    }
-
-    private Button createStyledButton(String text, double x, double y, String tooltip, Font font) {
-        Button btn = new Button(text);
-        btn.setLayoutX(x);
-        btn.setLayoutY(y);
-        btn.setPrefSize(308, 81);
-        btn.setFont(font);
-        btn.setStyle(baseButtonStyle());
-        btn.setTooltip(new Tooltip(tooltip));
-
-        addHoverAnimation(btn);
-        return btn;
-    }
-
-    private Button createInteractiveButton(String text) {
-        Button btn = new Button(text);
-        btn.setFont(loadCustomFont(FONT_PATH, 14));
-        btn.setPrefSize(140, 45);
-        btn.setStyle(baseButtonStyle());
-        addHoverAnimation(btn);
-        return btn;
-    }
-
-    private void addHoverAnimation(Button btn) {
-        btn.addEventFilter(MouseEvent.MOUSE_PRESSED, e ->
-                btn.setBackground(new Background(new BackgroundFill(Color.web("#c2c2c2"), new CornerRadii(4), Insets.EMPTY)))
-        );
-        btn.addEventFilter(MouseEvent.MOUSE_RELEASED, e ->
-                btn.setBackground(new Background(new BackgroundFill(Color.web("#ffffff"), new CornerRadii(4), Insets.EMPTY)))
-        );
-    }
-
-    private String baseButtonStyle() {
-        return String.format("""
-            -fx-background-color: #ffffff;
-            -fx-text-fill: %s;
-            -fx-border-color: %s;
-            -fx-border-radius: 4px;
-            -fx-background-radius: 4px;
-            -fx-border-width: 1px;
-        """, TEXT_COLOR, BORDER_COLOR);
-    }
-
-    private Font loadCustomFont(String path, double size) {
-        try (InputStream fontStream = getClass().getResourceAsStream(path)) {
-            if (fontStream != null) {
-                return Font.loadFont(fontStream, size);
-            }
-        } catch (Exception e) {
-            System.err.println("Failed to load font: " + path);
-        }
-        return Font.getDefault();
-    }
-    public static HostServices getHost(){
-        return hostServices;
-    }
-    public static void openURL(String link){
-        if(hostServices==null){
-            System.out.println("Error with hostServies!(not initialized)");
+    public static void openURL(String link) {
+        if (hostServices == null) {
+            System.err.println("HostServices not initialized.");
             return;
         }
-        try{
+        try {
             hostServices.showDocument(link);
-        }
-        catch(Exception e){
-            System.out.println("Failed to open link!:'"+link+"'");
+        } catch (Exception e) {
+            System.err.println("Failed to open link: '" + link + "'");
         }
     }
 
-    public static void main(String[] args) {
-        launch(args);
-    }
+    public static void main(String[] args) { launch(args); }
 }

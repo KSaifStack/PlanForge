@@ -9,7 +9,7 @@
 
     <groupId>com.ksaifstack</groupId>
     <artifactId>docktask</artifactId>
-    <version>0.5.0</version>
+    <version>0.6.0-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <name>DockTask</name>
@@ -21,11 +21,21 @@
     <!-- ===================== -->
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <maven.compiler.source>21</maven.compiler.source>
-        <maven.compiler.target>21</maven.compiler.target>
-        <javafx.version>21.0.5</javafx.version>
+        <maven.compiler.source>23</maven.compiler.source>
+        <maven.compiler.target>23</maven.compiler.target>
+        <javafx.version>25</javafx.version>
         <mainClass>com.ksaifstack.docktask.Main</mainClass>
     </properties>
+
+    <!-- ===================== -->
+    <!-- Repositories -->
+    <!-- ===================== -->
+    <repositories>
+        <repository>
+            <id>project-local-repo</id>
+            <url>file://${project.basedir}/lib</url>
+        </repository>
+    </repositories>
 
     <!-- ===================== -->
     <!-- Dependencies -->
@@ -46,10 +56,25 @@
         </dependency>
 
         <dependency>
+            <groupId>com.dorkbox</groupId>
+            <artifactId>SystemTray</artifactId>
+            <version>3.8</version>
+        </dependency>
+
+        <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-graphics</artifactId>
             <version>${javafx.version}</version>
         </dependency>
+
+        <!-- NFX Core (local dependency) -->
+        <dependency>
+            <groupId>xss.it</groupId>
+            <artifactId>nfx-core</artifactId>
+            <version>1.0.4</version>
+        </dependency>
+
+
 
         <!-- Commons IO -->
         <dependency>
@@ -71,13 +96,20 @@
             <version>5.18.1</version>
         </dependency>
 
-        <!-- JUnit (future tests) -->
+        <!-- JUnit (for future tests) -->
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter</artifactId>
             <version>5.10.1</version>
             <scope>test</scope>
         </dependency>
+
+        <dependency>
+            <groupId>com.dustinredmond.fxtrayicon</groupId>
+            <artifactId>FXTrayIcon</artifactId>
+            <version>4.0.1</version>
+        </dependency>
+
 
     </dependencies>
 
@@ -87,18 +119,18 @@
     <build>
         <plugins>
 
-            <!-- Compiler -->
+            <!-- Maven Compiler Plugin -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.11.0</version>
+                <version>3.13.0</version>
                 <configuration>
-                    <source>21</source>
-                    <target>21</target>
+                    <source>23</source>
+                    <target>23</target>
                 </configuration>
             </plugin>
 
-            <!-- JavaFX -->
+            <!-- JavaFX Maven Plugin - For running during development -->
             <plugin>
                 <groupId>org.openjfx</groupId>
                 <artifactId>javafx-maven-plugin</artifactId>
@@ -108,33 +140,37 @@
                 </configuration>
             </plugin>
 
-            <!-- Shade Plugin - Creates Fat JAR with all dependencies -->
+            <!-- Maven JAR Plugin - Create executable JAR -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-shade-plugin</artifactId>
-                <version>3.5.1</version>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>3.3.0</version>
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <mainClass>${mainClass}</mainClass>
+                            <addClasspath>true</addClasspath>
+                            <classpathPrefix>lib/</classpathPrefix>
+                        </manifest>
+                    </archive>
+                </configuration>
+            </plugin>
+
+            <!-- Maven Dependency Plugin - Copy dependencies to lib/ -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <version>3.6.1</version>
                 <executions>
                     <execution>
+                        <id>copy-dependencies</id>
                         <phase>package</phase>
                         <goals>
-                            <goal>shade</goal>
+                            <goal>copy-dependencies</goal>
                         </goals>
                         <configuration>
-                            <transformers>
-                                <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-                                    <mainClass>${mainClass}</mainClass>
-                                </transformer>
-                            </transformers>
-                            <filters>
-                                <filter>
-                                    <artifact>*:*</artifact>
-                                    <excludes>
-                                        <exclude>META-INF/*.SF</exclude>
-                                        <exclude>META-INF/*.DSA</exclude>
-                                        <exclude>META-INF/*.RSA</exclude>
-                                    </excludes>
-                                </filter>
-                            </filters>
+                            <outputDirectory>${project.build.directory}/lib</outputDirectory>
+                            <includeScope>runtime</includeScope>
                         </configuration>
                     </execution>
                 </executions>

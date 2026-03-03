@@ -8,6 +8,8 @@ module com.ksaifstack.docktask {
 
     requires com.sun.jna;
     requires com.sun.jna.platform;
+    requires SystemTray;
+    requires com.dustinredmond.fxtrayicon;
     requires nfx.core;
 
     opens com.ksaifstack.docktask to javafx.graphics;

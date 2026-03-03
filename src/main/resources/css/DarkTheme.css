@@ -13,7 +13,10 @@
 /* Labels */
 .label {
     -fx-text-fill: #e0e0e0;
+
 }
+
+
 #Daylabel {
     -fx-text-fill: #ffffff;
     -fx-background-color: #333333;
@@ -266,4 +269,64 @@
 .date-cell:disabled {
     -fx-background-color: #1a1a1a;
     -fx-text-fill: #777777;
+}
+.calendar-picker {
+    -fx-background-color: #1e1e1e;
+    -fx-border-color: #626262;
+    -fx-border-radius: 4;
+    -fx-background-radius: 4;
+}
+
+.calendar-picker .title {
+    -fx-text-fill: #e0e0e0;
+    -fx-background-color: #2b2b2b;
+}
+
+.calendar-picker .left-button,
+.calendar-picker .right-button {
+    -fx-background-color: #3a3a3a;
+    -fx-text-fill: #eeeeee;
+    -fx-border-color: #626262;
+    -fx-border-radius: 4;
+    -fx-background-radius: 4;
+}
+
+.calendar-picker .left-button:hover,
+.calendar-picker .right-button:hover {
+    -fx-background-color: #555555;
+}
+
+.calendar-picker .day-name-cell {
+    -fx-text-fill: #888888;
+    -fx-background-color: #2b2b2b;
+}
+
+.calendar-picker .date-cell {
+    -fx-background-color: #2b2b2b;
+    -fx-text-fill: #e0e0e0;
+    -fx-border-color: transparent;
+    -fx-border-radius: 4;
+    -fx-background-radius: 4;
+}
+
+.calendar-picker .date-cell:hover {
+    -fx-background-color: #444444;
+}
+
+.calendar-picker .date-cell:selected {
+    -fx-background-color: #666666;
+    -fx-text-fill: #ffffff;
+}
+
+.calendar-picker .date-cell.today {
+    -fx-border-color: #888888;
+    -fx-border-width: 1px;
+    -fx-text-fill: #ffffff;
+    -fx-font-weight: bold;
+}
+
+.calendar-picker .date-cell:disabled {
+    -fx-text-fill: #555555;
+    -fx-background-color: transparent;
+}
 }
