@@ -57,9 +57,9 @@ https://github.com/user-attachments/assets/67e9159e-ff12-4f21-9128-568c9d12a31a
 
 | Platform | Download | Status |
 |----------|----------|--------|
-| **Windows** | [DockTask-Setup-0.5.exe](https://github.com/KSaifStack/DockTask/releases/download/0.5/DockTask-Setup-v0.5.exe) | ✅ Available |
-| **MacOS** | Coming Soon | 🚧 In Development |
-| **Ubuntu** | Coming Soon | 🚧 In Development |
+| **Windows** | [DockTask-Setup-0.6.exe](https://github.com/KSaifStack/DockTask/releases/download/V0.6/DockTask-Installer-0.6.exe) | ✅ Available |
+| **MacOS** | [DockTask-Setup-0.6.dmg](https://github.com/KSaifStack/DockTask/releases/download/V0.6/DockTask-Installer-0.6.dmg) | ✅ Available |
+| **Ubuntu** | [DockTask-Setup-0.6.deb](https://github.com/KSaifStack/DockTask/releases/download/V0.6/DockTask-Installer-0.6-amd64.deb) | ✅ Available |
 | **Fedora** | Coming Soon | 🚧 In Development |
 
 > **Self-contained installer** — No JDK installation required. Everything is bundled.
@@ -272,9 +272,9 @@ In version 0.1, countdown timers for completed or removed tasks continued runnin
 
 ### Windows
 
-1. Download [DockTask-Setup-0.5.exe](https://github.com/KSaifStack/DockTask/releases/download/0.5/DockTask-Setup-v0.5.exe)
-2. Run the installer and follow the on-screen prompts (administrator privileges recommended)
-3. Launch DockTask from your Desktop or Start Menu
+1. Download [DockTask-Setup-0.6.exe](https://github.com/KSaifStack/DockTask/releases/download/V0.6/DockTask-Installer-0.6.exe)
+3. Run the installer and follow the on-screen prompts (administrator privileges recommended)
+4. Launch DockTask from your Desktop or Start Menu
 
 **System Requirements:**
 - Windows 10 or later (64-bit)
