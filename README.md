@@ -55,10 +55,6 @@ DockTask started as a simple to-do list and has grown into a full-featured stude
 ### Windows Installer
 Download the self-contained installer — no JDK required, Java runtime is bundled.
 
-| Version | Download |
-|---------|----------|
-| v0.5.0 | `DockTask-Setup-v0.5.exe` |
-
 ---
 
 ## Roadmap
