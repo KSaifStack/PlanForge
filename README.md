@@ -4,7 +4,7 @@
 > Built with JavaFX for students who need precision, not just reminders.
 
 **Current Name:** DockTask &nbsp;|&nbsp; **Previous Names:** To-Do → PlanForge → DockTask
-**Current Release:** v0.6.0 &nbsp;|&nbsp; **Platform:** Windows (macOS & Linux in progress)
+**Current Release:** v0.6.0 &nbsp;|&nbsp; **Platform:** Windows/macOS/Linux in progress)
 
 ---
 
