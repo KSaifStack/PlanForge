@@ -106,8 +106,8 @@ https://github.com/user-attachments/assets/67e9159e-ff12-4f21-9128-568c9d12a31a
 
 | Component | Technology | Purpose |
 |-----------|-----------|---------|
-| **Language** | Java 23 | Core application logic |
-| **UI Framework** | JavaFX 21 | Cross-platform GUI rendering |
+| **Language** | Java 25 | Core application logic |
+| **UI Framework** | JavaFX 25 | Cross-platform GUI rendering |
 | **Styling** | CSS3 | Theme implementation and visual design |
 | **Native Integration** | [NFX Library](https://github.com/xdsswar/nfx-lib) | Platform-native window controls and title bar |
 | **Architecture** | MVC Pattern | Separation of concerns for maintainability |
