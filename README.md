@@ -1,403 +1,186 @@
-<h1 align="center">DockTask</h1>
+# DockTask — Developer Log
 
-<p align="center">
-  <img src="https://github.com/user-attachments/assets/142dcb77-abfb-4551-86cd-4035ab3c019f" width="120" />
-</p>
+> A desktop task manager with millisecond-accurate deadlines and real-time countdowns.
+> Built with JavaFX for students who need precision, not just reminders.
 
-<p align="center">
-  <strong>Desktop task management with millisecond-accurate deadlines and intelligent notifications</strong>
-  <br>
-  <em>Built for students and professionals who need precision, not just reminders</em>
-</p>
-
-<p align="center">
-  <img src="https://img.shields.io/badge/Java-25-red?style=for-the-badge&logo=openjdk" alt="Java 25" />
-  <img src="https://img.shields.io/badge/JavaFX-25-orange?style=for-the-badge" alt="JavaFX 25" />
-  <img src="https://img.shields.io/badge/License-MIT-blue?style=for-the-badge" alt="MIT License" />
-</p>
-
-<p align="center">
-  <img src="https://img.shields.io/badge/Platform-Windows%20%7C%20macOS%20%7C%20Linux-2EA043?style=for-the-badge" alt="Platform" />
-</p>
+**Current Name:** DockTask &nbsp;|&nbsp; **Previous Names:** To-Do → PlanForge → DockTask
+**Current Release:** v0.6.0 &nbsp;|&nbsp; **Platform:** Windows (macOS & Linux in progress)
 
 ---
 
-##  Why DockTask?
+## Table of Contents
 
-I built DockTask to solve my own problem of managing multiple classwork deadlines while learning JavaFX development. What started as a simple to-do list evolved into a full-featured task management system as I explored UI/UX design, data persistence strategies, and memory optimization techniques. 
-
-The core challenge? Basic calendar apps treat "3 PM" and "3:00:47 PM" the same, but when you have multiple assignments due at midnight, lab reports due minutes apart, and group project submissions with precise timing requirements, **seconds matter**.
-
-This project pushed me to think beyond basic functionality and focus on creating a polished, user-friendly experience. **Now it's the tool I use daily to keep my academic life neat and organized.**
-
----
-
-##  Demo
-
-> **Watch DockTask in action!** [See the demo video](https://www.youtube.com/watch?v=u5oVhOg2F70) or download the installer below to try it yourself.
-
-
-
-
-
-
-
-https://github.com/user-attachments/assets/67e9159e-ff12-4f21-9128-568c9d12a31a
-
-
-
-
-
-
-
+- [Project Overview](#project-overview)
+- [Setup & Installation](#setup--installation)
+- [Roadmap](#roadmap)
+- [Changelog](#changelog)
+- [Dev Notes](#dev-notes)
 
 ---
 
-##  Download
+## Project Overview
 
-| Platform | Download | Status |
-|----------|----------|--------|
-| **Windows** | [DockTask-Setup-0.6.exe](https://github.com/KSaifStack/DockTask/releases/download/V0.6/DockTask-Installer-0.6.exe) | ✅ Available |
-| **MacOS** | [DockTask-Setup-0.6.dmg](https://github.com/KSaifStack/DockTask/releases/download/V0.6/DockTask-Installer-0.6.dmg) | ✅ Available |
-| **Ubuntu** | [DockTask-Setup-0.6.deb](https://github.com/KSaifStack/DockTask/releases/download/V0.6/DockTask-Installer-0.6-amd64.deb) | ✅ Available |
-| **Fedora** | Coming Soon | 🚧 In Development |
+DockTask started as a simple to-do list and has grown into a full-featured student productivity app. The core idea: unlike generic calendar apps, DockTask is built around **precision timing** — tasks can be scheduled down to the second, with multi-stage notifications and real-time countdowns.
 
-> **Self-contained installer** — No JDK installation required. Everything is bundled.
+**Intended goal:** A centralized hub for a student's daily tasks, assessments, and activities. Future versions will support a plugin system, AI assistance, recurring tasks, and active recall study tools — think Quizlet but focused on productivity and time awareness.
 
-> **NOTE!** If you run the installer in administration mode, DockTask can only save data with administration!
----
-
-##  Features
-
-### Task Management
-- **Priority-based auto-sorting** with color-coded groups for instant visual scanning
-- **Real-time countdown timers** tracking tasks down to the second
-- **Multi-stage notifications** at 24h, 5h, 1h, 30m, 10m, 1m, and overdue intervals
-- **Integrated calendar view** with automatic synchronization when tasks are created or modified
-- **Precise task timing** allows scheduling tasks within seconds of each other
-
-### User Experience  
-- **System tray integration** — Minimize to tray and keep DockTask running in the background
-- **Adaptive theming** — Dark/light modes with persistent preferences across sessions
-- **Native window controls** — Platform-integrated UI using [NFX library](https://github.com/xdsswar/nfx-lib)
-- **Keyboard shortcuts** — Power user features (Ctrl+Shift+C for instant task creation)
-- **Seamless theme switching** with theme-adaptive styling
-
-### Data Management
-- **Auto-save functionality** with unsaved changes detection
-- **Export/Import capabilities** for data portability and backup
-- **Multi-user support** with separate task databases and built-in authentication
-- **Local-first storage** — All data stays on your machine
-- **Confirmation dialogs** protecting against accidental data loss
+**Tech Stack:**
+| Component | Technology |
+|-----------|-----------|
+| Language | Java 25 |
+| UI Framework | JavaFX 25+ |
+| Styling | CSS3 |
+| Native UI | NFX Library |
+| Notifications | Dorkbox SystemTray / AWT TrayIcon |
+| Architecture | MVC |
+| Storage | File-based serialization (`<SEP>` format) |
 
 ---
 
-##  Interface
+## Setup & Installation
 
-### Light Mode
-<img width="1000" height="964" alt="LightTheme" src="https://github.com/user-attachments/assets/ed4ceeef-e83a-4d64-864f-4610b028df38" />
+### Requirements
+- JavaFX 21+ → [Download](https://gluonhq.com/products/javafx/)
+- IntelliJ IDEA (Community Edition recommended) → [Download](https://www.jetbrains.com/idea/download/?section=windows)
+- Maven (bundled via `pom.xml`)
 
-### Dark Mode  
-<img width="1000" height="943" alt="DarkTheme" src="https://github.com/user-attachments/assets/20749c86-4ad6-4e03-8290-5a92b5ca309a" />
+### Running the Project
+1. Clone the repository
+2. Open the project in IntelliJ and let Maven resolve dependencies via `pom.xml`
+3. Set VM options for JavaFX modules
+4. Run `LoginUi.java` as the main entry point
 
----
+> **Note:** VS Code is not recommended without additional JavaFX configuration. See [this video](https://www.youtube.com/watch?app=desktop&v=IvsvjUq38Jc) for IntelliJ setup.
 
-##  Tech Stack
+### Windows Installer
+Download the self-contained installer — no JDK required, Java runtime is bundled.
 
-| Component | Technology | Purpose |
-|-----------|-----------|---------|
-| **Language** | Java 23 | Core application logic |
-| **UI Framework** | JavaFX 21 | Cross-platform GUI rendering |
-| **Styling** | CSS3 | Theme implementation and visual design |
-| **Native Integration** | [NFX Library](https://github.com/xdsswar/nfx-lib) | Platform-native window controls and title bar |
-| **Architecture** | MVC Pattern | Separation of concerns for maintainability |
-| **Data Storage** | File-based serialization | Local persistence with custom separator-based format |
-| **Concurrency** | JavaFX Timeline API | Real-time UI updates without blocking |
-| **System Integration** | Java AWT TrayIcon | OS-level notifications and system tray |
-
----
-
-##  Architecture
-
-DockTask implements **Model-View-Controller (MVC)** architecture for maintainable, testable code:
-
-### Model Layer
-- **UserData.java** — Centralized data access handling all CRUD operations
-- **Data/** directory — File-based storage for user databases and settings (Settings.txt)
-- Responsibilities: Data validation, serialization with `<SEP>` separators, persistence operations
-
-### View Layer
-- **TaskUi.java** — Main dashboard with task list and real-time countdown timers
-- **CalendarUi.java** — Monthly calendar with task indicators and synchronization 
-- **CreateTaskUi / UpdateTaskUi** — Task creation and editing interfaces with auto-save
-- **Settings.java** — Application configuration panel with export/import, data management
-- Responsibilities: UI rendering, user input collection, visual feedback, theme adaptation
-
-### Controller Layer
-- Event handlers connecting user actions to data operations
-- **ThemeManager** — Coordinating theme state and color adaptation across components
-- **Notification System** — Managing system tray alerts based on task deadlines
-- **Timeline Controllers** — Orchestrating concurrent countdown updates
-- **Navigation Guards** — Preventing accidental data loss during transitions
-- Responsibilities: Business logic, state management, component coordination
-
-**Benefits of this approach:**
-- Data layer modifications (e.g., migrating to database) require zero UI changes
-- UI redesigns proceed independently of data operations
-- Individual components can be unit tested in isolation
-- New features integrate cleanly without cascading modifications
+| Version | Download |
+|---------|----------|
+| v0.5.0 | `DockTask-Setup-v0.5.exe` |
 
 ---
 
-## What I Learned
+## Roadmap
 
-Building DockTask taught me valuable software engineering lessons:
-
-### Memory Optimization (63% Reduction)
-In version 0.1, countdown timers for completed or removed tasks continued running in the background, accumulating on the memory stack. This caused memory usage to grow from ~500MB to over 1000MB during extended sessions.
-
-**Solution implemented:**
-- Pause all Timeline threads when the application is minimized or closed
-- Clear expired task entries from the active monitoring list after removal
-- Implement proper cleanup of countdown timers for non-visible tasks
-
-**Result:** Reduced idle memory footprint from 500MB to 60MB (85% improvement from peak) with sustained performance during long-running sessions. The application now becomes more efficient over time as resources are garbage collected.
-
-### Other Key Learnings
-
-- **Concurrent State Management:** Designed timeline system tracking multiple countdown timers simultaneously without data races or UI freezes
-
-- **Data Persistence:** Built custom file-based serialization with `<SEP>` separators enabling support for embedded links and preventing parsing errors. Added validation to prevent corruption, auto-save with change detection, and safe import/export functionality
-
-- **UI/UX Design:** Created theme-aware component system with instant propagation across 5+ view classes, responsive layouts, and intuitive information hierarchy with color-coded visual distinctions
-
-- **Event-Driven Architecture:** Mastered JavaFX event system, listeners, and callback patterns for responsive interactions. Implemented navigation guards to prevent accidental data loss
-
-- **Software Distribution:** Built self-contained Windows installer with bundled Java runtime for zero-dependency deployment
+### v0.7.0 — UX Polish *(In Progress)*
+- [ ] Widgets — movable UI elements (e.g. relocatable `+` button)
+- [ ] Button hover animations
+- [ ] Revamped task cards — slightly larger with description preview
+- [ ] Fullscreen task description view (button in bottom-right of UpdateTask)
+- [ ] Redo data functions — each `data.txt` gets a `date.txt` for display history
 
 ---
 
-##  Changelog
+### v0.8.0 — Plugin System Foundation *(Planned)*
+> Resting point to clean up any loose ends before major feature work.
 
-### v0.6 – March 2026
+- [ ] Plugin System — allows users to extend the app via downloadable plugins
+- [ ] Plugin UI — in-app panel connected to a GitHub-hosted plugin registry
+- [ ] Notifications button
+- [ ] Changelog button — click version number in settings to view update log (rendered Markdown)
+- [ ] Embedded pictures in task descriptions
+- [ ] Usable hyperlinks in task text areas
+- [ ] Replace legacy notification system with Dorkbox (cross-platform support)
 
-**Cross-Platform Expansion**
-- Added initial **Linux** and **macOS** support
-- Implemented platform-aware window border factory for native-style switching
-- Replaced legacy AWT tray icon handling with improved system tray integration
-- Resolved hardcoded file path issues for improved portability
-- Automatic data folder creation on first launch (if missing)
-
-**Framework & Dependency Upgrades**
-- Upgraded **JavaFX 21 → 25**
-- Updated NFX core library
-- Simplified build process — no additional build instructions required
-- Improved compatibility across Maven-supported IDEs
-
-**UI Refactoring & Codebase Improvements**
-- Refactored Login UI and Task UI for better separation of concerns and cleaner logic
-- Replaced system fonts with **Lexend** for consistent cross-platform typography
-- Added overlay shadows for improved depth and visual clarity
-- Fixed layout overflow when displaying more than four task cards
-- Improved pane centering, spacing, and reduced UI congestion
-- Enhanced "No Task Found" onboarding message
-- Significant internal code documentation added
-
-**Visual Enhancements**
-- Added four new color themes: Dark Slate Gray, Chocolate, Light Sea Green, Gold
-
-**Performance & Stability**
-- Fixed logout session data bleed issue
-- Fixed clock alignment bug (under 21 characters)
-- Stabilized window sizing inconsistencies on Linux
-- Improved overdue task date formatting — tasks overdue 168+ hours now display as `MM/DD/YYYY`
-  
-
-### v0.5 – December 2025
-
-**Architecture & Data Layer**
-- Implemented centralized data storage system with dedicated "Data" folder structure
-- Migrated from simple file I/O to robust data serialization with validation
-- Created persistent settings storage via Settings.txt configuration file
-- Built foundation for modular plugin system with configuration management
-- Replaced legacy data parsing with scalable `<SEP>` separator-based system for embedded link support
-
-**User Safety & Data Integrity**
-- Designed and implemented modal confirmation dialog system for destructive operations
-- Developed auto-save mechanism with unsaved changes detection when creating tasks
-- Created navigation guard system to prevent accidental data loss
-- Implemented data export/import functionality with comprehensive error handling
-- Added validation for all data manipulation operations to prevent corruption
-
-**UI/UX Enhancements**
-- Redesigned application interface for improved visual hierarchy and clarity
-- Implemented dynamic theme-aware window chrome with color adaptation
-- Developed Settings panel with centralized application controls (export/import, refresh, exit)
-- Refined interface by removing redundant UI elements
-
-**Feature Additions**
-- Dark mode preference persistence across sessions
-- Manual data refresh capability
-- Graceful application exit with cleanup operations
-- Import/export functionality for data portability
-
-**Technical Debt & Refactoring**
-- Improved error handling across file operations
-- Enhanced data validation to prevent corruption scenarios
-- Optimized memory usage for large datasets
-- Strengthened separation of concerns in data access layer
-
-### v0.3 – November 2025
-
-**Performance & Optimization**
--  **Reduced memory usage by 63%** by identifying and fixing Timeline leak — implemented pause/resume for background countdowns
-   Enhanced task sorting algorithm for faster rendering with large datasets
--  Refactored legacy codebase for better maintainability
-
-**UI/UX Improvements**
--  Redesigned CreateTask UI with cleaner layout and improved responsiveness
--  Enhanced calendar refresh logic with instant update propagation
--  Fixed Sun & Moon icon reset issue with live theme synchronization
--  Revamped clock system with improved real-time accuracy
--  Added keyboard shortcuts for power users (Ctrl+Shift+C for quick task creation)
-
-**Bug Fixes & Quality of Life**
--  UpdateTask changes now instantly reflected in calendar view
--  Improved due date validation and edge case handling
--  Smoother theme transitions between dark/light modes
+**Planned first-party plugins:**
+-  Stopwatch / Pomodoro Timer
+-  AI Assistant
+-  Motivational Quotes
+-  Note Taker
+-  Prayer Reminder
 
 ---
 
-##  Installation
-
-### Windows
-
-1. Download [DockTask-Setup-0.6.exe](https://github.com/KSaifStack/DockTask/releases/download/V0.6/DockTask-Installer-0.6.exe)
-3. Run the installer and follow the on-screen prompts (administrator privileges recommended)
-4. Launch DockTask from your Desktop or Start Menu
-
-**System Requirements:**
-- Windows 10 or later (64-bit)
-- 512 MB RAM minimum
-- 100 MB free disk space
-- 1024x768 display resolution minimum
-
-  
-
-> **Note:** Installer includes bundled Java runtime. No external dependencies or JDK installation required.
+### v1.5.0 — Recurring Tasks & Themes *(Future)*
+- [ ] Recurring tasks — auto-regenerate on a user-defined interval
+- [ ] Event tasks — placeholder tasks for recurring real-life events (work, school, etc.)
+- [ ] Expanded theme selector (or via plugin?)
+- [ ] Automatic update checker via [update4j](https://github.com/update4j/update4j)
+- [ ] Fade in/out animations
 
 ---
 
-##  Building from Source
+## Changelog
 
-### Prerequisites
-- **Java 17+** (JDK 23 recommended)
-- **Maven 3.6+** or your IDE with Maven support (IntelliJ IDEA, Eclipse, VSCode)
--  **[NFX Library](https://github.com/xdsswar/nfx-lib)** (Needed to build window)
-
-### Quick Start
-
-#### 1. Clone the Repository
-```bash
-git clone https://github.com/KSaifStack/DockTask.git
-cd DockTask
-```
-
-#### 2. Build with Maven
-```bash
-mvn clean package
-```
-### Development Setup
-
-#### IntelliJ IDEA
-1. Open the project folder (`File` → `Open`)
-2. Maven dependencies will auto-import
-3. Run the `Main.java` class
-
-#### Eclipse
-1. Import as Maven project (`File` → `Import` → `Maven` → `Existing Maven Projects`)
-2. Right-click project → `Maven` → `Update Project`
-3. Run `Main.java`
-
-#### VS Code
-1. Open project folder
-2. Install "Java Extension Pack" and "Maven for Java"
-3. Maven will auto-detect `pom.xml` and download dependencies
-4. Run via the Run button or `F5`
-
-### Project Structure
-```
-DockTask/
-├── pom.xml                    # Maven configuration
-├── src/
-│   ├── main/
-│   │   ├── java/
-│   │   │   └── com/ksaifstack/docktask/
-│   │   │       ├── Main.java              # Application entry point
-│   │   │       ├── model/                 # Data models (Task, User, UserData)
-│   │   │       ├── ui/                    # UI components (LoginUI, TaskUI, etc.)
-│   │   │       └── util/                  # Utilities (ThemeManager, etc.)
-│   │   └── resources/
-│   │       ├── images/                    # Icons and graphics
-│   │       └── fonts/                     # Custom fonts
-│   └── test/                              # Unit tests (coming soon)
-├── Data/                                  # User data storage 
-└── README.md
-```
-
-### Common Build Issues
-
-**Issue:** `JAVA_HOME not set`  
-**Fix:** Set your JDK path:
-```bash
-# Windows
-set JAVA_HOME=C:\Program Files\Java\jdk-23
-# Mac/Linux
-export JAVA_HOME=/usr/lib/jvm/java-23-openjdk
-```
-
-**Issue:** JavaFX modules not found  
-**Fix:** Maven handles JavaFX dependencies automatically via `pom.xml`.  
-
-Make sure you are building the project with Maven (`mvn clean package`) and **not** using `javac` directly.
-If the error mentions **NFX**, ensure that the NFX JAR is correctly downloaded and included in the project.  
-
-Refer to the official repository for setup details: https://github.com/xdsswar/nfx-lib 
-
-**Issue:** `Unsupported class file major version 67`  
-**Fix:** You need Java 17+ to build. Update your JDK.
+### v0.6.0
+- Full Linux and macOS support (minor known issues addressed)
+- Replaced AWT tray icon with `FxTrayIcon`
+- Implemented `WindowFactory` for platform-aware window borders
+- Removed `WindowBorder` on Linux for compatibility
+- Tasks display as `MM/DD/YEAR` when over 168 hours (1 week) past due
+- Fixed logout bug — previous session data no longer bleeds into new sessions
+- Updated JavaFX 21 → JavaFX 25
+- Updated `nfx-core` to v1.0.5
+- Changed font fully to Lexend across all views
+- Added 4 new task colors: Dark Slate Gray, Chocolate, Light Sea Green, Gold
+- Fixed overcrowded task pane layout when more than 4 cards are present
+- Fixed clock alignment bug when label length is below 21 characters
+- Settings pane centered; exit button centered within settings
+- Data folder now auto-created on launch if not found
+- Fixed hardcoded path issues for cross-machine compatibility
+- Overlay panes now have drop shadows
+- "No Task Found..." updated to "No Task Found... Click + to add your first task!"
+- Fixed version label in settings (was showing `0.5.1v`, now `v0.6.0`)
+- NFX no longer requires extra build instructions
 
 ---
 
-
-##  Contributing
-
-Contributions are welcome! Here's how you can help:
-
-- **Report Bugs** — Open an issue with detailed reproduction steps and environment information
-- **Suggest Features** — Share ideas via GitHub Discussions with use cases
-- **Submit Pull Requests** — Fork, implement with tests, and submit for review
-
-Please ensure all contributions adhere to the existing code style and architectural patterns.
-
----
-
-##  License
-
-This project is licensed under the **MIT License** — see [LICENSE](LICENSE) file for complete terms and conditions.
+### v0.5.0
+- `Confirmation` class — modal overlay for destructive actions (delete all data, exit, plugin downloads)
+- Settings panel — Dark Mode toggle, Export/Import data, Refresh, Exit
+- Dark mode preference persisted via `Settings.txt`
+- Auto-save with unsaved changes detection on CreateTask back navigation
+- Custom window border with theme-reactive color
+- New `Data/` folder structure for all user data
+- Migrated to `<SEP>` separator format — enables embedded links and image parsing without errors
+- GitHub hyperlink added to settings
+- General UI cleanup for a cleaner visual hierarchy
 
 ---
 
-##  Author
-
-**KSaifStack**
-- GitHub: [@KSaifStack](https://github.com/KSaifStack)
-- For questions or feature requests, [open an issue](https://github.com/KSaifStack/DockTask/issues)
+### v0.3.0 / v0.2.0
+- Rebuilt `CreateTaskUi` from scratch
+- Calendar refresh button + improved update propagation
+- Keyboard shortcuts added
+- `UpdateTaskUi` due date editing fixed
+- `UpdateTask` changes now reflected instantly in calendar view
+- Refactored legacy codebase for maintainability
+- **Memory optimization** — fixed `Timeline` leak causing RAM to climb from ~500MB to 1300MB+; reduced idle footprint significantly
 
 ---
 
-<p align="center">
-  <img src="https://github.com/user-attachments/assets/142dcb77-abfb-4551-86cd-4035ab3c019f" width="100" alt="DockTask Logo" />
-  <br>
-  <em>Built with Java 25 and JavaFX 25</em>
-</p>
+### v0.1.0 *(Initial Build)*
+- Login screen with error handling
+- Task listing with live countdown timers
+- `CreateTask` UI with custom `CustomDatePicker` class
+- `CalendarUi` — displays current day and monthly task layout
+- `UpdateTaskUi` — full task editing with overlaying window system
+- Live clock on main dashboard
+- Plugin button placeholder added to home screen
+- Error messages now replace previous ones instead of stacking
+- Shadows on button hover states
+
+---
+
+## Dev Notes
+
+### Origins
+> *"A to-do list flyout — a Windows flyout (or app) that will add a to-do list using Java. This project should give you an idea of how to make things work."*
+
+What started as a simple flyout experiment grew into a full desktop app across several months of iteration. Name history: **To-Do → PlanForge → DockTask**.
+
+### Known Issues (Linux)
+- AppTray icon may not reappear after minimizing in some distros
+- Window size slightly altered due to platform rendering differences
+- Addressed in v0.6.0 via `WindowFactory` and border removal toggle
+
+### Memory Optimization (v0.3.0)
+Identified a `Timeline` thread leak where countdown timers for removed or completed tasks continued running in the background. Fixed by pausing all Timeline threads on minimize/close and clearing expired entries from the active monitor list. Result: idle memory reduced from ~500MB peak to ~60MB.
+
+### On the Plugin System
+The plugin architecture will use a JAR-based loading strategy — plugins dropped into a `/plugins` directory are loaded at startup via a `DockTaskPlugin` interface. Plugins will have access to a `PluginContext` API exposing task data, UI registration hooks, an event bus, and isolated storage. First-party plugins will be developed alongside the API to validate the design before opening to community contributions.
+
+---
+
+*Built with Java 25 and JavaFX — started June 2025*
