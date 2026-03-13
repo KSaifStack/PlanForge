@@ -16,20 +16,49 @@
     <description>Desktop task manager with millisecond-accurate deadlines built with JavaFX</description>
     <url>https://github.com/KSaifStack/DockTask</url>
 
-    <!-- ===================== -->
-    <!-- Properties -->
-    <!-- ===================== -->
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>23</maven.compiler.source>
         <maven.compiler.target>23</maven.compiler.target>
         <javafx.version>25</javafx.version>
-        <mainClass>com.ksaifstack.docktask.Main</mainClass>
+        <mainClass>com.ksaifstack.docktask/com.ksaifstack.docktask.Main</mainClass>
     </properties>
 
-    <!-- ===================== -->
-    <!-- Repositories -->
-    <!-- ===================== -->
+    <profiles>
+        <profile>
+            <id>windows</id>
+            <activation>
+                <os><family>windows</family></os>
+            </activation>
+            <properties>
+                <package.type>EXE</package.type>
+                <package.icon>${project.basedir}/assets/windows/DockTask.ico</package.icon>
+            </properties>
+        </profile>
+        <profile>
+            <id>mac</id>
+            <activation>
+                <os><family>mac</family></os>
+            </activation>
+            <properties>
+                <package.type>DMG</package.type>
+                <package.icon>${project.basedir}/assets/mac/DockTask.icns</package.icon>
+            </properties>
+        </profile>
+        <profile>
+            <id>linux</id>
+            <activation>
+                <os>
+                    <name>Linux</name>
+                </os>
+            </activation>
+            <properties>
+                <package.type>DEB</package.type>
+                <package.icon>${project.basedir}/assets/linux/DockTask.png</package.icon>
+            </properties>
+        </profile>
+    </profiles>
+
     <repositories>
         <repository>
             <id>project-local-repo</id>
@@ -37,12 +66,8 @@
         </repository>
     </repositories>
 
-    <!-- ===================== -->
-    <!-- Dependencies -->
-    <!-- ===================== -->
     <dependencies>
 
-        <!-- JavaFX Core Modules -->
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-controls</artifactId>
@@ -67,23 +92,18 @@
             <version>${javafx.version}</version>
         </dependency>
 
-        <!-- NFX Core (local dependency) -->
         <dependency>
             <groupId>xss.it</groupId>
             <artifactId>nfx-core</artifactId>
             <version>1.0.4</version>
         </dependency>
 
-
-
-        <!-- Commons IO -->
         <dependency>
             <groupId>commons-io</groupId>
             <artifactId>commons-io</artifactId>
             <version>2.21.0</version>
         </dependency>
 
-        <!-- JNA (for native system integration) -->
         <dependency>
             <groupId>net.java.dev.jna</groupId>
             <artifactId>jna</artifactId>
@@ -96,7 +116,6 @@
             <version>5.18.1</version>
         </dependency>
 
-        <!-- JUnit (for future tests) -->
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter</artifactId>
@@ -110,16 +129,60 @@
             <version>4.0.1</version>
         </dependency>
 
-
     </dependencies>
 
-    <!-- ===================== -->
-    <!-- Build -->
-    <!-- ===================== -->
     <build>
         <plugins>
 
-            <!-- Maven Compiler Plugin -->
+            <plugin>
+                <groupId>org.openjfx</groupId>
+                <artifactId>javafx-maven-plugin</artifactId>
+                <version>0.0.8</version>
+                <configuration>
+                    <mainClass>${mainClass}</mainClass>
+                    <options>
+                        <option>--enable-native-access=javafx.graphics</option>
+                        <option>--enable-native-access=nfx.core</option>
+                        <option>--add-reads</option>
+                        <option>com.ksaifstack.docktask=ALL-UNNAMED</option>
+                    </options>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.panteleyev</groupId>
+                <artifactId>jpackage-maven-plugin</artifactId>
+                <version>1.6.0</version>
+                <executions>
+                    <execution>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>jpackage</goal>
+                        </goals>
+                        <configuration>
+                            <name>DockTask</name>
+                            <appVersion>0.6.0</appVersion>
+                            <vendor>KSaifStack</vendor>
+                            <destination>${project.build.directory}/installer</destination>
+                            <mainJar>docktask-0.6.0-SNAPSHOT.jar</mainJar>
+                            <mainClass>com.ksaifstack.docktask.Main</mainClass>
+                            <input>${project.build.directory}</input>
+                            <icon>${package.icon}</icon>
+                            <winMenu>true</winMenu>
+                            <winShortcut>true</winShortcut>
+                            <winPerUserInstall>true</winPerUserInstall>
+                            <winDirChooser>true</winDirChooser>
+                            <type>${package.type}</type>
+                            <javaOptions>
+                                <javaOption>-Dfile.encoding=UTF-8</javaOption>
+                                <javaOption>--enable-native-access=javafx.graphics</javaOption>
+                                <javaOption>--enable-native-access=nfx.core</javaOption>
+                            </javaOptions>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -127,20 +190,13 @@
                 <configuration>
                     <source>23</source>
                     <target>23</target>
+                    <compilerArgs>
+                        <arg>--add-reads</arg>
+                        <arg>com.ksaifstack.docktask=ALL-UNNAMED</arg>
+                    </compilerArgs>
                 </configuration>
             </plugin>
 
-            <!-- JavaFX Maven Plugin - For running during development -->
-            <plugin>
-                <groupId>org.openjfx</groupId>
-                <artifactId>javafx-maven-plugin</artifactId>
-                <version>0.0.8</version>
-                <configuration>
-                    <mainClass>${mainClass}</mainClass>
-                </configuration>
-            </plugin>
-
-            <!-- Maven JAR Plugin - Create executable JAR -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jar-plugin</artifactId>
@@ -156,7 +212,6 @@
                 </configuration>
             </plugin>
 
-            <!-- Maven Dependency Plugin - Copy dependencies to lib/ -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-dependency-plugin</artifactId>
@@ -178,7 +233,6 @@
 
         </plugins>
 
-        <!-- Include resources -->
         <resources>
             <resource>
                 <directory>src/main/resources</directory>
