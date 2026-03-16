@@ -94,7 +94,6 @@ public class TaskUi {
 
     public void start(WindowActions window, LoginUi loginUi) {
         setupUI(window, window.getScene(),loginUi);
-
     }
     public void start(Stage primaryStage, LoginUi loginUi) {
         WindowBorder windowBorder = new WindowBorder("DockTask - Home", rootStack, 980, 493);

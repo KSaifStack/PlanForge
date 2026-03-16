@@ -60,6 +60,7 @@ Download the self-contained installer — no JDK required, Java runtime is bundl
 ## Roadmap
 
 ### v0.7.0 — UX Polish *(In Progress)*
+- [ ] Redo TaskUi 
 - [ ] Widgets — movable UI elements (e.g. relocatable `+` button)
 - [ ] Button hover animations
 - [ ] Revamped task cards — slightly larger with description preview
@@ -178,5 +179,3 @@ Identified a `Timeline` thread leak where countdown timers for removed or comple
 The plugin architecture will use a JAR-based loading strategy — plugins dropped into a `/plugins` directory are loaded at startup via a `DockTaskPlugin` interface. Plugins will have access to a `PluginContext` API exposing task data, UI registration hooks, an event bus, and isolated storage. First-party plugins will be developed alongside the API to validate the design before opening to community contributions.
 
 ---
-
-*Built with Java 25 and JavaFX — started June 2025*
