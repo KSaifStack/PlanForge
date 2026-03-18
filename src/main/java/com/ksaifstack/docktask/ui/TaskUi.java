@@ -404,8 +404,6 @@ public class TaskUi {
         scene.getStylesheets().clear();
         String pick=UserData.importTheme(username);
 
-
-
         boolean shouldBeDark = pick.equals("Dark");
 
         scene.getStylesheets().clear();

@@ -227,7 +227,7 @@ public class LoginUi extends Application {
     }
 
     private void launchTaskUi(String username) {
-        TaskUi taskUi = new TaskUi(username);
+        NewTaskUi taskUi = new NewTaskUi(username);
         taskUi.start(appWindow, this);
     }
 

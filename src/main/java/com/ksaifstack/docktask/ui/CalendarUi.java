@@ -11,10 +11,8 @@ import java.time.*;
 public class CalendarUi {
     private String username;
     private YearMonth displayedMonth;
-
     private GridPane calendarGrid;
     private Label monthLabel;
-
     private Font lexend32;
     private Font lexend14;
     private Font lexend12;
