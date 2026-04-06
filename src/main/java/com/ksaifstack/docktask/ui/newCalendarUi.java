@@ -6,6 +6,7 @@ import javafx.scene.layout.*;
 import javafx.scene.text.Font;
 import java.time.*;
 import static com.ksaifstack.docktask.ui.FontLoader.setFont;
+// Displays Calandar which can display what task are in which days.
 
 public class newCalendarUi {
     private String username;
@@ -86,7 +87,7 @@ public class newCalendarUi {
         calendarGrid.setLayoutY(75);
         background.getChildren().add(calendarGrid);
 
-        // 42 is the total number of cells a calandar should have
+        // 42 is the total number of cells a calendar should have
         // Replace Cell setStyle with css to allow animations
         for(int i=0;i<42;i++){
             Pane cell = new Pane();
@@ -132,10 +133,14 @@ public class newCalendarUi {
             if(!isToday) {
                 cell.setId(null);
             }
-
             // Update day number
             dayOf.setText(String.valueOf(cellDate.getDayOfMonth()));
             dayOf.setTranslateX(5);
+
+            // Populates cells with how many task in each day
+            String[][] tasks = UserData.ReturnData(username);
+            Button task = DayhasTask(tasks,cellDate);
+
 
             // Gray out days not in current month
             dayOf.setStyle(cellDate.getMonth().equals(currMonth.getMonth())
@@ -144,6 +149,10 @@ public class newCalendarUi {
             // Reset cell children to just the day label
             cell.getChildren().clear();
             cell.getChildren().add(dayOf);
+            if(task!=null) {
+                cell.getChildren().add(task);
+                task.setId("noHoverBtn");
+            }
 
             // Add Today id
             if (isToday) {
@@ -152,5 +161,27 @@ public class newCalendarUi {
         }
     }
     // Method that adds a button that displays the amount of task someone has on that certain day
+    public Button DayhasTask(String[][] aTasks,LocalDate cellDate){
+        int count = 0;
+        // Loops through the array of tasks
+        for(String[] task:aTasks){
+            LocalDateTime taskDateTime = UserData.DataCheckerUI(task[0]);
+            if(taskDateTime.toLocalDate().equals(task)){
+                count++;
+            }
+        }
+        if(count==0){ return null; }
+        // Creates tasks after null check to ensure its returning null
+        Button taskLabel= new Button();
+        taskLabel.setFont(setFont(12));
+        taskLabel.setLayoutY(14);
+        taskLabel.setLayoutX(9);
+        taskLabel.setPrefSize(34, 25);
+        taskLabel.setWrapText(true);
+        taskLabel = new Button(count+"+");
 
+        return taskLabel;
+    }
 }
+
+
