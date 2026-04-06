@@ -141,10 +141,13 @@ public class WindowBorder extends NfxStage implements WindowActions {
             scene.getStylesheets().add(getClass().getResource("/css/LightTheme.css").toExternalForm());
             themeManager.setScene(scene);
             setScene(scene);
+
         }
+
 
         @Override public void setContent(Region newContent)  { rootPane.setCenter(newContent); }
         @Override public void colorChange(String cssColor)   { rootPane.setStyle(cssColor); }
         @Override public void setTitleLabel(String text)     { setTitle(text); }
     }
+
 }

@@ -87,13 +87,11 @@ public class newCalendarUi {
         background.getChildren().add(calendarGrid);
 
         // 42 is the total number of cells a calandar should have
+        // Replace Cell setStyle with css to allow animations
         for(int i=0;i<42;i++){
             Pane cell = new Pane();
-            cell.setStyle(cellExit);
+            cell.getStyleClass().add("cell");
             cell.setPrefSize(52, 45);
-            cell.setOnMouseEntered(e->cell.setStyle(cellHover));
-            cell.setOnMouseExited(e->cell.setStyle(cellExit));
-
             Label dayOf =  new Label();
             dayOf.setFont(setFont(12));
              cells[i]=cell;
@@ -108,8 +106,8 @@ public class newCalendarUi {
         return background;
 
     }
-    /* updates current Calendar data.
-    * First it should check if user is null.
+    /*
+    * Populates Calendar data.
     * if not null the function will populate months/cells with the right info.
      */
     public void updateCalender() {
@@ -129,6 +127,11 @@ public class newCalendarUi {
             Pane cell = cells[i];
             Label dayOf = dayLabels[i];
             LocalDate cellDate = startDate.plusDays(i);
+            // Removes today id
+            boolean isToday = cellDate.equals(today);
+            if(!isToday) {
+                cell.setId(null);
+            }
 
             // Update day number
             dayOf.setText(String.valueOf(cellDate.getDayOfMonth()));
@@ -142,18 +145,12 @@ public class newCalendarUi {
             cell.getChildren().clear();
             cell.getChildren().add(dayOf);
 
-            // Today highlighting
-            boolean isToday = cellDate.equals(today);
+            // Add Today id
             if (isToday) {
-                cell.setStyle("-fx-background-color: #767676; -fx-text-fill: #1b1b1b; -fx-border-color: #626262; -fx-border-radius: 4px; -fx-background-radius: 4px; -fx-border-width: 1px;");
-                cell.setOnMouseEntered(e -> cell.setStyle("-fx-background-color: #767676; -fx-border-color: #626262; -fx-border-radius: 4px; -fx-background-radius: 4px; -fx-border-width: 1px;"));
-                cell.setOnMouseExited(e -> cell.setStyle("-fx-background-color: #767676; -fx-border-color: #626262; -fx-border-radius: 4px; -fx-background-radius: 4px; -fx-border-width: 1px;"));
-            } else {
-                cell.setStyle(cellExit);
-                cell.setOnMouseEntered(e -> cell.setStyle(cellHover));
-                cell.setOnMouseExited(e -> cell.setStyle(cellExit));
+                cell.setId("today");
             }
         }
     }
+    // Method that adds a button that displays the amount of task someone has on that certain day
 
 }

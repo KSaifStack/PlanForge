@@ -137,7 +137,6 @@ public class LoginUi extends Application {
 
         Button loginBtn  = buildNavButton("Log-In",  405, 203.66, () -> showLoginPage(primaryStage));
         Button signUpBtn = buildNavButton("Sign-Up", 245, 203.66, () -> showSignupPage(primaryStage));
-
         root.getChildren().addAll(logo, titleLabel, orLabel, loginBtn, signUpBtn);
         return root;
     }
@@ -252,7 +251,6 @@ public class LoginUi extends Application {
         btn.setLayoutX(x);
         btn.setLayoutY(y);
         btn.setPrefSize(116, 104);
-        applyButtonStyle(btn);
         btn.setOnAction(e -> action.run());
         return btn;
     }
@@ -261,7 +259,6 @@ public class LoginUi extends Application {
         Button btn = new Button(text);
         btn.setFont(loadFont(14));
         btn.setPrefSize(width, height);
-        applyButtonStyle(btn);
         return btn;
     }
 
@@ -273,13 +270,7 @@ public class LoginUi extends Application {
         return btn;
     }
 
-    private void applyButtonStyle(Button btn) {
-        String normal = buttonStyle(BG_COLOR);
-        String hover  = buttonStyle(HOVER_COLOR);
-        btn.setStyle(normal);
-        btn.setOnMouseEntered(e -> btn.setStyle(hover));
-        btn.setOnMouseExited(e  -> btn.setStyle(normal));
-    }
+
 
     private String buttonStyle(String bgColor) {
         return String.format(
