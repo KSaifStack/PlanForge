@@ -16,7 +16,6 @@
 
 }
 
-
 #Daylabel {
     -fx-text-fill: #ffffff;
     -fx-background-color: #333333;
@@ -46,8 +45,12 @@
     -fx-border-color: #888888;
     -fx-border-radius: 4;
     -fx-background-radius: 4;
+    transition: -fx-background-color 300ms ease-out,
+                        -fx-scale-x 150ms ease-out,
+                        -fx-scale-y 150ms ease-out;
 }
 .button:hover {
+    transition: -fx-background-color 300ms ease-out;
     -fx-background-color: #555555;
 }
 .button:selected {
@@ -60,6 +63,36 @@
 }
 #noBorderBtn:hover {
  -fx-background-color: #555555;
+}
+#taskCountBtn {
+    -fx-background-color: #333333;
+    -fx-background-insets: 0;
+}
+
+
+.calendar-cell {
+    -fx-background-color: #333333;
+    -fx-text-fill: #eeeeee;
+    -fx-border-color: #626262;
+    -fx-border-radius: 4;
+    -fx-background-radius: 4;
+    transition: -fx-background-color 300ms ease-out,
+                    -fx-scale-x 150ms ease-out,
+                    -fx-scale-y 150ms ease-out;
+
+}
+.calendar-cell:hover{
+    -fx-scale-x: 1.05;
+    -fx-scale-y: 1.05;
+    -fx-background-color: #d3d3d3;
+}
+
+#today {
+-fx-background-color: #767676;
+-fx-text-fill: #1b1b1b; -fx-border-color: #626262;
+-fx-border-radius: 4px;
+-fx-background-radius: 4px;
+ -fx-border-width: 1px;
 }
 
 /* Scroll Pane */

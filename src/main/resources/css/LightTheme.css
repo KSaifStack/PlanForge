@@ -34,7 +34,12 @@
 #buttonhover{
     -fx-background-color: #d3d3d3;
 }
-.cell {
+#taskCountBtn {
+    -fx-background-color: #ffffff;
+    -fx-background-insets: 0;
+}
+
+.calendar-cell {
     -fx-background-color: #ffffff;
     -fx-text-fill: #1b1b1b;
     -fx-border-color: #626262;
@@ -45,7 +50,7 @@
                     -fx-scale-y 150ms ease-out;
 
 }
-.cell:hover{
+.calendar-cell:hover{
     -fx-scale-x: 1.05;
     -fx-scale-y: 1.05;
     -fx-background-color: #d3d3d3;

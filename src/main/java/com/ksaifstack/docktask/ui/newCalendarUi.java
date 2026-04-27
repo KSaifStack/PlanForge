@@ -91,7 +91,7 @@ public class newCalendarUi {
         // Replace Cell setStyle with css to allow animations
         for(int i=0;i<42;i++){
             Pane cell = new Pane();
-            cell.getStyleClass().add("cell");
+            cell.getStyleClass().add("calendar-cell");
             cell.setPrefSize(52, 45);
             Label dayOf =  new Label();
             dayOf.setFont(setFont(12));
@@ -151,7 +151,7 @@ public class newCalendarUi {
             cell.getChildren().add(dayOf);
             if(task!=null) {
                 cell.getChildren().add(task);
-                task.setId("noHoverBtn");
+                task.setId("taskCountBtn");
             }
 
             // Add Today id
@@ -166,19 +166,20 @@ public class newCalendarUi {
         // Loops through the array of tasks
         for(String[] task:aTasks){
             LocalDateTime taskDateTime = UserData.DataCheckerUI(task[0]);
-            if(taskDateTime.toLocalDate().equals(task)){
+            if(taskDateTime.toLocalDate().equals(cellDate)){
                 count++;
             }
         }
         if(count==0){ return null; }
         // Creates tasks after null check to ensure its returning null
-        Button taskLabel= new Button();
+        Button taskLabel = new Button(count+"+");
         taskLabel.setFont(setFont(12));
-        taskLabel.setLayoutY(14);
-        taskLabel.setLayoutX(9);
+        taskLabel.setAlignment(Pos.CENTER);
+        taskLabel.setLayoutX(9);   // horizontally centered in 52px cell
+        taskLabel.setLayoutY(15);  // pushed to bottom of 45px cell
         taskLabel.setPrefSize(34, 25);
         taskLabel.setWrapText(true);
-        taskLabel = new Button(count+"+");
+
 
         return taskLabel;
     }

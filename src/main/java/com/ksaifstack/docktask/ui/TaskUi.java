@@ -201,8 +201,8 @@ public class TaskUi {
             System.out.println("Settings Button was pressed.");
             Settings Settings = new Settings(username);
             TaskUi self = this;
-            Pane SettingPane = Settings.getContent(lexend14, lexend32,window,self);
-            pane.getChildren().add(SettingPane);
+           // Pane SettingPane = Settings.getContent(lexend14, lexend32,window,self);
+            //pane.getChildren().add(SettingPane);
         });
 
         Button PlButton = new Button("Plugins");

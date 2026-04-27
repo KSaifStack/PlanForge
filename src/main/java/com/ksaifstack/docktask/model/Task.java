@@ -5,8 +5,8 @@ package com.ksaifstack.docktask.model;
  * -Create tasks with there own ids
  * -Allow the user the give a title for the task
  * -Allow the user to give a description for a task 
- * -allow the user the put a task over the other
- * -allow the user to change/update its status
+ * -Allow the user the put a task over the other
+ * -Allow the user to change/update its status
  * @author  Kareem
  * @version August 26, 2025
  */
