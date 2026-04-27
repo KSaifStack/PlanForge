@@ -220,35 +220,39 @@ public class TaskUi {
         });
 
         Button createtaskb = new Button("+");
-        createtaskb.setFont(Font.font(60));
-        createtaskb.setLayoutX(775);
-        createtaskb.setLayoutY(140.00);
-        createtaskb.setPrefWidth(150);
-        createtaskb.setPrefHeight(150);
-        pane.getChildren().add(createtaskb);
 
-        createtaskb.setOnAction(e -> {
-            if (createTaskUi == null) {
-                createTaskUi = new CreateTaskUi(username, () -> {
-                    refreshTaskList();
-                    calendarUi.updateCal();
-                    rootStack.getChildren().remove(createOverlay);
-                });
-                createOverlay = createTaskUi.getContent();
-            }
-
-            if (!createTaskUi.isOpen()) {
-                createOverlay.setVisible(true);
-                if (!rootStack.getChildren().contains(createOverlay)) {
-                    rootStack.getChildren().add(createOverlay);
-                }
-            }
-        });
-
+        // Load saved widget position and size (defaults to 775, 140, 150 if not saved yet)
+        double[] widgetPos = UserData.loadWidgetPosition(username);
 
         Createtasktext.setFont(lexend14);
-        Createtasktext.setLayoutX(805);
-        Createtasktext.setLayoutY(300);
+        Createtasktext.setPrefWidth(100);
+
+        com.ksaifstack.docktask.util.DraggableWidget.makeDraggable(
+            createtaskb, 
+            Createtasktext, 
+            widgetPos[0], 
+            widgetPos[1], 
+            widgetPos[2], 
+            (x, y, size) -> UserData.saveWidgetPosition(username, x, y, size),
+            () -> {
+                if (createTaskUi == null) {
+                    createTaskUi = new CreateTaskUi(username, () -> {
+                        refreshTaskList();
+                        calendarUi.updateCal();
+                        rootStack.getChildren().remove(createOverlay);
+                    });
+                    createOverlay = createTaskUi.getContent();
+                }
+
+                if (!createTaskUi.isOpen()) {
+                    createOverlay.setVisible(true);
+                    if (!rootStack.getChildren().contains(createOverlay)) {
+                        rootStack.getChildren().add(createOverlay);
+                    }
+                }
+            }
+        );
+
         pane.getChildren().add(Createtasktext);
 
         // Clock + sun/moon

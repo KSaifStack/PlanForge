@@ -84,32 +84,39 @@ public class NewTaskUi {
                 () -> currentCalendar.updateCalender()
         );
 
-        // Create Task button
+        // Create Task button — draggable widget
         Button createtaskb = new Button("+");
-        createtaskb.setFont(setFont(60));
-        createtaskb.setLayoutX(775);
-        createtaskb.setLayoutY(140.00);
-        createtaskb.setPrefWidth(150);
-        createtaskb.setPrefHeight(150);
-        createtaskb.setOnAction(e -> {
-            if (createTaskUi == null) {
-                createTaskUi = new CreateTaskUi(username, () -> {
-                    currentTaskListUi.refreshTaskList();
-                    currentCalendar.updateCalender();
-                    rootStack.getChildren().remove(createOverlay);
-                });
-                createOverlay = createTaskUi.getContent();
-            }
-            if (!createTaskUi.isOpen()) {
-                createOverlay.setVisible(true);
-                if (!rootStack.getChildren().contains(createOverlay)) {
-                    rootStack.getChildren().add(createOverlay);
+
+        // Load saved widget position and size (defaults to 775, 140, 150 if not saved yet)
+        double[] widgetPos = UserData.loadWidgetPosition(username);
+
+        Createtasktext.setFont(setFont(14));
+        Createtasktext.setPrefWidth(100);
+
+        com.ksaifstack.docktask.util.DraggableWidget.makeDraggable(
+            createtaskb, 
+            Createtasktext, 
+            widgetPos[0], 
+            widgetPos[1], 
+            widgetPos[2], 
+            (x, y, size) -> UserData.saveWidgetPosition(username, x, y, size),
+            () -> {
+                if (createTaskUi == null) {
+                    createTaskUi = new CreateTaskUi(username, () -> {
+                        currentTaskListUi.refreshTaskList();
+                        currentCalendar.updateCalender();
+                        rootStack.getChildren().remove(createOverlay);
+                    });
+                    createOverlay = createTaskUi.getContent();
+                }
+                if (!createTaskUi.isOpen()) {
+                    createOverlay.setVisible(true);
+                    if (!rootStack.getChildren().contains(createOverlay)) {
+                        rootStack.getChildren().add(createOverlay);
+                    }
                 }
             }
-        });
-        Createtasktext.setFont(setFont(14));
-        Createtasktext.setLayoutX(805);
-        Createtasktext.setLayoutY(300);
+        );
         pane.getChildren().add(Createtasktext);
 
         pane.getChildren().add(createtaskb);
@@ -132,9 +139,13 @@ public class NewTaskUi {
         Button logoutBtn = new Button("Logout");
         logoutBtn.setFont(setFont(12));
         logoutBtn.setPrefSize(67, 30);
+        Scene finalScene = scene;
         logoutBtn.setOnAction(e -> {
+            loginUi.showBack((Stage)window);
+            window.setHeight(378);
+            window.setWidth(766);
+            WindowBorder.logOut(finalScene);
             cleanup();
-            loginUi.showBack((Stage) window);
         });
 
         Region topSpace = new Region();

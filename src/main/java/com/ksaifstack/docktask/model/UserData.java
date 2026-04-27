@@ -75,7 +75,8 @@ public class UserData {
     //Creates Setting Data
     public static void createSet(String username){
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(SettData, true))) {
-            writer.write(username + "<SEP>" +"Light"+"<SEP>"+"textTrue");
+            // username<SEP>theme<SEP>textTrue<SEP>widgetX<SEP>widgetY<SEP>widgetSize
+            writer.write(username + "<SEP>" +"Light"+"<SEP>"+"textTrue"+"<SEP>"+"775"+"<SEP>"+"140"+"<SEP>"+"150");
             writer.newLine();
             writer.close();
             System.out.println("Setting data created!.");
@@ -90,7 +91,11 @@ public class UserData {
             while ((line = reader.readLine()) != null) {
                 String[] parts = line.split("<SEP>");
                 if (parts[0].equals(username)) {
-                    lines.add(username + "<SEP>" + theme + "<SEP>" + parts[2]);
+                    // Preserve widget position and size if it exists, otherwise use defaults
+                    String wx = parts.length >= 5 ? parts[3] : "775";
+                    String wy = parts.length >= 5 ? parts[4] : "140";
+                    String wsize = parts.length >= 6 ? parts[5] : "150";
+                    lines.add(username + "<SEP>" + theme + "<SEP>" + parts[2] + "<SEP>" + wx + "<SEP>" + wy + "<SEP>" + wsize);
                 } else {
                     lines.add(line);
                 }
@@ -109,6 +114,53 @@ public class UserData {
         } catch (IOException e) {
             System.out.println("Error with changing Setting data!: "+e.getMessage());
         }
+    }
+
+    // Saves the widget (+ button) position and size for a user
+    public static void saveWidgetPosition(String username, double x, double y, double size) {
+        List<String> lines = new ArrayList<>();
+        try (BufferedReader reader = new BufferedReader(new FileReader(SettData))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                String[] parts = line.split("<SEP>");
+                if (parts[0].equals(username)) {
+                    String theme = parts.length >= 2 ? parts[1] : "Light";
+                    String textFlag = parts.length >= 3 ? parts[2] : "textTrue";
+                    lines.add(username + "<SEP>" + theme + "<SEP>" + textFlag + "<SEP>" + (int)x + "<SEP>" + (int)y + "<SEP>" + (int)size);
+                } else {
+                    lines.add(line);
+                }
+            }
+        } catch (IOException e) {
+            System.out.println("Error reading settings for widget pos: " + e.getMessage());
+        }
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(SettData))) {
+            for (String line : lines) {
+                writer.write(line);
+                writer.newLine();
+            }
+        } catch (IOException e) {
+            System.out.println("Error saving widget position: " + e.getMessage());
+        }
+    }
+
+    // Loads the widget (+ button) position and size for a user; returns default {775, 140, 150} if not found
+    public static double[] loadWidgetPosition(String username) {
+        try (BufferedReader reader = new BufferedReader(new FileReader(SettData))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                String[] parts = line.split("<SEP>");
+                if (parts[0].equals(username) && parts.length >= 5) {
+                    double wx = Double.parseDouble(parts[3].trim());
+                    double wy = Double.parseDouble(parts[4].trim());
+                    double wsize = parts.length >= 6 ? Double.parseDouble(parts[5].trim()) : 150.0;
+                    return new double[]{wx, wy, wsize};
+                }
+            }
+        } catch (Exception e) {
+            System.out.println("Error loading widget position: " + e.getMessage());
+        }
+        return new double[]{775, 140, 150};
     }
 
     //Imports theme changes to settings
