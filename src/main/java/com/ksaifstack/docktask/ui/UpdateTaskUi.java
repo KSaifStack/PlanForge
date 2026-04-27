@@ -84,12 +84,7 @@ public class UpdateTaskUi {
                 UserData.updateTask(username, taskname,upName[0], upDesc[0],upRank[0],upGroup[0], upDate[0]);
             }
         });
-        taskCheck.setOnMouseEntered(e -> taskCheck.setStyle(
-                " -fx-border-color: #626262; -fx-border-radius: 4px; -fx-background-radius: 4px; -fx-border-width: 1px;"
-        ));
-        taskCheck.setOnMouseExited(e -> taskCheck.setStyle(
-                " -fx-border-color: #626262; -fx-border-radius: 4px; -fx-background-radius: 4px; -fx-border-width: 1px;"
-        ));
+
         pane.getChildren().add(taskCheck);
 
         Label nameLabel = new Label("Task Name:");
@@ -108,12 +103,7 @@ public class UpdateTaskUi {
 
         Button checkDesc = createStyledButton("Done", 164, 250, 52, 26, Font.font(lexend14.getName(), 12));
         //Button taskCheck = createStyledButton("Done", 180, 96, 48, 26, Font.font(lexend14.getName(), 12));
-        checkDesc.setOnMouseEntered(e -> checkDesc.setStyle(
-                " -fx-border-color: #626262; -fx-border-radius: 4px; -fx-background-radius: 4px; -fx-border-width: 1px;"
-        ));
-        checkDesc.setOnMouseExited(e -> checkDesc.setStyle(
-                " -fx-border-color: #626262; -fx-border-radius: 4px; -fx-background-radius: 4px; -fx-border-width: 1px;"
-        ));
+
         checkDesc.setOnAction(e ->{
             String input = descArea.getText().trim();
             upDesc[0]=input;
@@ -155,14 +145,7 @@ public class UpdateTaskUi {
 
 
             });
-            rankBtn.setOnMouseEntered(e -> {
-                if(upRank[0]!=num){
-                    rankBtn.setStyle(" -fx-border-color: #626262; -fx-border-radius: 4px; -fx-background-radius: 4px; -fx-border-width: 1px;");
-                }
-            });
-            rankBtn.setOnMouseExited(e -> {
-                updateButtonStyle(rankBtn, num == upRank[0]);
-            });
+
 
             pane.getChildren().add(rankBtn);
             x += 37.8;
@@ -185,12 +168,7 @@ public class UpdateTaskUi {
         pane.getChildren().add(groupText);
 
         Button groupCheck = createStyledButton("Done", 390, 200.5,52, 26, Font.font(lexend14.getName(), 12));
-        groupCheck.setOnMouseEntered(e -> groupCheck.setStyle(
-                "  -fx-border-color: #626262; -fx-border-radius: 4px; -fx-background-radius: 4px; -fx-border-width: 1px;"
-        ));
-        groupCheck.setOnMouseExited(e -> groupCheck.setStyle(
-                "-fx-border-color: #626262; -fx-border-radius: 4px; -fx-background-radius: 4px; -fx-border-width: 1px;"
-        ));
+
         groupCheck.setOnAction(e ->{
             String input = groupText.getText().trim();
             upGroup[0]=input;
@@ -199,12 +177,7 @@ public class UpdateTaskUi {
         pane.getChildren().add(groupCheck);
 
         Button trash = createStyledButton("Trash", 487, 359, 62, 54, Font.font(lexend14.getName(), 12));
-        trash.setOnMouseEntered(e -> trash.setStyle(
-                " -fx-border-color: #626262; -fx-border-radius: 4px; -fx-background-radius: 4px; -fx-border-width: 1px;"
-        ));
-        trash.setOnMouseExited(e -> trash.setStyle(
-                " -fx-border-color: #626262; -fx-border-radius: 4px; -fx-background-radius: 4px; -fx-border-width: 1px;"
-        ));
+
         Font finalLexend1 = lexend14;
         Font finalLexend2 = lexend30;
         trash.setOnAction(e-> {
@@ -237,12 +210,7 @@ public class UpdateTaskUi {
         datapicker.setLayoutX(-45);
         datapicker.setLayoutY(255);
         Button timeInput = createStyledButton("Done", 300, 353, 52, 26, Font.font(lexend14.getName(), 12));
-        timeInput.setOnMouseEntered(e -> timeInput.setStyle(
-                "  -fx-border-color: #626262; -fx-border-radius: 4px; -fx-background-radius: 4px; -fx-border-width: 1px;"
-        ));
-        timeInput.setOnMouseExited(e -> timeInput.setStyle(
-                " -fx-border-color: #626262; -fx-border-radius: 4px; -fx-background-radius: 4px; -fx-border-width: 1px;"
-        ));
+
         pane.getChildren().addAll(datapicker,timeInput);
         timeInput.setOnAction(e-> {
             if(datapicker.getDateTime()==null){
@@ -260,12 +228,7 @@ public class UpdateTaskUi {
 
 
         Button goBack = createStyledButton("Back", 48.8, 359, 64, 56, lexend14);
-        goBack.setOnMouseEntered(e -> goBack.setStyle(
-                "  -fx-border-color: #626262; -fx-border-radius: 4px; -fx-background-radius: 4px; -fx-border-width: 1px;"
-        ));
-        goBack.setOnMouseExited(e -> goBack.setStyle(
-                " -fx-border-color: #626262; -fx-border-radius: 4px; -fx-background-radius: 4px; -fx-border-width: 1px;"
-        ));
+
 
         goBack.setOnAction(e-> {
             onUpdate.run();
@@ -285,7 +248,6 @@ public class UpdateTaskUi {
         btn.setLayoutY(y);
         btn.setPrefSize(w, h);
         btn.setFont(font);
-        btn.setStyle("  -fx-border-color: #626262; -fx-border-radius: 4px; -fx-background-radius: 4px; -fx-border-width: 1px;");
         return btn;
     }
     private void updateButtonStyle(Button btn, boolean isSelected) {
