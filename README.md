@@ -64,6 +64,7 @@ Download the self-contained installer — no JDK required, Java runtime is bundl
 - [ ] Fullscreen task description view (button in bottom-right of UpdateTask)
 - [ ] Redo data functions — each `data.txt` gets a `date.txt` for display history
 - [ ] Revamp task handle from o(log^2n) to o(1)
+- [ ] Add new sort formula priorityScore = (groupWeight * importance) / (timeRemaining + 1)
 - (Done) Widgets — movable UI elements (e.g. relocatable `+` button)
 - (Done) Redo TaskUi
 - (Done) Redo CalendarUi
