@@ -3,6 +3,7 @@ package com.ksaifstack.docktask.ui;
 import com.dustinredmond.fxtrayicon.FXTrayIcon;
 import com.ksaifstack.docktask.model.UserData;
 import com.ksaifstack.docktask.util.AppTray;
+import com.ksaifstack.docktask.util.DraggableWidget;
 import com.ksaifstack.docktask.util.themeManager;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -84,16 +85,16 @@ public class NewTaskUi {
                 () -> currentCalendar.updateCalender()
         );
 
-        // Create Task button — draggable widget
         Button createtaskb = new Button("+");
 
         // Load saved widget position and size (defaults to 775, 140, 150 if not saved yet)
         double[] widgetPos = UserData.loadWidgetPosition(username);
-
+        String Visvalue = UserData.importSetting(username,2);
+        if(Visvalue.equals("textFalse")){Createtasktext.setVisible(false);}
         Createtasktext.setFont(setFont(14));
         Createtasktext.setPrefWidth(100);
 
-        com.ksaifstack.docktask.util.DraggableWidget.makeDraggable(
+        DraggableWidget.makeDraggable(
             createtaskb, 
             Createtasktext, 
             widgetPos[0], 
@@ -155,7 +156,6 @@ public class NewTaskUi {
         leftPanel.setPadding(new Insets(8));
         leftPanel.setPrefWidth(200);
 
-        // Settings button — same pattern as TaskUi
         Button settingsBtn = new Button("Settings");
         settingsBtn.setFont(setFont(14));
         settingsBtn.setLayoutX(893.00);
@@ -188,11 +188,9 @@ public class NewTaskUi {
         timeLabelBox.setAlignment(Pos.CENTER);
         timeLabelBox.setTranslateY(isNight ? -5 : -10);
 
-        // Clock timeline — stored as field so cleanup() can stop it
         clockTimeline = dateLine(timeLabel, iconView, timeLabelBox);
         clockTimeline.play();
 
-        // Countdown timeline — updates task card due/warning labels + sends notifications
         countdownTimeline = buildCountdownTimeline();
         countdownTimeline.play();
 
@@ -224,20 +222,30 @@ public class NewTaskUi {
         window.setTitle("DockTask - Home");
         window.setWidth(990);
         window.setHeight(531);
+        scene.getStylesheets().clear();
+        String pick=UserData.importTheme(username);
+
+
+        boolean shouldBeDark = pick.equals("Dark");
+
+        scene.getStylesheets().clear();
+        String cssFile = shouldBeDark ? "/css/DarkTheme.css" : "/css/LightTheme.css";
+        scene.getStylesheets().add(getClass().getResource(cssFile).toExternalForm());
+
+        if (themeManager.isDarkMode() != shouldBeDark) {
+            themeManager.changeTheme();
+        }
+
     }
 
-    // -------------------------------------------------------------------------
-    // Countdown — updates due/warning labels and fires tray notifications
-    // -------------------------------------------------------------------------
+
     private Timeline buildCountdownTimeline() {
         Timeline tl = new Timeline(new KeyFrame(Duration.seconds(1), e -> {
             if (currentTaskListUi == null) return;
 
-            // Defensive copy to avoid ConcurrentModificationException
             List<taskListUi.TaskEntry> snapshot = new ArrayList<>(currentTaskListUi.getTaskEntries());
             LocalDateTime now = LocalDateTime.now();
 
-            // Clean up stale notification keys
             lastNotifiedStage.keySet().removeIf(key -> {
                 String[] parts = key.split("_", 2);
                 if (parts.length < 2) return false;
@@ -294,7 +302,6 @@ public class NewTaskUi {
                     entry.warningLabel.setText("Due Soon!");
                 }
 
-                // Fire tray notification once per stage transition
                 String taskKey = entry.taskName + "_" + entry.dueTime.toString();
                 if (stage != null && !stage.equals(lastNotifiedStage.get(taskKey))) {
                     lastNotifiedStage.put(taskKey, stage);
@@ -302,7 +309,6 @@ public class NewTaskUi {
                 }
             }
 
-            // Keep scroll policy in sync
             currentTaskListUi.updateScrollPolicy();
         }));
 
@@ -330,15 +336,12 @@ public class NewTaskUi {
         }
     }
 
-    // -------------------------------------------------------------------------
-    // Clock
-    // -------------------------------------------------------------------------
+
     public ImageView getSun() {
         ImageView sun = new ImageView(themeManager.isDarkMode() ? whiteSunImg : sunImg);
         sun.setFitWidth(65);
         sun.setFitHeight(65);
         sun.setPreserveRatio(false);
-        // Moved down slightly compared to before
         HBox.setMargin(sun, new Insets(4, 0, 0, 0));
         return sun;
     }
@@ -348,7 +351,6 @@ public class NewTaskUi {
         moon.setFitWidth(55);
         moon.setFitHeight(55);
         moon.setPreserveRatio(false);
-        // Moved down slightly compared to before
         HBox.setMargin(moon, new Insets(4, 0, 0, 0));
         return moon;
     }
@@ -361,7 +363,6 @@ public class NewTaskUi {
         HBox.setHgrow(timeLabel, Priority.ALWAYS);
         timeLabelBox.setClip(null);
 
-        // Store as field so cleanup() can remove it — prevents listener accumulation
         themeListener = () -> {
             int hour = LocalDateTime.now().getHour();
             if (hour >= 18 || hour < 6) {
@@ -420,11 +421,13 @@ public class NewTaskUi {
         lastNotifiedStage.clear();
         System.gc();
     }
-    public void createTaskVisabitly(){
+    public boolean createTaskVisabitly(){
         if(Createtasktext.isVisible()){
             Createtasktext.setVisible(false);
+            return false;
         }else{
             Createtasktext.setVisible(true);
+            return true;
         }
     }
 }

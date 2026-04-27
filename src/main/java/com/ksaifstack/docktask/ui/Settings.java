@@ -25,6 +25,7 @@ import java.io.IOException;
 
 public class Settings {
     private String username = null;
+    private boolean createTaskVis = true;
     private Confirmation confirmation = new Confirmation();
 
     //Runnable
@@ -180,7 +181,10 @@ public class Settings {
         //In main ui there is a button below which as '(Create Task)'.
         //This button will allow user to remove it or not.
         Button textToggle = createSet("Hide Create Text",lexend14);
-        textToggle.setOnAction(e->{ t.createTaskVisabitly();
+
+        textToggle.setOnAction(e->{
+            boolean viss = t.createTaskVisabitly();
+            createTaskVis=viss;
         });
 
         leftSide.getChildren().addAll(darkswitch,importData,refreshApp);
@@ -213,7 +217,7 @@ public class Settings {
             else{
                 currentTheme="Light";
             }
-            UserData.updateSet(username, currentTheme);
+            UserData.updateSet(username, currentTheme,createTaskVis);
             pane.setVisible(false);
         });
 
