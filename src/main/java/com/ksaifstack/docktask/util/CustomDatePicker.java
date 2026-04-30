@@ -1,8 +1,7 @@
-package com.ksaifstack.docktask.ui;
+package com.ksaifstack.docktask.util;
 
 import javafx.scene.control.*;
 import javafx.scene.layout.Pane;
-import javafx.scene.text.Font;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;

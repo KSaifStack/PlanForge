@@ -1,6 +1,6 @@
 import com.ksaifstack.docktask.model.Task;
 import com.ksaifstack.docktask.model.UserData;
-import com.ksaifstack.docktask.util.TaskManagement;
+import com.ksaifstack.docktask.model.TaskManagement;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;

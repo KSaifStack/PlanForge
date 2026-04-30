@@ -4,6 +4,7 @@ import com.dustinredmond.fxtrayicon.FXTrayIcon;
 import com.ksaifstack.docktask.model.UserData;
 import com.ksaifstack.docktask.util.AppTray;
 import com.ksaifstack.docktask.util.DraggableWidget;
+import com.ksaifstack.docktask.util.WindowActions;
 import com.ksaifstack.docktask.util.themeManager;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -29,7 +30,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static com.ksaifstack.docktask.ui.FontLoader.setFont;
+import static com.ksaifstack.docktask.util.FontLoader.setFont;
 
 /*
  * Main Application Page
@@ -147,7 +148,7 @@ public class TaskUi {
             loginUi.showBack((Stage)window);
             window.setHeight(378);
             window.setWidth(766);
-            WindowBorder.logOut(finalScene);
+            WindowBorderUi.logOut(finalScene);
             cleanup();
         });
 
@@ -165,7 +166,7 @@ public class TaskUi {
         settingsBtn.setPrefWidth(76.00);
         settingsBtn.setPrefHeight(30.00);
         settingsBtn.setOnAction(e -> {
-            Settings settings = new Settings(username);
+            SettingsUi settings = new SettingsUi(username);
             TaskUi self = this;
             Pane settingsPane = settings.getContent(setFont(14), setFont(32), window, self);
             pane.getChildren().add(settingsPane);

@@ -5,7 +5,7 @@ import javafx.scene.control.*;
 import javafx.scene.layout.*;
 
 import java.time.*;
-import static com.ksaifstack.docktask.ui.FontLoader.setFont;
+import static com.ksaifstack.docktask.util.FontLoader.setFont;
 // Displays Calandar which can display what task are in which days.
 
 public class CalendarUi {

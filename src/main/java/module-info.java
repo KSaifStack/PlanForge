@@ -19,4 +19,6 @@ module com.ksaifstack.docktask {
     exports com.ksaifstack.docktask;
     exports com.ksaifstack.docktask.ui;
     exports com.ksaifstack.docktask.model;
+    exports com.ksaifstack.docktask.util;
+    opens com.ksaifstack.docktask.util to javafx.fxml, javafx.graphics;
 }

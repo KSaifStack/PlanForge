@@ -1,4 +1,4 @@
-package com.ksaifstack.docktask.ui;
+package com.ksaifstack.docktask.util;
 
 import javafx.beans.property.ReadOnlyBooleanProperty;
 import javafx.event.EventHandler;

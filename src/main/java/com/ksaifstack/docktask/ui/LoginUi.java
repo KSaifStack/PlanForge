@@ -1,6 +1,7 @@
 package com.ksaifstack.docktask.ui;
 
 import com.ksaifstack.docktask.model.UserData;
+import com.ksaifstack.docktask.util.WindowActions;
 import javafx.animation.*;
 import javafx.application.Application;
 import javafx.application.HostServices;
@@ -108,7 +109,7 @@ public class LoginUi extends Application {
         primaryStage.setTitle("DockTask");
         primaryStage.setResizable(false);
 
-         appWindow = WindowBorder.create("DockTask", buildHomePage(primaryStage), WINDOW_WIDTH, WINDOW_HEIGHT);
+         appWindow = WindowBorderUi.create("DockTask", buildHomePage(primaryStage), WINDOW_WIDTH, WINDOW_HEIGHT);
         ((Stage)appWindow).setWidth(WINDOW_WIDTH);
         ((Stage)appWindow).setHeight(WINDOW_HEIGHT);
         ((Stage)appWindow).show();

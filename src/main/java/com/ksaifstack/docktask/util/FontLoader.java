@@ -1,4 +1,4 @@
-package com.ksaifstack.docktask.ui;
+package com.ksaifstack.docktask.util;
 import javafx.scene.text.Font;
 /*
 * Font Loader

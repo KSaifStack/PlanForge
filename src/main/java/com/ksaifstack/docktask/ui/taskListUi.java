@@ -16,7 +16,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.function.Consumer;
 
-import static com.ksaifstack.docktask.ui.FontLoader.setFont;
+import static com.ksaifstack.docktask.util.FontLoader.setFont;
 
 public class taskListUi {
 

@@ -11,6 +11,7 @@ Remove create task text at the bottom
  **/
 
 import com.ksaifstack.docktask.model.UserData;
+import com.ksaifstack.docktask.util.WindowActions;
 import com.ksaifstack.docktask.util.themeManager;
 import javafx.application.Platform;
 import javafx.scene.control.*;
@@ -23,13 +24,13 @@ import java.io.File;
 import java.io.IOException;
 
 
-public class Settings {
+public class SettingsUi {
     private String username = null;
     private boolean createTaskVis = true;
-    private Confirmation confirmation = new Confirmation();
+    private ConfirmationUi confirmation = new ConfirmationUi();
 
     //Runnable
-    public Settings(String username){
+    public SettingsUi(String username){
         this.username=username;
     }
     public Pane getContent(Font lexend14, Font lexend32, WindowActions window, TaskUi t){

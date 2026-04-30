@@ -1,5 +1,6 @@
 package com.ksaifstack.docktask.ui;
 
+import com.ksaifstack.docktask.util.WindowActions;
 import com.ksaifstack.docktask.util.themeManager;
 import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
@@ -15,14 +16,14 @@ import javafx.scene.layout.*;
 
 import java.io.InputStream;
 
-public class WindowBorder extends NfxStage implements WindowActions {
+public class WindowBorderUi extends NfxStage implements WindowActions {
 
     private static final boolean IS_WINDOWS =
             System.getProperty("os.name", "").toLowerCase().contains("win");
 
     public static WindowActions create(String title, Region content, double width, double height) {
         if (IS_WINDOWS) {
-            return new WindowBorder(title, content, width, height);
+            return new WindowBorderUi(title, content, width, height);
         } else {
             return new DefaultWindow(title, content, width, height);
         }
@@ -37,11 +38,11 @@ public class WindowBorder extends NfxStage implements WindowActions {
     private double xOffset = 0;
     private double yOffset = 0;
 
-    private static final Image whiteIcon = new Image(WindowBorder.class.getResourceAsStream("/images/lightIcon.png"));
-    private static final Image darkIcon  = new Image(WindowBorder.class.getResourceAsStream("/images/darkIcon.png"));
+    private static final Image whiteIcon = new Image(WindowBorderUi.class.getResourceAsStream("/images/lightIcon.png"));
+    private static final Image darkIcon  = new Image(WindowBorderUi.class.getResourceAsStream("/images/darkIcon.png"));
     private static final ImageView pic   = new ImageView(whiteIcon);
 
-    public WindowBorder(String title, Region content, double width, double height) {
+    public WindowBorderUi(String title, Region content, double width, double height) {
         setTitle(title);
 
         rootPane = new BorderPane();
@@ -115,7 +116,7 @@ public class WindowBorder extends NfxStage implements WindowActions {
     protected double getTitleBarHeight() { return 40; }
 
     public static void logOut(Scene scene) {
-        scene.getStylesheets().add(WindowBorder.class.getResource("/css/LightTheme.css").toExternalForm());
+        scene.getStylesheets().add(WindowBorderUi.class.getResource("/css/LightTheme.css").toExternalForm());
     }
 
     // ── Nested fallback window ───────────────────────────────────────────────────

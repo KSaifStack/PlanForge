@@ -4,9 +4,9 @@ import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.scene.text.Font;
 
-public class Plugins {
+public class PluginUi {
     private final String username;
-    public Plugins(String username){
+    public PluginUi(String username){
         this.username=username;
     }
     public Pane getContent(Font lexend14,Font lexend32){

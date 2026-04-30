@@ -9,7 +9,7 @@ import javafx.scene.text.Font;
  *This class will open panes to help the user pick actions within the ui.
  *
  **/
-public class Confirmation {
+public class ConfirmationUi {
 
 
     /**
