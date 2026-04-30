@@ -1,40 +1,32 @@
-package com.ksaifstack.docktask.ui;//Calendar ui for main page should return a button with the follow parts inside of it.
-//should be able to take date and time and data based off username to display data in a calendar format.
+package com.ksaifstack.docktask.ui;
 import com.ksaifstack.docktask.model.UserData;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
-import javafx.scene.text.Font;
 
 import java.time.*;
+import static com.ksaifstack.docktask.ui.FontLoader.setFont;
+// Displays Calandar which can display what task are in which days.
 
 public class CalendarUi {
     private String username;
-    private YearMonth displayedMonth;
-    private GridPane calendarGrid;
-    private Label monthLabel;
-    private Font lexend32;
-    private Font lexend14;
-    private Font lexend12;
-    private Font lexend8;
-
-    public CalendarUi() {}
-    public void setCalendar(String username){
+    private YearMonth currMonth;
+    private Label monthLabel = new Label();
+    private GridPane calendarGrid = new GridPane();
+    private String cellStyle = "-fx-border-color: #626262; -fx-border-radius: 4px; -fx-border-width: 1px;";
+    private String cellHover = "-fx-background-color: #d3d3d3; -fx-border-color: #626262; -fx-border-radius: 4px; -fx-background-radius: 4px; -fx-border-width: 1px;";
+    private String cellExit = "-fx-border-color: #626262; -fx-border-radius: 4px; -fx-border-width: 1px;";
+    private Pane[] cells = new Pane[42];
+    private Label[] dayLabels = new Label[42];
+    public CalendarUi(String username){
         this.username=username;
-        this.displayedMonth = YearMonth.now();
+        currMonth= YearMonth.now();
     }
-
-    public Pane getPane() {
-
-        lexend32 = Font.loadFont(getClass().getResourceAsStream("/fonts/Lexend.ttf"), 32);
-        lexend14 = Font.loadFont(getClass().getResourceAsStream("/fonts/Lexend.ttf"), 14);
-        lexend12 = Font.loadFont(getClass().getResourceAsStream("/fonts/Lexend.ttf"), 12);
-        lexend8 = Font.loadFont(getClass().getResourceAsStream("/fonts/Lexend.ttf"), 8);
-
+    public Pane getPane(){
         Pane background = new Pane();
+        background.setPrefSize(455, 382);
         background.setLayoutX(243.00);
         background.setLayoutY(56.46);
-        background.setPrefSize(455, 382);
         background.setStyle(" -fx-border-color: #626262; -fx-border-radius: 2px; -fx-border-width: 1px;");
 
         HBox monthLabelBox = new HBox();
@@ -42,27 +34,37 @@ public class CalendarUi {
         monthLabelBox.setTranslateY(1);
         monthLabelBox.setAlignment(Pos.CENTER);
 
-        monthLabel = new Label();
-        monthLabel.setFont(lexend32);
+        monthLabel.setFont(setFont(32));
         monthLabelBox.getChildren().add(monthLabel);
         background.getChildren().add(monthLabelBox);
 
         Button backArrow = new Button("<");
-        Button nextArrow = new Button(">");
-        setupArrowStyle(backArrow, lexend14);
-        setupArrowStyle(nextArrow, lexend14);
-
+        backArrow.setFont(setFont(14));
+        backArrow.setPrefSize(45, 30);
         backArrow.setTranslateX(5);
         backArrow.setTranslateY(8);
+
+        Button nextArrow = new Button(">");
+        nextArrow.setFont(setFont(14));
+        nextArrow.setPrefSize(45,30);
         nextArrow.setTranslateX(405);
         nextArrow.setTranslateY(8);
 
+        backArrow.setOnAction(e->{
+            currMonth = currMonth.minusMonths(1);
+            updateCalender();
+        });
+
+        nextArrow.setOnAction(e->{
+            currMonth=currMonth.plusMonths(1);
+            updateCalender();
+        });
         background.getChildren().addAll(backArrow, nextArrow);
 
         String[] days = {"Sun", "Mon", "Tues", "Wed", "Thurs", "Fri", "Sat"};
-        for (int i = 0; i < days.length; i++) {
+        for(int i=0;i< days.length;i++){
             Button colBg = new Button();
-            colBg.setFont(lexend14);
+            colBg.setFont(setFont(14));
             colBg.setPrefSize(65, 330);
             colBg.setTranslateX(i * 65);
             colBg.setTranslateY(50);
@@ -70,7 +72,7 @@ public class CalendarUi {
             background.getChildren().add(colBg);
 
             Label dayLabel = new Label(days[i]);
-            dayLabel.setFont(lexend12);
+            dayLabel.setFont(setFont(12));
             dayLabel.setTranslateX(i * 65);
             dayLabel.setTranslateY(45);
             dayLabel.setAlignment(Pos.CENTER);
@@ -79,135 +81,108 @@ public class CalendarUi {
             dayLabel.setStyle("-fx-border-color: #626262; -fx-border-width: 1;");
             background.getChildren().add(dayLabel);
         }
-
-        calendarGrid = new GridPane();
         calendarGrid.setHgap(13);
         calendarGrid.setVgap(6);
         calendarGrid.setLayoutX(6);
         calendarGrid.setLayoutY(75);
         background.getChildren().add(calendarGrid);
 
-        backArrow.setOnAction(e -> {
-            displayedMonth = displayedMonth.minusMonths(1);
-            updateCal();
-        });
+        // 42 is the total number of cells a calendar should have
+        // Replace Cell setStyle with css to allow animations
+        for(int i=0;i<42;i++){
+            Pane cell = new Pane();
+            cell.getStyleClass().add("calendar-cell");
+            cell.setPrefSize(52, 45);
+            Label dayOf =  new Label();
+            dayOf.setFont(setFont(12));
+             cells[i]=cell;
+             dayLabels[i]=dayOf;
 
-        nextArrow.setOnAction(e -> {
-            displayedMonth = displayedMonth.plusMonths(1);
-            updateCal();
-        });
+             int col = i % 7;
+             int row = i / 7;
+             calendarGrid.add(cell, col, row);
+        }
 
-        updateCal();
+        updateCalender();
         return background;
+
     }
-
-
-    public void updateCal() {
-        calendarGrid.getChildren().clear();
+    /*
+    * Populates Calendar data.
+    * if not null the function will populate months/cells with the right info.
+     */
+    public void updateCalender() {
         if (username == null) {
-            monthLabel.setText("No user selected");
+            monthLabel.setText("No user :c");
             return;
-        }else {
+        }
 
+        LocalDate today = LocalDate.now();
+        LocalDate firstOfMonth = currMonth.atDay(1);
+        LocalDate startDate = firstOfMonth.minusDays(firstOfMonth.getDayOfWeek().getValue() % 7);
 
-            calendarGrid.getChildren().clear();
+        String monthName = currMonth.getMonth().toString();
+        monthLabel.setText(monthName.charAt(0) + monthName.substring(1).toLowerCase() + " " + currMonth.getYear());
 
-            LocalDateTime currentTime = LocalDateTime.now();
-            int currentDay = currentTime.getDayOfMonth();
-            int currentMonth = currentTime.getMonthValue();
-            int currentYear = currentTime.getYear();
+        for (int i = 0; i < 42; i++) {
+            Pane cell = cells[i];
+            Label dayOf = dayLabels[i];
+            LocalDate cellDate = startDate.plusDays(i);
+            // Removes today id
+            boolean isToday = cellDate.equals(today);
+            if(!isToday) {
+                cell.setId(null);
+            }
+            // Update day number
+            dayOf.setText(String.valueOf(cellDate.getDayOfMonth()));
+            dayOf.setTranslateX(5);
 
-            LocalDate firstOfMonth = displayedMonth.atDay(1);
-            DayOfWeek firstDayOfWeek = firstOfMonth.getDayOfWeek();
-            LocalDate startDate = firstOfMonth.minusDays(firstDayOfWeek.getValue() % 7);
-
-            String monthName = displayedMonth.getMonth().toString();
-            String prettyMonth = monthName.substring(0, 1).toUpperCase() + monthName.substring(1).toLowerCase();
-            monthLabel.setText(prettyMonth + " " + displayedMonth.getYear());
-
+            // Populates cells with how many task in each day
             String[][] tasks = UserData.ReturnData(username);
-            int totalCells = 42;
-            int col = 0, row = 0;
+            Button task = DayhasTask(tasks,cellDate);
 
-            Button taskLabel;
-            for (int i = 1; i <= totalCells; i++) {
-                Pane cell = new Pane();
-                cell.setStyle(" -fx-border-color: #626262; -fx-border-radius: 4px; -fx-border-width: 1px;");
-                cell.setOnMouseEntered(e -> cell.setStyle("-fx-background-color: #d3d3d3; -fx-border-color: #626262; -fx-border-radius: 4px; -fx-background-radius: 4px; -fx-border-width: 1px;"));
-                cell.setOnMouseExited(e -> cell.setStyle(" -fx-border-color: #626262; -fx-border-radius: 4px; -fx-border-width: 1px;"));
-                cell.setPrefSize(52, 45);
 
-                LocalDate cellDate = startDate.plusDays(i - 1);
-                Label dayOf = new Label(String.valueOf(cellDate.getDayOfMonth()));
-                dayOf.setFont(lexend12);
-                dayOf.setTranslateX(5);
+            // Gray out days not in current month
+            dayOf.setStyle(cellDate.getMonth().equals(currMonth.getMonth())
+                    ? "" : "-fx-text-fill: #a0a0a0;");
 
-                if (!cellDate.getMonth().equals(displayedMonth.getMonth())) {
-                    dayOf.setStyle("-fx-text-fill: #a0a0a0;");
-                }
+            // Reset cell children to just the day label
+            cell.getChildren().clear();
+            cell.getChildren().add(dayOf);
+            if(task!=null) {
+                cell.getChildren().add(task);
+                task.setId("taskCountBtn");
+            }
 
-                cell.getChildren().add(dayOf);
-
-                int tcount = 0;
-                for (String[] task : tasks) {
-                    LocalDateTime taskDateTime = UserData.DataCheckerUI(task[0]);
-                    if (taskDateTime.toLocalDate().equals(cellDate)) {
-                        tcount++;
-                        if (tcount == 1) {
-                            taskLabel = new Button(task[4].substring(11, 13) + " " + task[4].substring(17) + "|" + task[0]);
-                            if (cellDate.getMonthValue() == currentMonth &&
-                                    cellDate.getYear() == currentYear &&
-                                    cellDate.getDayOfMonth() == currentDay) {
-                                taskLabel.setStyle("-fx-background-color: #767676; -fx-text-fill: #1b1b1b; -fx-border-color: #626262; -fx-border-radius: 4px; -fx-background-radius: 4px; -fx-border-width: 1px;");
-                            } else {
-                                taskLabel.setStyle(cell.getStyle());
-                                taskLabel.toFront();
-                            }
-                            taskLabel.setFont(lexend8);
-                            taskLabel.setLayoutY(18);
-                            taskLabel.setLayoutX(3);
-                            taskLabel.setPrefSize(46, 20);
-                            cell.getChildren().add(taskLabel);
-                        } else if (tcount >= 2) {
-                            cell.getChildren().removeIf(n -> n instanceof Button);
-                            Button moreLabel = new Button("2+");
-                            if (cellDate.getMonthValue() == currentMonth &&
-                                    cellDate.getYear() == currentYear &&
-                                    cellDate.getDayOfMonth() == currentDay) {
-                                moreLabel.setStyle("-fx-background-color: #767676; -fx-text-fill: #1b1b1b; -fx-border-color: #626262; -fx-border-radius: 4px; -fx-background-radius: 4px; -fx-border-width: 1px;");
-                            } else {
-                                moreLabel.setStyle(" -fx-border-color: #626262; -fx-border-radius: 4px; -fx-border-width: 1px;");
-                            }
-                            moreLabel.setFont(lexend12);
-                            moreLabel.setLayoutY(14);
-                            moreLabel.setLayoutX(9);
-                            moreLabel.setPrefSize(34, 25);
-                            moreLabel.setWrapText(true);
-                            cell.getChildren().add(moreLabel);
-                        }
-                    }
-                }
-
-                if (cellDate.getMonthValue() == currentMonth &&
-                        cellDate.getYear() == currentYear &&
-                        cellDate.getDayOfMonth() == currentDay) {
-                    cell.setStyle("-fx-background-color: #767676; -fx-text-fill: #1b1b1b; -fx-border-color: #626262; -fx-border-radius: 4px; -fx-background-radius: 4px; -fx-border-width: 1px;");
-                    cell.setOnMouseEntered(e -> cell.setStyle("-fx-background-color: #767676; -fx-text-fill: #1b1b1b; -fx-border-color: #626262; -fx-border-radius: 4px; -fx-background-radius: 4px; -fx-border-width: 1px;"));
-                    cell.setOnMouseExited(e -> cell.setStyle("-fx-background-color: #767676; -fx-text-fill: #1b1b1b; -fx-border-color: #626262; -fx-border-radius: 4px; -fx-background-radius: 4px; -fx-border-width: 1px;"));
-                }
-
-                calendarGrid.add(cell, col, row);
-                col++;
-                if (col > 6) {
-                    col = 0;
-                    row++;
-                }
+            // Add Today id
+            if (isToday) {
+                cell.setId("today");
             }
         }
     }
+    // Method that adds a button that displays the amount of task someone has on that certain day
+    public Button DayhasTask(String[][] aTasks,LocalDate cellDate){
+        int count = 0;
+        // Loops through the array of tasks
+        for(String[] task:aTasks){
+            LocalDateTime taskDateTime = UserData.DataCheckerUI(task[0]);
+            if(taskDateTime.toLocalDate().equals(cellDate)){
+                count++;
+            }
+        }
+        if(count==0){ return null; }
+        // Creates tasks after null check to ensure its returning null
+        Button taskLabel = new Button(count+"+");
+        taskLabel.setFont(setFont(12));
+        taskLabel.setAlignment(Pos.CENTER);
+        taskLabel.setLayoutX(9);   // horizontally centered in 52px cell
+        taskLabel.setLayoutY(15);  // pushed to bottom of 45px cell
+        taskLabel.setPrefSize(34, 25);
+        taskLabel.setWrapText(true);
 
-    private void setupArrowStyle(Button arrow, Font font) {
-        arrow.setFont(font);
-        arrow.setPrefSize(45, 30);
+
+        return taskLabel;
     }
 }
+
+

@@ -65,11 +65,12 @@ Download the self-contained installer — no JDK required, Java runtime is bundl
 - [ ] Redo data functions — each `data.txt` gets a `date.txt` for display history
 - [ ] Revamp task handle from o(log^2n) to o(1)
 - [ ] Add new sort formula priorityScore = (groupWeight * importance) / (timeRemaining + 1)
+- [ ] Add a button to reset widgets to there original place
+- (Done) Fixed create task vis not saving upon logout
 - (Done) Widgets — movable UI elements (e.g. relocatable `+` button)
-- (Done) Redo TaskUi
-- (Done) Redo CalendarUi
-- (Done) Fix timeline issues
-- (Done) Reduced TaskUi by over 300 lines
+- (Done) Redo TaskUi - Reduced TaskUi by over 300 lines and reducing memory usage further
+- (Done) Redo CalendarUi - Non-hard coded css values with function changes
+- (Done) Fix timeline issues - Fixed timeline breaking when going over a character limit
 - (Done) Button hover animations
 
 ---

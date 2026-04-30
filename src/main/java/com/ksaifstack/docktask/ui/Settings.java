@@ -32,7 +32,7 @@ public class Settings {
     public Settings(String username){
         this.username=username;
     }
-    public Pane getContent(Font lexend14, Font lexend32, WindowActions window, NewTaskUi t){
+    public Pane getContent(Font lexend14, Font lexend32, WindowActions window, TaskUi t){
         //Allows for grayed out background
         Pane pane = new Pane();
         pane.setPrefSize(2000, 2000);
