@@ -95,10 +95,10 @@ https://github.com/user-attachments/assets/67e9159e-ff12-4f21-9128-568c9d12a31a
 ##  Interface
 
 ### Light Mode
-<img width="1000" height="964" alt="LightTheme" src="https://github.com/user-attachments/assets/ed4ceeef-e83a-4d64-864f-4610b028df38" />
+<img alt="LightTheme" src="https://github.com/user-attachments/assets/ed4ceeef-e83a-4d64-864f-4610b028df38" />
 
 ### Dark Mode  
-<img width="1000" height="943" alt="DarkTheme" src="https://github.com/user-attachments/assets/20749c86-4ad6-4e03-8290-5a92b5ca309a" />
+<img alt="DarkTheme" src="https://github.com/user-attachments/assets/20749c86-4ad6-4e03-8290-5a92b5ca309a" />
 
 ---
 
