@@ -362,4 +362,30 @@
     -fx-text-fill: #555555;
     -fx-background-color: transparent;
 }
+
+/* HyperlinkTextArea */
+.hyperlink-expand-btn {
+    -fx-background-color: transparent;
+    -fx-text-fill: #ffffff;
+    -fx-cursor: hand;
+    -fx-font-size: 18px;
+    -fx-padding: 0;
+}
+.hyperlink-expand-btn:hover {
+    -fx-text-fill: #eeeeee;
+}
+.hyperlink-overlay {
+    -fx-background-color: rgba(0, 0, 0, 0.85);
+}
+.hyperlink-close-btn {
+    -fx-border-color: #888888;
+    -fx-border-radius: 4px;
+    -fx-background-radius: 4px;
+    -fx-border-width: 1px;
+    -fx-background-color: #333333;
+    -fx-cursor: hand;
+    -fx-text-fill: #eeeeee;
+}
+.hyperlink-close-btn:hover {
+    -fx-background-color: #555555;
 }

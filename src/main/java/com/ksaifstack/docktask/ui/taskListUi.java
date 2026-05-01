@@ -44,7 +44,7 @@ public class taskListUi {
     private ScrollPane scrollPane;
     private StackPane rootStack = new StackPane();
 
-    public taskListUi(String username, Consumer<Pane> onShowOverlay, StackPane rootStack ,Runnable onTaskUpdated) {
+    public taskListUi(String username, Consumer<Pane> onShowOverlay, StackPane rootStack, Runnable onTaskUpdated) {
         this.username = username;
         this.onShowOverlay = onShowOverlay;
         this.onTaskUpdated = onTaskUpdated;
@@ -86,7 +86,8 @@ public class taskListUi {
     }
 
     public void updateScrollPolicy() {
-        if (scrollPane == null) return;
+        if (scrollPane == null)
+            return;
         String[][] tasks = UserData.ReturnData(username);
         if (tasks != null && tasks.length > 3) {
             scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
@@ -120,7 +121,8 @@ public class taskListUi {
 
         Arrays.sort(tasks, (a, b) -> {
             int groupCompare = b[3].compareToIgnoreCase(a[3]);
-            if (groupCompare != 0) return groupCompare;
+            if (groupCompare != 0)
+                return groupCompare;
             int pa = Integer.parseInt(a[2]);
             int pb = Integer.parseInt(b[2]);
             return Integer.compare(pb, pa);
@@ -148,6 +150,13 @@ public class taskListUi {
         Label name = new Label(task[0]);
         name.setFont(setFont(12));
 
+        String descText = task[1].replace("\n", " ");
+        if (descText.length() > 18) {
+            descText = descText.substring(0, 15) + "...";
+        }
+        Label desc = new Label(descText);
+        desc.setFont(setFont(10));
+
         LocalDateTime timec = UserData.DataCheckerUI(task[0]);
 
         Region spacer = new Region();
@@ -157,9 +166,11 @@ public class taskListUi {
         topRow.setTranslateY(-10);
 
         warning.setTranslateY(10);
+        desc.setTranslateY(10);
+        desc.setTranslateX(-10);
         Region spacer2 = new Region();
         HBox.setHgrow(spacer2, Priority.ALWAYS);
-        HBox bottomRow = new HBox(spacer2, warning);
+        HBox bottomRow = new HBox(desc, spacer2, warning);
         bottomRow.setAlignment(Pos.CENTER_RIGHT);
 
         VBox content = new VBox(4, topRow, name, bottomRow);
@@ -186,7 +197,8 @@ public class taskListUi {
             final Pane[] updateOverlay = new Pane[1];
             UpdateTaskUi updateTaskUi = new UpdateTaskUi(username, task[0], () -> {
                 refreshTaskList();
-                if (onTaskUpdated != null) onTaskUpdated.run();
+                if (onTaskUpdated != null)
+                    onTaskUpdated.run();
                 rootStack.getChildren().remove(updateOverlay[0]);
             });
             updateOverlay[0] = updateTaskUi.getContent();

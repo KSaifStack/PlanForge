@@ -60,12 +60,13 @@ Download the self-contained installer — no JDK required, Java runtime is bundl
 ## Roadmap
 
 ### v0.7.0 — UX Polish *(In Progress)*
-- [ ] Revamped task cards — slightly larger with description preview
-- [ ] Fullscreen task description view (button in bottom-right of UpdateTask)
 - [ ] Redo data functions — each `data.txt` gets a `date.txt` for display history
 - [ ] Revamp task handle from o(log^2n) to o(1)
 - [ ] Add new sort formula priorityScore = (groupWeight * importance) / (timeRemaining + 1)
-- [ ] Add a button to reset widgets to there original place
+- (Done) Fullscreen task description view (button in bottom-right of UpdateTask)
+- (Done) Usable hyperlinks in task text areas
+- (Done) Add a button to reset widgets to there original place
+- (Done) Revamped task cards — slightly larger with description preview
 - (Done) Fixed create task vis not saving upon logout
 - (Done) Widgets — movable UI elements (e.g. relocatable `+` button)
 - (Done) Redo TaskUi - Reduced TaskUi by over 300 lines and reducing memory usage further
@@ -83,7 +84,6 @@ Download the self-contained installer — no JDK required, Java runtime is bundl
 - [ ] Notifications button
 - [ ] Changelog button — click version number in settings to view update log (rendered Markdown)
 - [ ] Embedded pictures in task descriptions
-- [ ] Usable hyperlinks in task text areas
 - [ ] Replace legacy notification system with Dorkbox (cross-platform support)
 
 **Planned first-party plugins:**

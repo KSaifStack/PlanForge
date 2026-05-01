@@ -83,13 +83,15 @@ public class CreateTaskUi {
         descLabel.setFont(lexend14);
         pane.getChildren().add(descLabel);
 
-        TextArea descArea = new TextArea();
-        descArea.setFont(lexend14);
-        descArea.setPromptText("Write a description!");
+        com.ksaifstack.docktask.util.HyperlinkTextArea descArea = new com.ksaifstack.docktask.util.HyperlinkTextArea(pane, "Write a description!", 300, 110);
         descArea.setLayoutX(415);
         descArea.setLayoutY(180);
-        descArea.setPrefSize(300, 110);
         pane.getChildren().add(descArea);
+
+        Button expandDesc = descArea.getExpandButton();
+        expandDesc.setLayoutX(720);
+        expandDesc.setLayoutY(180);
+        pane.getChildren().add(expandDesc);
 
         // Task Group
         Label groupLabel = new Label("Task Group:");

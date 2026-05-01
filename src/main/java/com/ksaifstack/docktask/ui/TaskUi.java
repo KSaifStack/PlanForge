@@ -43,6 +43,7 @@ public class TaskUi {
     private CreateTaskUi createTaskUi;
     private Pane createOverlay;
     private Label Createtasktext = new Label("(Create Task)");
+    private Button createtaskb;
 
     private final Image sunImg       = new Image(getClass().getResourceAsStream("/images/sun.png"));
     private final Image moonImg      = new Image(getClass().getResourceAsStream("/images/moon.png"));
@@ -88,7 +89,7 @@ public class TaskUi {
                 () -> currentCalendar.updateCalender()
         );
 
-        Button createtaskb = new Button("+");
+        createtaskb = new Button("+");
 
         // Load saved widget position and size (defaults to 775, 140, 150 if not saved yet)
         double[] widgetPos = UserData.loadWidgetPosition(username);
@@ -122,7 +123,6 @@ public class TaskUi {
             }
         );
         pane.getChildren().add(Createtasktext);
-
         pane.getChildren().add(createtaskb);
 
         // Welcome label
@@ -437,6 +437,23 @@ public class TaskUi {
         }else{
             Createtasktext.setVisible(true);
             return true;
+        }
+    }
+
+    public void resetWidgetPosition() {
+        UserData.saveWidgetPosition(username, 775, 140, 150);
+        if (createtaskb != null) {
+            createtaskb.setLayoutX(775);
+            createtaskb.setLayoutY(140);
+            createtaskb.setPrefWidth(150);
+            createtaskb.setPrefHeight(150);
+            createtaskb.setFont(javafx.scene.text.Font.font(150 * 0.4));
+
+            double fWidth = 100;
+            if (Createtasktext != null) {
+                Createtasktext.setLayoutX(createtaskb.getLayoutX() + (createtaskb.getPrefWidth() - fWidth) / 2);
+                Createtasktext.setLayoutY(createtaskb.getLayoutY() + createtaskb.getPrefHeight() + 5);
+            }
         }
     }
 }

@@ -94,13 +94,16 @@ public class UpdateTaskUi {
         nameLabel.setFont(lexend14);
         pane.getChildren().add(nameLabel);
 
-        TextArea descArea = new TextArea();
+        com.ksaifstack.docktask.util.HyperlinkTextArea descArea = new com.ksaifstack.docktask.util.HyperlinkTextArea(pane, "Write a description!", 246, 100);
         descArea.setLayoutX(65);
         descArea.setLayoutY(146);
-        descArea.setPrefSize(246, 100);
         descArea.setText(upDesc[0]);
-        descArea.setFont(lexend14);
         pane.getChildren().add(descArea);
+
+        Button expandDesc = descArea.getExpandButton();
+        expandDesc.setLayoutX(315);
+        expandDesc.setLayoutY(146);
+        pane.getChildren().add(expandDesc);
 
         Button checkDesc = createStyledButton("Done", 164, 250, 52, 26, Font.font(lexend14.getName(), 12));
         //Button taskCheck = createStyledButton("Done", 180, 96, 48, 26, Font.font(lexend14.getName(), 12));

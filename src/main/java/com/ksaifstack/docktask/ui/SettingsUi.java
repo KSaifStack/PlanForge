@@ -188,7 +188,14 @@ public class SettingsUi {
             createTaskVis=viss;
         });
 
-        leftSide.getChildren().addAll(darkswitch,importData,refreshApp);
+        //Button eight: Reset Widgets
+        //Resets pos of buttons that fall under a 'Widget'
+        Button resetWidgetPos = createSet("Reset Widgets", lexend14);
+        resetWidgetPos.setOnAction(e -> {
+            t.resetWidgetPosition();
+        });
+
+        leftSide.getChildren().addAll(darkswitch,importData,refreshApp,resetWidgetPos);
         rightSide.getChildren().addAll(textToggle,exportData,exitApp);
         settingHolder.getChildren().addAll(leftSide,rightSide);
 

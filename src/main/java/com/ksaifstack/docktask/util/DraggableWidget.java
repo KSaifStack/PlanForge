@@ -20,14 +20,16 @@ public class DraggableWidget {
      * Makes a Button a draggable, resizable (via scroll wheel), and lockable widget.
      * Right-click to unlock. Left-click & drag to move. Scroll to resize. Left-click twice to lock.
      */
-    public static void makeDraggable(Button widgetNode, Node followerNode, double initialX, double initialY, double initialSize, SavePositionCallback saveCallback, ActionCallback actionCallback) {
-        
+    public static void makeDraggable(Button widgetNode, Node followerNode,
+                                     double initialX, double initialY, double initialSize,
+                                     SavePositionCallback saveCallback, ActionCallback actionCallback) {
+
         widgetNode.setLayoutX(initialX);
         widgetNode.setLayoutY(initialY);
         widgetNode.setPrefWidth(initialSize);
         widgetNode.setPrefHeight(initialSize);
         widgetNode.setFont(Font.font(initialSize * 0.4));
-        
+
         Runnable syncFollower = () -> {
             if (followerNode != null) {
                 double fWidth = 100;
@@ -63,20 +65,19 @@ public class DraggableWidget {
         });
 
         widgetNode.setOnMouseDragged(evt -> {
-            if (!isMoveable[0]) return; 
-            
+            if (!isMoveable[0]) return;
+
             wasDragged[0] = true;
             double newX = evt.getSceneX() + dragDelta[0];
             double newY = evt.getSceneY() + dragDelta[1];
-            
-            // Clamp within bounds (Assuming 980x493 for DockTask)
+
             newX = Math.max(0, Math.min(newX, 980 - widgetNode.getPrefWidth()));
             newY = Math.max(0, Math.min(newY, 493 - widgetNode.getPrefHeight()));
-            
+
             widgetNode.setLayoutX(newX);
             widgetNode.setLayoutY(newY);
             syncFollower.run();
-            
+
             evt.consume();
         });
 
@@ -116,12 +117,8 @@ public class DraggableWidget {
                 wasJustMadeNormal[0] = false;
                 return;
             }
-            if (isMoveable[0]) {
-                return;
-            }
-            if (actionCallback != null) {
-                actionCallback.onAction();
-            }
+            if (isMoveable[0]) return;
+            if (actionCallback != null) actionCallback.onAction();
         });
     }
 }
