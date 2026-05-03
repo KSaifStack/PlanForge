@@ -18,6 +18,7 @@ import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.scene.text.Font;
 import javafx.stage.DirectoryChooser;
+import javafx.stage.FileChooser;
 import javafx.stage.Window;
 
 import java.io.File;
@@ -112,12 +113,14 @@ public class SettingsUi {
         //Allows user to clone current data and save it on their computer.
         Button exportData =createSet("Export Data",lexend14);
         exportData.setOnAction(e->{
-            DirectoryChooser folderPick = new DirectoryChooser();
-            folderPick.setTitle("Export Data");
-            File selectedFile = folderPick.showDialog((Window) window);
+            FileChooser filePick = new FileChooser();
+            filePick.setTitle("Export Data");
+            filePick.getExtensionFilters().add(new FileChooser.ExtensionFilter("Text Files", "*.txt"));
+            filePick.setInitialFileName(username + "_DockTask_Export.txt");
+            File selectedFile = filePick.showSaveDialog((Window) window);
             if(selectedFile!=null){
                 Pane n=confirmation.check("Export Data",selectedFile.getPath(),lexend14,()->{
-                    if(UserData.exportData(selectedFile)){
+                    if(UserData.exportData(selectedFile, username)){
                         System.out.println("Data exported!");
                     }
                 });
@@ -132,14 +135,14 @@ public class SettingsUi {
         //Since this will require a restart this will need the (confirmation class).
         Button importData =createSet("Import Data",lexend14);
         importData.setOnAction(e->{
-            DirectoryChooser folderPick = new DirectoryChooser();
-            folderPick.setTitle("Import Data");
-            folderPick.setInitialDirectory(UserData.getDatapath());
-            File selectedFile = folderPick.showDialog((Window) window);
+            FileChooser filePick = new FileChooser();
+            filePick.setTitle("Import Data");
+            filePick.getExtensionFilters().add(new FileChooser.ExtensionFilter("Text Files", "*.txt"));
+            File selectedFile = filePick.showOpenDialog((Window) window);
             if(selectedFile != null) {
                     Pane conPane= confirmation.check("Import Data",selectedFile.getPath(),lexend14,()->{
                         try {
-                            UserData.setDataPath(selectedFile,username);
+                            UserData.importDataFromFile(selectedFile,username);
                             t.updateRun();
                         } catch (IOException ex) {
                             System.out.println("Error with getting file!");
@@ -195,12 +198,12 @@ public class SettingsUi {
             t.resetWidgetPosition();
         });
 
-        leftSide.getChildren().addAll(darkswitch,importData,refreshApp,resetWidgetPos);
-        rightSide.getChildren().addAll(textToggle,exportData,exitApp);
+        leftSide.getChildren().addAll(darkswitch,importData,refreshApp);
+        rightSide.getChildren().addAll(textToggle,exportData,resetWidgetPos,exitApp);
         settingHolder.getChildren().addAll(leftSide,rightSide);
 
         //Version Button
-        Button version = new Button("v0.6.0");
+        Button version = new Button("v0.7.0");
         version.setId("noHoverBtn");
         version.setPrefSize(60,29);
         version.setFont(lexend14);

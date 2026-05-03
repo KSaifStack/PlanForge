@@ -4,7 +4,9 @@
 > Built with JavaFX for students who need precision, not just reminders.
 
 **Current Name:** DockTask &nbsp;|&nbsp; **Previous Names:** To-Do → PlanForge → DockTask
-**Current Release:** v0.6.0 &nbsp;|&nbsp; **Platform:** Windows/macOS/Linux in progress)
+**Current Release:** v0.8.0 &nbsp;|&nbsp; **Platform:** Windows/macOS/Linux (in progress)
+
+> **Have a plugin in mind?** See the full [PluginGuide.md](PluginGuide.md) for a step-by-step walkthrough.
 
 ---
 
@@ -22,18 +24,21 @@
 
 DockTask started as a simple to-do list and has grown into a full-featured student productivity app. The core idea: unlike generic calendar apps, DockTask is built around **precision timing** — tasks can be scheduled down to the second, with multi-stage notifications and real-time countdowns.
 
-**Intended goal:** A centralized hub for a student's daily tasks, assessments, and activities. Future versions will support a plugin system, AI assistance, recurring tasks, and active recall study tools — think Quizlet but focused on productivity and time awareness.
+**Intended goal:** A centralized hub for a student's daily tasks, assessments, and activities. Future versions will support a plugin system, AI assistance, recurring tasks, and active recall study tools. 
 
 **Tech Stack:**
-| Component | Technology |
-|-----------|-----------|
-| Language | Java 25 |
-| UI Framework | JavaFX 25+ |
-| Styling | CSS3 |
-| Native UI | NFX Library |
-| Notifications | Dorkbox SystemTray / AWT TrayIcon |
-| Architecture | MVC |
-| Storage | File-based serialization (`<SEP>` format) |
+| Component | Technology | Version |
+|-----------|-----------|---------|
+| Language | Java | 23 |
+| UI Framework | JavaFX | 25 |
+| Styling | CSS3 (with custom `-dt-*` theme variables) | — |
+| Native UI | NFX Library (nfx-core) | 1.0.4 |
+| System Tray | Dorkbox SystemTray | 3.8 |
+| Tray Icon | FXTrayIcon | 4.0.1 |
+| Build | Apache Maven | 3.x |
+| Testing | JUnit Jupiter | 5.10.1 |
+| Architecture | MVC + Plugin Sandbox (`PluginContext` API) | — |
+| Storage | File-based serialization (`<SEP>` format) | — |
 
 ---
 
@@ -59,10 +64,26 @@ Download the self-contained installer — no JDK required, Java runtime is bundl
 
 ## Roadmap
 
-### v0.7.0 — UX Polish *(In Progress)*
-- [ ] Redo data functions — each `data.txt` gets a `date.txt` for display history
-- [ ] Revamp task handle from o(log^2n) to o(1)
-- [ ] Add new sort formula priorityScore = (groupWeight * importance) / (timeRemaining + 1)
+
+### v0.8.0 — Plugin System Foundation *(Planned)*
+
+- (Done) Plugin System — sandboxed `PluginContext` API for safe interaction with DockTask
+- (Done) Three plugin types: Menu, Widget, and Hybrid
+- (Done) `PluginManager` registry with listener-based widget visibility events
+- (Done) `PluginUi` — in-app Plugin Hub with scrollable plugin cards
+- (Done) Widget show/hide toggle — persisted per-user, live add/remove from canvas
+- (Done) Theme-aware plugin CSS via global `-dt-*` CSS variables
+- (Done) `PomodoroPlugin` — first-party Hybrid plugin (widget timer + settings menu)
+- (Done) `PluginState.txt` — isolated per-user, per-plugin key-value persistence
+- [ ] Plugin registry — GitHub-hosted JSON list for community plugins
+- [ ] Notifications button
+- [ ] Changelog button — click version number in settings to view update log (rendered Markdown)
+- [ ] Embedded pictures in task descriptions
+- [ ] Replace legacy notification system with Dorkbox (cross-platform support)
+- (Done) Redo data functions — each `data.txt` gets a `date.txt` for display history
+- (Done) Junit Testing + coverage
+- (Done) Revamp task handle from o(log^2n) to o(1)
+- (Done) Add new sort formula "priorityScore = PriorityScore = (groupWeight × importance) / (timeRemaining + 1 + OverduePenalty)"
 - (Done) Fullscreen task description view (button in bottom-right of UpdateTask)
 - (Done) Usable hyperlinks in task text areas
 - (Done) Add a button to reset widgets to there original place
@@ -75,17 +96,6 @@ Download the self-contained installer — no JDK required, Java runtime is bundl
 - (Done) Button hover animations
 
 ---
-
-### v0.8.0 — Plugin System Foundation *(Planned)*
-> Resting point to clean up any loose ends before major feature work.
-
-- [ ] Plugin System — allows users to extend the app via downloadable plugins
-- [ ] Plugin UI — in-app panel connected to a GitHub-hosted plugin registry
-- [ ] Notifications button
-- [ ] Changelog button — click version number in settings to view update log (rendered Markdown)
-- [ ] Embedded pictures in task descriptions
-- [ ] Replace legacy notification system with Dorkbox (cross-platform support)
-
 **Planned first-party plugins:**
 -  Stopwatch / Pomodoro Timer
 -  AI Assistant
@@ -181,7 +191,16 @@ What started as a simple flyout experiment grew into a full desktop app across s
 ### Memory Optimization (v0.3.0)
 Identified a `Timeline` thread leak where countdown timers for removed or completed tasks continued running in the background. Fixed by pausing all Timeline threads on minimize/close and clearing expired entries from the active monitor list. Result: idle memory reduced from ~500MB peak to ~60MB.
 
-### On the Plugin System
-The plugin architecture will use a JAR-based loading strategy — plugins dropped into a `/plugins` directory are loaded at startup via a `DockTaskPlugin` interface. Plugins will have access to a `PluginContext` API exposing task data, UI registration hooks, an event bus, and isolated storage. First-party plugins will be developed alongside the API to validate the design before opening to community contributions.
+### Plugin System Design (v0.8.0)
+The plugin architecture uses a **sandbox pattern**. Rather than giving plugins direct access to `UserData`, `FontLoader`, or `themeManager`, all interaction goes through `PluginContext` — an interface implemented by `PluginContextImpl` inside the core app. This means:
+
+- **Plugins cannot corrupt core data files** (`Task.txt`, `Settings.txt`) — they only write to their own namespace in `PluginState.txt`
+- **Plugins automatically get the right font** via `context.getFont(size)` without importing or knowing about `FontLoader`
+- **Plugins automatically respect the active theme** by using `-dt-*` CSS variables in their own CSS file — no conditional logic needed
+- **Future-proofing:** The `PluginContext` interface can be extended without breaking existing plugins, and a JAR-based loader can be added later to allow community plugins without recompiling the core app
+
+The listener pattern in `PluginManager` (`addWidgetVisibilityListener`) mirrors the same approach used by `themeManager` — keeping coupling between UI layers minimal and predictable.
+
+For a full developer walkthrough, see [PluginGuide.md](PluginGuide.md).
 
 ---

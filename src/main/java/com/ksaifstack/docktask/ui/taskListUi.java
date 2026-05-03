@@ -10,10 +10,13 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 
+import com.ksaifstack.docktask.model.TaskManagement;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.function.Consumer;
 
 import static com.ksaifstack.docktask.util.FontLoader.setFont;
@@ -88,8 +91,8 @@ public class taskListUi {
     public void updateScrollPolicy() {
         if (scrollPane == null)
             return;
-        String[][] tasks = UserData.ReturnData(username);
-        if (tasks != null && tasks.length > 3) {
+        LinkedHashMap<String, String[]> tasks = TaskManagement.getSortedTasks(username);
+        if (tasks != null && tasks.size() > 3) {
             scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
         } else {
             scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
@@ -104,8 +107,8 @@ public class taskListUi {
         }
         taskEntries.clear();
 
-        String[][] tasks = UserData.ReturnData(username);
-        if (tasks == null || tasks.length == 0) {
+        LinkedHashMap<String, String[]> sorted = TaskManagement.getSortedTasks(username);
+        if (sorted == null || sorted.isEmpty()) {
             Label noTask = new Label("No Tasks found.");
             Label noTask2 = new Label("Press + to add a task!");
             noTask.setFont(setFont(14));
@@ -119,16 +122,15 @@ public class taskListUi {
             return;
         }
 
-        Arrays.sort(tasks, (a, b) -> {
-            int groupCompare = b[3].compareToIgnoreCase(a[3]);
-            if (groupCompare != 0)
-                return groupCompare;
-            int pa = Integer.parseInt(a[2]);
-            int pb = Integer.parseInt(b[2]);
-            return Integer.compare(pb, pa);
-        });
-
-        for (String[] task : tasks) {
+        for (Map.Entry<String, String[]> entry : sorted.entrySet()) {
+            String[] vals = entry.getValue();
+            String[] task = new String[] {
+                entry.getKey(), // taskname
+                vals[0],        // description
+                vals[1],        // rank
+                vals[2],        // group
+                vals[3]         // dueDate string
+            };
             Button btn = buildTaskButton(task);
             taskListContainer.getChildren().add(btn);
         }
@@ -157,7 +159,8 @@ public class taskListUi {
         Label desc = new Label(descText);
         desc.setFont(setFont(10));
 
-        LocalDateTime timec = UserData.DataCheckerUI(task[0]);
+        DateTimeFormatter fmt = DateTimeFormatter.ofPattern("yyyy MM dd hh mm a");
+        LocalDateTime timec = LocalDateTime.parse(task[4], fmt);
 
         Region spacer = new Region();
         HBox.setHgrow(spacer, Priority.ALWAYS);
@@ -204,8 +207,7 @@ public class taskListUi {
             updateOverlay[0] = updateTaskUi.getContent();
             onShowOverlay.accept(updateOverlay[0]);
         });
-        String[][] dtasks = UserData.ReturnData(username);
-        if (dtasks.length > 3) {
+        if (TaskManagement.getSortedTasks(username).size() > 3) {
             background.setTranslateX(3);
         } else {
             background.setTranslateX(10);

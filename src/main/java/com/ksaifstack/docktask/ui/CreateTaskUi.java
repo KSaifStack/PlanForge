@@ -1,4 +1,5 @@
 package com.ksaifstack.docktask.ui;// UI for creating tasks
+
 import com.ksaifstack.docktask.model.UserData;
 import com.ksaifstack.docktask.util.CustomDatePicker;
 import javafx.application.Platform;
@@ -15,7 +16,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * One pane like updateui,error meg button(if user is missing one of the following)
+ * One pane like updateui,error meg button(if user is missing one of the
+ * following)
  * back button if user wants to go back
  * have calander and taaks refresh if user makes task with no issues
  * Confirm button if user wants to create task
@@ -24,9 +26,10 @@ public class CreateTaskUi {
     private final String username;
     private final Runnable onUpdate;
     private Pane overlayPane;
-    public CreateTaskUi(String username,Runnable onUpdate) {
+
+    public CreateTaskUi(String username, Runnable onUpdate) {
         this.username = username;
-        this.onUpdate=onUpdate;
+        this.onUpdate = onUpdate;
     }
 
     Font lexend14 = Font.loadFont(getClass().getResourceAsStream("/fonts/Lexend.ttf"), 14);
@@ -83,14 +86,15 @@ public class CreateTaskUi {
         descLabel.setFont(lexend14);
         pane.getChildren().add(descLabel);
 
-        com.ksaifstack.docktask.util.HyperlinkTextArea descArea = new com.ksaifstack.docktask.util.HyperlinkTextArea(pane, "Write a description!", 300, 110);
+        com.ksaifstack.docktask.util.HyperlinkTextArea descArea = new com.ksaifstack.docktask.util.HyperlinkTextArea(
+                pane, "Write a description!", 300, 110);
         descArea.setLayoutX(415);
         descArea.setLayoutY(180);
         pane.getChildren().add(descArea);
 
         Button expandDesc = descArea.getExpandButton();
         expandDesc.setLayoutX(720);
-        expandDesc.setLayoutY(180);
+        expandDesc.setLayoutY(264);
         pane.getChildren().add(expandDesc);
 
         // Task Group
@@ -106,7 +110,8 @@ public class CreateTaskUi {
         groupText.setLayoutY(335);
         groupText.setPrefSize(220, 45);
         groupText.setFont(lexend14);
-        groupText.setStyle("-fx-border-color: #626262; -fx-border-width: 1px; -fx-border-radius: 2px; -fx-prompt-text-fill: #737674;");
+        groupText.setStyle(
+                "-fx-border-color: #626262; -fx-border-width: 1px; -fx-border-radius: 2px; -fx-prompt-text-fill: #737674;");
         pane.getChildren().add(groupText);
 
         double x = 760;
@@ -116,11 +121,11 @@ public class CreateTaskUi {
             Button rankBtn = createStyledButton(String.valueOf(i), x, 110, 27, 27, lexend14);
             int num = Integer.parseInt(rankBtn.getText());
             rankButtons.add(rankBtn);
-            updateButtonStyle(rankBtn,num==storeNum);
-            rankBtn.setOnAction(e-> {
-                storeNum=num;
-                for(int j =0; j<rankButtons.size(); j++){
-                    updateButtonStyle(rankButtons.get(j),(j+1)==storeNum);
+            updateButtonStyle(rankBtn, num == storeNum);
+            rankBtn.setOnAction(e -> {
+                storeNum = num;
+                for (int j = 0; j < rankButtons.size(); j++) {
+                    updateButtonStyle(rankButtons.get(j), (j + 1) == storeNum);
                 }
             });
             pane.getChildren().add(rankBtn);
@@ -146,7 +151,7 @@ public class CreateTaskUi {
         ErrorMeg.setVisible(false);
         pane.getChildren().add(ErrorMeg);
 
-        //Create
+        // Create
         Button goBack = new Button("Back");
         goBack.setFont(lexend14);
         goBack.setPrefSize(70, 45);
@@ -159,49 +164,46 @@ public class CreateTaskUi {
         pane.getChildren().add(goBack);
 
         Button Done = createStyledButton("Create!", 615, 390, 130, 50, Font.font(lexend14.getName(), 12));
-        Done.setOnAction(e->{
-            String taskName=taskNamein.getText().trim();
-            String taskDesc=descArea.getText().trim();
-            String taskGroup=groupText.getText().trim();
-            if(datapicker.getDateTime()==null){
+        Done.setOnAction(e -> {
+            String taskName = taskNamein.getText().trim();
+            String taskDesc = descArea.getText().trim();
+            String taskGroup = groupText.getText().trim();
+            if (datapicker.getDateTime() == null) {
                 ErrorMeg.setText("Please select a date!");
                 ErrorMeg.setVisible(true);
-            }
-            else {
+            } else {
                 String input = CustomDatePicker.formatDateTime(datapicker.getDateTime());
                 taskTime = LocalDateTime.parse(input, DateTimeFormatter.ofPattern("yyyy MM dd hh mm a"));
             }
-            //String taskDue;
-            int taskRank=storeNum;
-            System.out.println("Name: "+taskName+" Desc: "+taskDesc+" Group: "+taskGroup+" Rank: "+storeNum);
-            System.out.println("Time: "+ taskTime);
-
+            // String taskDue;
+            int taskRank = storeNum;
+            System.out.println(
+                    "Name: " + taskName + " Desc: " + taskDesc + " Group: " + taskGroup + " Rank: " + storeNum);
+            System.out.println("Time: " + taskTime);
 
             if (taskName != null && !taskName.isEmpty() &&
                     taskDesc != null && !taskDesc.isEmpty() &&
                     taskGroup != null && !taskGroup.isEmpty() &&
                     taskRank != 0 &&
-                    taskTime!=null) {
-                String[][] Data= UserData.ReturnData(username);
-                boolean checker=true;
-                for(String[] bits:Data) {
+                    taskTime != null) {
+                String[][] Data = UserData.ReturnData(username);
+                boolean checker = true;
+                for (String[] bits : Data) {
                     if (bits[0].equals(taskName)) {
-                        checker=false;
+                        checker = false;
                         break;
                     }
                 }
-                if(checker){
+                if (checker) {
                     UserData.SaveTask(username, taskName, taskDesc, taskRank, taskGroup, taskTime);
                     Platform.runLater(onUpdate);
                     pane.setVisible(false);
-                }
-                else if(!checker){
+                } else if (!checker) {
                     ErrorMeg.setVisible(false);
                     ErrorMeg.setText("Cant have same task name!");
                     ErrorMeg.setVisible(true);
                 }
-            }
-            else {
+            } else {
                 ErrorMeg.setText("Make sure everything is filled out!");
                 ErrorMeg.setVisible(true);
             }
@@ -218,9 +220,11 @@ public class CreateTaskUi {
         btn.setLayoutY(y);
         btn.setPrefSize(w, h);
         btn.setFont(font);
-        btn.setStyle("  -fx-border-color: #626262; -fx-border-radius: 4px; -fx-background-radius: 4px; -fx-border-width: 1px;");
+        btn.setStyle(
+                "  -fx-border-color: #626262; -fx-border-radius: 4px; -fx-background-radius: 4px; -fx-border-width: 1px;");
         return btn;
     }
+
     private void updateButtonStyle(Button btn, boolean isSelected) {
         if (isSelected) {
             btn.setStyle("-fx-background-color: #767676; " +
@@ -240,4 +244,3 @@ public class CreateTaskUi {
     }
 
 }
-

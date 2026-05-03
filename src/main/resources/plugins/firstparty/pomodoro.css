@@ -1,0 +1,8 @@
+/* Pomodoro Plugin */
+.pomodoro-box {
+    -fx-background-color: -dt-bg-color;
+    -fx-border-color: -dt-border-color;
+    -fx-border-radius: 8px;
+    -fx-background-radius: 8px;
+    -fx-padding: 10px;
+}

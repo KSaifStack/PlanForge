@@ -26,8 +26,7 @@ Progress Tracking: Data Persistence will allow logins --
  
      public static void main(String[] args) {
          Scanner scanner = new Scanner(System.in);
-         TaskManagement TaskManagement = new TaskManagement();
-         //Checks if you have a account already 
+         //Checks if you have a account already
          boolean LoggedIn = false;
          String cuser = "";
 
@@ -140,7 +139,6 @@ Progress Tracking: Data Persistence will allow logins --
                  LocalDateTime dueDate = LocalDateTime.parse(dueInput,DateTimeFormatter.ofPattern("yyyy MM dd hh mm a"));
 
                  System.out.println(taskname + ", " + taskdescription + ", " + taskrank);
-                 TaskManagement.AddTask(new Task(taskname, taskdescription, taskrank, taskgroup));
                  UserData.SaveTask(cuser,taskname, taskdescription, taskrank, taskgroup,dueDate);
                  //Due Date(will work in a hour basis will ask the user how many days )
 

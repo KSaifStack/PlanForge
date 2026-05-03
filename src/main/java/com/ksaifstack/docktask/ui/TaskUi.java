@@ -6,6 +6,9 @@ import com.ksaifstack.docktask.util.AppTray;
 import com.ksaifstack.docktask.util.DraggableWidget;
 import com.ksaifstack.docktask.util.WindowActions;
 import com.ksaifstack.docktask.util.themeManager;
+import com.ksaifstack.docktask.plugins.PluginManager;
+import com.ksaifstack.docktask.plugins.WidgetPlugin;
+import javafx.scene.Node;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
@@ -172,6 +175,69 @@ public class TaskUi {
             pane.getChildren().add(settingsPane);
         });
         pane.getChildren().add(settingsBtn);
+
+        Button pluginsBtn = new Button("Plugins");
+        pluginsBtn.setFont(setFont(14));
+        pluginsBtn.setLayoutX(805.00);
+        pluginsBtn.setLayoutY(4.46);
+        pluginsBtn.setPrefWidth(76.00);
+        pluginsBtn.setPrefHeight(30.00);
+        pluginsBtn.setOnAction(e -> {
+            PluginUi pluginUi = new PluginUi(username);
+            Pane pluginPane = pluginUi.getContent(setFont(14), setFont(32));
+            pane.getChildren().add(pluginPane);
+        });
+        pane.getChildren().add(pluginsBtn);
+
+        // Plugin widget node registry: persists across re-syncs
+        java.util.Map<WidgetPlugin, javafx.scene.layout.Region> pluginWidgetNodes = new java.util.HashMap<>();
+
+        // Helper to sync plugin widgets to the pane based on their enabled state
+        Runnable syncPluginWidgets = () -> {
+            for (WidgetPlugin plugin : PluginManager.getWidgetPlugins()) {
+                com.ksaifstack.docktask.plugins.PluginContext context =
+                        new com.ksaifstack.docktask.plugins.PluginContextImpl(username, plugin.getName());
+
+                boolean enabled = Boolean.parseBoolean(context.loadState("widget.enabled", "true"));
+
+                if (enabled) {
+                    if (!pluginWidgetNodes.containsKey(plugin)) {
+                        // First time: build the node
+                        javafx.scene.layout.Region widgetNode = plugin.getWidgetContent(context);
+                        String pxStr   = context.loadState("x",    String.valueOf(plugin.getDefaultX()));
+                        String pyStr   = context.loadState("y",    String.valueOf(plugin.getDefaultY()));
+                        String psizeStr = context.loadState("size", String.valueOf(plugin.getDefaultSize()));
+                        DraggableWidget.makeDraggable(widgetNode, null,
+                            Double.parseDouble(pxStr),
+                            Double.parseDouble(pyStr),
+                            Double.parseDouble(psizeStr),
+                            (x, y, size) -> {
+                                context.saveState("x",    String.valueOf(x));
+                                context.saveState("y",    String.valueOf(y));
+                                context.saveState("size", String.valueOf(size));
+                            },
+                            () -> {}
+                        );
+                        pluginWidgetNodes.put(plugin, widgetNode);
+                    }
+                    // Add to pane if not already present
+                    if (!pane.getChildren().contains(pluginWidgetNodes.get(plugin))) {
+                        pane.getChildren().add(pluginWidgetNodes.get(plugin));
+                    }
+                } else {
+                    // Remove from pane if present
+                    if (pluginWidgetNodes.containsKey(plugin)) {
+                        pane.getChildren().remove(pluginWidgetNodes.get(plugin));
+                    }
+                }
+            }
+        };
+
+        // Initial render
+        syncPluginWidgets.run();
+
+        // Re-sync whenever PluginUi toggles a widget's visibility
+        PluginManager.addWidgetVisibilityListener(syncPluginWidgets);
 
         // Clock
         Label timeLabel = new Label(LocalDateTime.now().format(DateTimeFormatter.ofPattern("M/d/yyyy h:mm:ss a")));

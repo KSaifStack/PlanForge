@@ -9,7 +9,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.text.Font;
 
 public class HyperlinkTextArea extends TextArea {
-    private Pane rootPane; 
+    private Pane rootPane;
     private Button expandBtn;
 
     public HyperlinkTextArea(Pane rootPane, String promptText, double prefWidth, double prefHeight) {
@@ -31,7 +31,7 @@ public class HyperlinkTextArea extends TextArea {
         expandBtn = new Button("⤢");
         expandBtn.setTooltip(new Tooltip("Full Screen"));
         expandBtn.getStyleClass().add("hyperlink-expand-btn");
-        
+
         expandBtn.setOnAction(e -> openFullscreenOverlay());
     }
 
@@ -42,7 +42,8 @@ public class HyperlinkTextArea extends TextArea {
     private void handleCtrlClick(TextArea area) {
         int caret = area.getCaretPosition();
         String text = area.getText();
-        if (text == null || text.isEmpty() || caret < 0 || caret >= text.length()) return;
+        if (text == null || text.isEmpty() || caret < 0 || caret >= text.length())
+            return;
 
         int start = caret;
         while (start > 0 && !Character.isWhitespace(text.charAt(start - 1))) {
@@ -72,9 +73,9 @@ public class HyperlinkTextArea extends TextArea {
         fullTextArea.setWrapText(true);
         fullTextArea.setPrefSize(800, 400);
         fullTextArea.setLayoutX(90);
-        fullTextArea.setLayoutY(46); // Centered vertically in the 493px height container
+        fullTextArea.setLayoutY(46);
         fullTextArea.setTooltip(new Tooltip("Hold Ctrl and click a link to open it!"));
-        
+
         fullTextArea.addEventFilter(MouseEvent.MOUSE_CLICKED, e -> {
             if (e.isControlDown()) {
                 handleCtrlClick(fullTextArea);
@@ -85,8 +86,8 @@ public class HyperlinkTextArea extends TextArea {
         Button closeBtn = new Button("X");
         closeBtn.setFont(FontLoader.setFont(16));
         closeBtn.setPrefSize(30, 30);
-        closeBtn.setLayoutX(895); // Just to the right of the textbox
-        closeBtn.setLayoutY(46);  // Aligned with the top of the textbox
+        closeBtn.setLayoutX(895);
+        closeBtn.setLayoutY(46);
         closeBtn.getStyleClass().add("hyperlink-close-btn");
 
         closeBtn.setOnAction(e -> {

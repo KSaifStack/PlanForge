@@ -3,13 +3,23 @@
 .root {
     -fx-background-color: #333333;
     -fx-text-fill: #ffffff;
+
+    /* Global DockTask Variables for Plugins */
+    -dt-bg-color: #333333;
+    -dt-border-color: #888888;
+    -dt-card-bg: #2b2b2b;
+    -dt-text-color: #ffffff;
+    -dt-overlay-bg: rgba(0, 0, 0, 0.5);
+    -dt-success-color: #55ff55;
 }
+
 .region {
     -fx-background-color: #333333;
     -fx-border-color: #888888;
     -fx-border-radius: 4;
     -fx-background-radius: 4;
 }
+
 /* Labels */
 .label {
     -fx-text-fill: #e0e0e0;
@@ -20,22 +30,25 @@
     -fx-text-fill: #ffffff;
     -fx-background-color: #333333;
 }
-#noBorderBtn{
+
+#noBorderBtn {
     -fx-background-color: transparent;
     -fx-text-fill: white;
     -fx-border-color: transparent;
     -fx-font-size: 14
 }
-#CalendarBut{
- -fx-background-color: transparent;
+
+#CalendarBut {
+    -fx-background-color: transparent;
     -fx-text-fill: #eeeeee;
     -fx-font-size: 15;
     -fx-border-radius: 0;
     -fx-background-radius: 0;
     -fx-border-width: 0px 0px 0px 1px;
 }
-#CalendarBut:hover:{
--fx-background-color: #ffffff;
+
+#CalendarBut:hover: {
+    -fx-background-color: #ffffff;
 }
 
 /* Buttons (global) */
@@ -46,24 +59,29 @@
     -fx-border-radius: 4;
     -fx-background-radius: 4;
     transition: -fx-background-color 300ms ease-out,
-                        -fx-scale-x 150ms ease-out,
-                        -fx-scale-y 150ms ease-out;
+        -fx-scale-x 150ms ease-out,
+        -fx-scale-y 150ms ease-out;
 }
+
 .button:hover {
     transition: -fx-background-color 300ms ease-out;
     -fx-background-color: #555555;
 }
+
 .button:selected {
     -fx-background-color: #767676;
     -fx-text-fill: #ffffff;
 }
+
 #noHoverBtn:hover {
     -fx-background-color: #333333;
     -fx-text-fill: #ffffff;
 }
+
 #noBorderBtn:hover {
- -fx-background-color: #555555;
+    -fx-background-color: #555555;
 }
+
 #taskCountBtn {
     -fx-background-color: #333333;
     -fx-background-insets: 0;
@@ -77,22 +95,24 @@
     -fx-border-radius: 4;
     -fx-background-radius: 4;
     transition: -fx-background-color 300ms ease-out,
-                    -fx-scale-x 150ms ease-out,
-                    -fx-scale-y 150ms ease-out;
+        -fx-scale-x 150ms ease-out,
+        -fx-scale-y 150ms ease-out;
 
 }
-.calendar-cell:hover{
+
+.calendar-cell:hover {
     -fx-scale-x: 1.05;
     -fx-scale-y: 1.05;
     -fx-background-color: #d3d3d3;
 }
 
 #today {
--fx-background-color: #767676;
--fx-text-fill: #1b1b1b; -fx-border-color: #626262;
--fx-border-radius: 4px;
--fx-background-radius: 4px;
- -fx-border-width: 1px;
+    -fx-background-color: #767676;
+    -fx-text-fill: #1b1b1b;
+    -fx-border-color: #626262;
+    -fx-border-radius: 4px;
+    -fx-background-radius: 4px;
+    -fx-border-width: 1px;
 }
 
 /* Scroll Pane */
@@ -102,9 +122,11 @@
     -fx-border-radius: 4;
     -fx-background-radius: 4;
 }
-.scroll-pane > .viewport {
+
+.scroll-pane>.viewport {
     -fx-background-color: transparent;
 }
+
 .scroll-pane .content {
     -fx-background-color: #333333;
 }
@@ -127,13 +149,16 @@
     -fx-border-color: #888888;
     -fx-text-fill: #eeeeee;
 }
+
 .list-view .list-cell {
     -fx-background-color: #1e1e1e;
     -fx-text-fill: #eeeeee;
 }
+
 .list-view .list-cell:filled:hover {
     -fx-background-color: #333333;
 }
+
 .list-view .list-cell:filled:selected {
     -fx-background-color: #555555;
 }
@@ -145,16 +170,20 @@
     -fx-border-color: #888888;
     -fx-table-cell-border-color: #444444;
 }
+
 .table-row-cell {
     -fx-background-color: #1e1e1e;
     -fx-text-fill: #eeeeee;
 }
+
 .table-row-cell:filled:hover {
     -fx-background-color: #333333;
 }
+
 .table-row-cell:filled:selected {
     -fx-background-color: #555555;
 }
+
 .table-column-header {
     -fx-background-color: #333333;
     -fx-text-fill: #eeeeee;
@@ -165,18 +194,22 @@
 .scroll-bar {
     -fx-background-color: transparent;
 }
+
 .scroll-bar .thumb {
     -fx-background-color: #555555;
     -fx-background-radius: 4;
 }
+
 .scroll-bar .track {
     -fx-background-color: #2a2a2a;
     -fx-background-radius: 4;
 }
+
 .scroll-bar .increment-button,
 .scroll-bar .decrement-button {
     -fx-background-color: #2a2a2a;
 }
+
 .scroll-bar .increment-arrow,
 .scroll-bar .decrement-arrow {
     -fx-background-color: #cccccc;
@@ -190,13 +223,15 @@
     -fx-background-radius: 6;
     -fx-padding: 10;
 }
+
 .update-label {
     -fx-text-fill: #e0e0e0;
 }
 
 
 /* Text input fields */
-.text-field, .text-area {
+.text-field,
+.text-area {
     -fx-background-color: #3a3a3a;
     -fx-text-fill: #ffffff;
     -fx-prompt-text-fill: #bbbbbb;
@@ -205,10 +240,14 @@
     -fx-background-radius: 4;
     -fx-border-width: 1;
 }
-.text-field:hover, .text-area:hover {
+
+.text-field:hover,
+.text-area:hover {
     -fx-background-color: #4a4a4a;
 }
-.text-field:focused, .text-area:focused {
+
+.text-field:focused,
+.text-area:focused {
     -fx-border-color: #888888;
     -fx-background-color: #505050;
     -fx-focus-color: transparent;
@@ -227,20 +266,25 @@
     -fx-border-radius: 4;
     -fx-background-radius: 4;
 }
+
 .combo-box:hover {
     -fx-background-color: #4a4a4a;
 }
+
 .combo-box:focused {
     -fx-border-color: #888888;
     -fx-background-color: #505050;
 }
+
 .combo-box .list-cell {
     -fx-background-color: #2b2b2b;
     -fx-text-fill: #ffffff;
 }
+
 .combo-box .list-cell:hover {
     -fx-background-color: #444444;
 }
+
 .combo-box .list-cell:selected {
     -fx-background-color: #555555;
 }
@@ -253,10 +297,12 @@
     -fx-border-radius: 4;
     -fx-background-radius: 4;
 }
-.date-picker > .arrow-button {
+
+.date-picker>.arrow-button {
     -fx-background-color: #3a3a3a;
 }
-.date-picker > .arrow-button > .arrow {
+
+.date-picker>.arrow-button>.arrow {
     -fx-background-color: white;
 }
 
@@ -266,24 +312,27 @@
     -fx-border-radius: 6;
 }
 
-.date-picker-popup > .month-year-pane {
+.date-picker-popup>.month-year-pane {
     -fx-background-color: #2b2b2b;
     -fx-text-fill: #ffffff;
     -fx-border-color: #444444;
 }
-.date-picker-popup > .month-year-pane .button {
+
+.date-picker-popup>.month-year-pane .button {
     -fx-background-color: #3a3a3a;
     -fx-text-fill: #ffffff;
 }
-.date-picker-popup > .month-year-pane .button:hover {
+
+.date-picker-popup>.month-year-pane .button:hover {
     -fx-background-color: #555555;
 }
 
-.date-picker-popup > .calendar-pane > .day-name-cell {
+.date-picker-popup>.calendar-pane>.day-name-cell {
     -fx-background-color: #2b2b2b;
     -fx-text-fill: #cccccc;
 }
-.date-picker-popup > .calendar-pane > .week-number-cell {
+
+.date-picker-popup>.calendar-pane>.week-number-cell {
     -fx-background-color: #2b2b2b;
     -fx-text-fill: #999999;
 }
@@ -292,17 +341,21 @@
     -fx-background-color: #2b2b2b;
     -fx-text-fill: #ffffff;
 }
+
 .date-cell:hover {
     -fx-background-color: #444444;
 }
+
 .date-cell:selected {
     -fx-background-color: #666666;
     -fx-text-fill: #ffffff;
 }
+
 .date-cell:disabled {
     -fx-background-color: #1a1a1a;
     -fx-text-fill: #777777;
 }
+
 .calendar-picker {
     -fx-background-color: #1e1e1e;
     -fx-border-color: #626262;
@@ -371,21 +424,79 @@
     -fx-font-size: 18px;
     -fx-padding: 0;
 }
+
 .hyperlink-expand-btn:hover {
     -fx-text-fill: #eeeeee;
 }
+
 .hyperlink-overlay {
     -fx-background-color: rgba(0, 0, 0, 0.85);
 }
+
 .hyperlink-close-btn {
-    -fx-border-color: #888888;
-    -fx-border-radius: 4px;
-    -fx-background-radius: 4px;
-    -fx-border-width: 1px;
     -fx-background-color: #333333;
+    -fx-background-insets: 0;
+    -fx-border-color: transparent;
     -fx-cursor: hand;
     -fx-text-fill: #eeeeee;
 }
+
 .hyperlink-close-btn:hover {
     -fx-background-color: #555555;
+}
+
+-fx-border-radius: 4;
+-fx-border-width: 1;
+-fx-font-family: "Lexend";
+-fx-font-size: 18;
+}
+
+.hyperlink-placeholder {
+    -fx-text-fill: #777777;
+    -fx-font-size: 14;
+    -fx-padding: 4 6 0 6;
+}
+
+.url-highlight {
+    -fx-fill: #5599ff;
+    -fx-underline: true;
+    -fx-cursor: hand;
+}
+
+/* Plugin UI */
+.plugin-pane {
+    -fx-background-color: -dt-overlay-bg;
+}
+
+.plugin-background {
+    -fx-background-color: -dt-bg-color;
+    -fx-border-color: -dt-border-color;
+    -fx-border-radius: 4px;
+    -fx-background-radius: 4px;
+    -fx-border-width: 1px;
+}
+
+.plugin-card {
+    -fx-border-color: -dt-border-color;
+    -fx-border-radius: 5px;
+    -fx-padding: 10px;
+    -fx-background-color: -dt-card-bg;
+}
+
+.plugin-widget-label {
+    -fx-text-fill: -dt-success-color;
+}
+
+.plugin-scroll {
+    -fx-background-color: transparent;
+    -fx-background: transparent;
+}
+
+/* Pomodoro Plugin */
+.pomodoro-box {
+    -fx-background-color: #333333;
+    -fx-border-color: #888888;
+    -fx-border-radius: 8px;
+    -fx-background-radius: 8px;
+    -fx-padding: 10px;
 }

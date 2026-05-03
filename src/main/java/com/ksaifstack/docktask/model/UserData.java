@@ -28,7 +28,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
-import org.apache.commons.io.FileUtils;
 
 public class UserData {
 
@@ -36,6 +35,7 @@ public class UserData {
     private static final String LogData = "Data/User.txt";
     private static final String TaskData = "Data/Task.txt";
     private static final String SettData = "Data/Plugins.txt";
+    private static final String PluginStateData = "Data/PluginState.txt";
 
     // Makes data incase app cant detect data.
     public static void initializeData() {
@@ -52,6 +52,7 @@ public class UserData {
             createFileIfMissing(LogData);
             createFileIfMissing(TaskData);
             createFileIfMissing(SettData);
+            createFileIfMissing(PluginStateData);
 
         } catch (IOException e) {
             System.out.println("Failed to initialize data directory: " + e.getMessage());
@@ -174,6 +175,57 @@ public class UserData {
         return new double[] { 775, 140, 150 };
     }
 
+    public static void savePluginState(String username, String pluginName, String key, String value) {
+        List<String> lines = new ArrayList<>();
+        boolean found = false;
+        try (BufferedReader reader = new BufferedReader(new FileReader(PluginStateData))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                String[] parts = line.split("<SEP>");
+                if (parts.length >= 4 && parts[0].equals(username) && parts[1].equals(pluginName) && parts[2].equals(key)) {
+                    lines.add(username + "<SEP>" + pluginName + "<SEP>" + key + "<SEP>" + value);
+                    found = true;
+                } else {
+                    lines.add(line);
+                }
+            }
+        } catch (FileNotFoundException e) {
+            // ignore
+        } catch (IOException e) {
+            System.out.println("Error reading plugin state: " + e.getMessage());
+        }
+        
+        if (!found) {
+            lines.add(username + "<SEP>" + pluginName + "<SEP>" + key + "<SEP>" + value);
+        }
+
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(PluginStateData))) {
+            for (String line : lines) {
+                writer.write(line);
+                writer.newLine();
+            }
+        } catch (IOException e) {
+            System.out.println("Error saving plugin state: " + e.getMessage());
+        }
+    }
+
+    public static String loadPluginState(String username, String pluginName, String key, String defaultValue) {
+        try (BufferedReader reader = new BufferedReader(new FileReader(PluginStateData))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                String[] parts = line.split("<SEP>");
+                if (parts.length >= 4 && parts[0].equals(username) && parts[1].equals(pluginName) && parts[2].equals(key)) {
+                    return parts[3];
+                }
+            }
+        } catch (FileNotFoundException e) {
+            // ignore
+        } catch (IOException e) {
+            System.out.println("Error reading plugin state: " + e.getMessage());
+        }
+        return defaultValue;
+    }
+
     public static String importSetting(String username,int SettingOption){
         String set = null;
         try (BufferedReader reader = new BufferedReader(new FileReader(SettData))) {
@@ -221,126 +273,98 @@ public class UserData {
     }
 
     /**
-     * Data is exported using the following:
-     * 1. have the user pick where they would like the data to be cloned to.
-     * 2. clone the current data into a new file
-     * 3. import the newly made file into the dir.
-     * Uses FileUtils from apache.commons.io library.
+     * Data is exported into a single text file.
+     * Contains user settings and tasks.
      * 
-     * @param nFile
-     * new files dir
+     * @param destFile target text file
+     * @param username the user exporting the data
      */
-    public static boolean exportData(File nFile) {
-        File Data = getDatapath();
-        try {
-            String timestamp = new SimpleDateFormat("yyyy-MM-dd_HH-mm-ss")
-                    .format(new Date());
-            File exportFolder = new File(nFile, "Data " + timestamp);
-            FileUtils.copyDirectory(Data, exportFolder);
-            return true;
+    public static boolean exportData(File destFile, String username) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(destFile))) {
+            writer.write("---SETTINGS---");
+            writer.newLine();
+            try (BufferedReader reader = new BufferedReader(new FileReader(SettData))) {
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    if (line.split("<SEP>")[0].equalsIgnoreCase(username)) {
+                        writer.write(line);
+                        writer.newLine();
+                    }
+                }
+            } catch (FileNotFoundException ignored) {}
 
-        } catch (Exception e) {
-            System.out.println(e);
+            writer.write("---TASKS---");
+            writer.newLine();
+            try (BufferedReader reader = new BufferedReader(new FileReader(TaskData))) {
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    if (line.split("<SEP>")[0].equalsIgnoreCase(username)) {
+                        writer.write(line);
+                        writer.newLine();
+                    }
+                }
+            } catch (FileNotFoundException ignored) {}
+            
+            return true;
+        } catch (IOException e) {
+            System.out.println("Error exporting data: " + e.getMessage());
             return false;
         }
     }
 
     /**
-     * {@code checkDataPath}
-     * 'checkDataPath' checks if the selected file is the correct file for the app
-     * it checks for the name of the folder,checks if its empty,then checks its
-     * contents for the following:
-     * User.txt,Plugin.txt,Settings.txt
-     * if all three are met it will
+     * Imports data from a single text file into the current user's profile.
      * 
-     * @return true
-     *         otherwise it will
-     * @return false
-     **/
-    public static boolean checkDataPath(File newFile) {
-        if (newFile.getName().equals("Data")) {
-            File[] listedFiles = newFile.listFiles();
-            if (listedFiles == null || listedFiles.length == 0) {
-                System.out.println("Its empty");
-                return false;
-            }
-            boolean hasUser = false, hasTask = false, hasPlug = false;
-            for (File data : listedFiles) {
-                String name = data.getName();
-                switch (name) {
-                    case "User.txt" -> hasUser = true;
-                    case "Task.txt" -> hasTask = true;
-                    case "Plugins.txt" -> hasPlug = true;
+     * @param sourceFile source text file
+     * @param username the current user who will own the imported data
+     */
+    public static void importDataFromFile(File sourceFile, String username) throws IOException {
+        int importedCount = 0;
+        int skippedCount = 0;
+        boolean readingSettings = false;
+        boolean readingTasks = false;
+
+        try (BufferedReader reader = new BufferedReader(new FileReader(sourceFile))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                if (line.equals("---SETTINGS---")) {
+                    readingSettings = true;
+                    readingTasks = false;
+                    continue;
+                } else if (line.equals("---TASKS---")) {
+                    readingSettings = false;
+                    readingTasks = true;
+                    continue;
                 }
-            }
-            return hasUser && hasTask && hasPlug;
-        }
-        return false;
-    }
 
-    /**
-     * {@code setDataPath}
-     * This functions allows us to set the DataPath to the imported folder if
-     * checkDataPath is true.
-     * Since all settings are meant to be user based this will only affect the
-     * current users data
-     * eg: Kareem cant import James data.
-     * eg: Kareem can import Kareem related data.
-     * to do this we can get the newFile and current user to read the new folders
-     * 'Task.txt' file.
-     * if it spots the current users name and with new data it will call saveTask to
-     * save the data onto the account.
-     * if it detects tasks that are the same it will skip over this process.
-     **/
-    public static void setDataPath(File newFile, String username) throws IOException {
-        if (checkDataPath(newFile)) {
-            File[] listedFiles = newFile.listFiles();
-            if (listedFiles == null)
-                return;
-
-            for (File sourceFile : listedFiles) {
-                if (sourceFile.getName().equals("Task.txt")) {
-                    int importedCount = 0;
-                    int skippedCount = 0;
-
-                    try (BufferedReader reader = new BufferedReader(new FileReader(sourceFile))) {
-
-                        String line;
-                        while ((line = reader.readLine()) != null) {
-                            String[] parts = line.split("<SEP>");
-
-                            if (parts.length >= 6 && parts[0].trim().equalsIgnoreCase(username)) {
-                                String taskname = parts[1].trim();
-
-                                if (taskExists(username, taskname)) {
-                                    System.out.println("Skipping duplicate task: " + taskname);
-                                    skippedCount++;
-                                    continue;
-                                }
-
-                                String description = parts[2].replace("\\n", "\n").trim();
-                                int rank = Integer.parseInt(parts[3].trim());
-                                String group = parts[4].trim();
-
-                                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy MM dd hh mm a");
-                                LocalDateTime dueDate = LocalDateTime.parse(parts[5].trim(), formatter);
-
-                                // Save this task to current data file
-                                SaveTask(username, taskname, description, rank, group, dueDate);
-                                importedCount++;
-                            }
-                        }
-                        System.out.println("Import complete: " + importedCount + " tasks imported, " + skippedCount
-                                + " duplicates skipped");
-
-                    } catch (IOException e) {
-                        System.err.println("Error importing tasks: " + e.getMessage());
-                        throw e;
+                String[] parts = line.split("<SEP>");
+                
+                if (readingSettings && parts.length >= 3) {
+                    String theme = parts[1];
+                    boolean vis = parts[2].equals("textTrue");
+                    updateSet(username, theme, vis);
+                    if (parts.length >= 6) {
+                        saveWidgetPosition(username, Double.parseDouble(parts[3]), Double.parseDouble(parts[4]), Double.parseDouble(parts[5]));
                     }
+                } else if (readingTasks && parts.length >= 6) {
+                    String taskname = parts[1].trim();
+                    if (taskExists(username, taskname)) {
+                        System.out.println("Skipping duplicate task: " + taskname);
+                        skippedCount++;
+                        continue;
+                    }
+                    String description = parts[2].replace("\\n", "\n").trim();
+                    int rank = Integer.parseInt(parts[3].trim());
+                    String group = parts[4].trim();
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy MM dd hh mm a");
+                    LocalDateTime dueDate = LocalDateTime.parse(parts[5].trim(), formatter);
+
+                    SaveTask(username, taskname, description, rank, group, dueDate);
+                    importedCount++;
                 }
             }
-        } else {
-            throw new IOException("Invalid Data folder structure");
+            System.out.println("Import complete: " + importedCount + " tasks imported, " + skippedCount + " duplicates skipped");
+            if (importedCount > 0) TaskManagement.markDirty();
         }
     }
 
@@ -407,6 +431,7 @@ public class UserData {
             writer.newLine();
             writer.close();
             System.out.println("Task data saved successfully.");
+            TaskManagement.markDirty();
         } catch (IOException e) {
             System.out.println("An error occurred while saving task data: " + e.getMessage());
         }
@@ -432,6 +457,7 @@ public class UserData {
                 writer.newLine();
             }
             System.out.println("Task removed successfully");
+            TaskManagement.markDirty();
         } catch (IOException e) {
             System.out.println("Error removing task: " + e.getMessage());
         }
@@ -482,6 +508,7 @@ public class UserData {
             System.out.println("Error finalizing task update.");
         } else if (updated) {
             System.out.println("Task updated successfully.");
+            TaskManagement.markDirty();
         } else {
             System.out.println("Task not found.");
         }

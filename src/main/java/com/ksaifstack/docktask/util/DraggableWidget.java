@@ -1,6 +1,7 @@
 package com.ksaifstack.docktask.util;
 
 import javafx.scene.Node;
+import javafx.scene.control.Labeled;
 import javafx.scene.control.Button;
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.Region;
@@ -17,10 +18,10 @@ public class DraggableWidget {
     }
 
     /**
-     * Makes a Button a draggable, resizable (via scroll wheel), and lockable widget.
+     * Makes a Region a draggable, resizable (via scroll wheel), and lockable widget.
      * Right-click to unlock. Left-click & drag to move. Scroll to resize. Left-click twice to lock.
      */
-    public static void makeDraggable(Button widgetNode, Node followerNode,
+    public static void makeDraggable(Region widgetNode, Node followerNode,
                                      double initialX, double initialY, double initialSize,
                                      SavePositionCallback saveCallback, ActionCallback actionCallback) {
 
@@ -28,7 +29,9 @@ public class DraggableWidget {
         widgetNode.setLayoutY(initialY);
         widgetNode.setPrefWidth(initialSize);
         widgetNode.setPrefHeight(initialSize);
-        widgetNode.setFont(Font.font(initialSize * 0.4));
+        if (widgetNode instanceof Labeled) {
+            ((Labeled) widgetNode).setFont(Font.font(initialSize * 0.4));
+        }
 
         Runnable syncFollower = () -> {
             if (followerNode != null) {
@@ -106,19 +109,23 @@ public class DraggableWidget {
                 newSize = Math.max(50, Math.min(newSize, 300));
                 widgetNode.setPrefWidth(newSize);
                 widgetNode.setPrefHeight(newSize);
-                widgetNode.setFont(Font.font(newSize * 0.4));
+                if (widgetNode instanceof Labeled) {
+                    ((Labeled) widgetNode).setFont(Font.font(newSize * 0.4));
+                }
                 syncFollower.run();
                 evt.consume();
             }
         });
 
-        widgetNode.setOnAction(e -> {
-            if (wasJustMadeNormal[0]) {
-                wasJustMadeNormal[0] = false;
-                return;
+        widgetNode.setOnMouseClicked(e -> {
+            if (e.getButton() == MouseButton.PRIMARY) {
+                if (wasJustMadeNormal[0]) {
+                    wasJustMadeNormal[0] = false;
+                    return;
+                }
+                if (isMoveable[0]) return;
+                if (!wasDragged[0] && actionCallback != null) actionCallback.onAction();
             }
-            if (isMoveable[0]) return;
-            if (actionCallback != null) actionCallback.onAction();
         });
     }
 }
