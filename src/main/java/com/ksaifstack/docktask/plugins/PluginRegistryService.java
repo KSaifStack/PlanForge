@@ -55,6 +55,7 @@ public class PluginRegistryService {
                     matcher.group(5), // type
                     matcher.group(6), // url
                     matcher.group(7)  // downloadUrl
+
             ));
         }
         return plugins;

@@ -63,7 +63,6 @@ public class PluginContextImpl implements PluginContext {
         
         if (rawTasks != null) {
             for (String[] taskData : rawTasks.values()) {
-                // taskData format: [name, desc, date, color] (based on UserData)
                 if (taskData != null && taskData.length >= 4) {
                     pluginTasks.add(new PluginTask(taskData[0], taskData[1], taskData[2], taskData[3]));
                 }

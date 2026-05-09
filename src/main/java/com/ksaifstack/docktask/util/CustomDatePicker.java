@@ -17,6 +17,8 @@ public class CustomDatePicker extends Pane {
 
     public CustomDatePicker() {
         setPrefSize(450, 100);
+        // Only real child controls should consume clicks; let empty pane area pass through.
+        setPickOnBounds(false);
 
         for (int i = 1;  i <= 12; i++)    hourBox.getItems().add(i);
         for (int i = 0;  i <  60; i += 5) minuteBox.getItems().add(i);

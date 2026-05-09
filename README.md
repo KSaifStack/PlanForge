@@ -87,7 +87,8 @@ Download the self-contained installer — no JDK required, Java runtime is bundl
 - [ ] Changelog button — click version number in settings to view update log (rendered Markdown)
 - [ ] Embedded pictures in task descriptions
 - [ ] Replace legacy notification system with Dorkbox (cross-platform support)
-- [ ] Add button to add button to add local plugins 
+- (Done) Add button to add button to add local plugins 
+- (Done) Fixed minor bug issues
 - (Done) Cache system to save ram and to help speed up the update process on git
 - (Done) Plugin registry — GitHub-hosted JSON list for plugins Registry 
 - (Done) Plugin System — sandboxed `PluginContext` API for safety

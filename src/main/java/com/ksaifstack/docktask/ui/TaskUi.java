@@ -283,6 +283,12 @@ public class TaskUi {
             if (countdownTimeline != null) {
                 if (isIcon) countdownTimeline.pause(); else countdownTimeline.play();
             }
+            // If restored from taskbar/tray, ensure the stage isn't left fully transparent.
+            if (!isIcon && window instanceof Stage stage && stage.getOpacity() == 0) {
+                stage.setOpacity(1);
+                stage.toFront();
+                stage.requestFocus();
+            }
         });
 
         rootStack.getChildren().clear();
