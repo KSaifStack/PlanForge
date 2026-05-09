@@ -74,6 +74,9 @@ public interface PluginContext {
 
     /** Returns true if the app is currently in dark mode. */
     boolean isDarkMode();
+
+    /** Returns a read-only list of the user's tasks. */
+    List<PluginTask> getTasks();
 }
 ```
 
@@ -88,7 +91,16 @@ String savedValue = context.loadState("myKey", "default");
 context.saveState("myKey", "newValue");
 
 context.loadPluginCss(myBox, "/plugins/myplugin.css");
+
+// Reading tasks safely
+List<PluginTask> tasks = context.getTasks();
+for (PluginTask t : tasks) {
+    System.out.println("Task: " + t.name() + " Due: " + t.dueDate());
+}
 ```
+
+> [!NOTE]
+> **Read-Only by Design:** The `PluginTask` is a Java Record (DTO). Plugins cannot modify, complete, or delete core app tasks. This ensures community plugins can never accidentally corrupt a user's data.
 
 ---
 
@@ -303,24 +315,63 @@ public class MyHybridPlugin implements MenuPlugin, WidgetPlugin {
 
 ---
 
-## Registering Your Plugin
+## Compiling and Publishing Your Plugin
 
-Open `PluginManager.java` and add your plugin to the `static` block:
+With the v0.8.0 release, plugins are dynamically loaded from JAR files. You don't need to modify DockTask's source code to register your plugin!
 
-```java
-static {
-    registry.add(new PomodoroPlugin());
-    registry.add(new MyHybridPlugin()); // <-- add yours here
+### 1. The `ServiceLoader` Pattern
+
+For DockTask to find your plugin inside your JAR, you must declare it using Java's `ServiceLoader` standard. 
+
+1. Create a directory in your `src/main/resources` folder: `META-INF/services/`
+2. Create a file inside named exactly: `com.ksaifstack.docktask.plugins.DockTaskPlugin`
+3. Inside that file, put the fully qualified name of your plugin class:
+   ```text
+   com.yourname.myplugin.MyHybridPlugin
+   ```
+
+### 2. Compiling
+
+Compile your project into a `.jar` file. If your plugin requires external libraries, you must create a "fat jar" (e.g., using Maven shade plugin) that includes those dependencies, *except* for the DockTask core interfaces which are provided by the main app.
+
+> [!TIP]
+> **Kotlin Support:** DockTask bundles `kotlin-stdlib` internally! You can write your entire plugin in Kotlin. Your compiled Kotlin JAR will work flawlessly as a DockTask plugin, and you do not need to bundle the Kotlin standard library into your JAR (keeping your plugin size tiny).
+
+### 3. Testing Your Plugin Locally
+
+Before publishing, you'll want to test your compiled `.jar` file to make sure it loads and looks right in DockTask.
+
+It's extremely simple:
+1. Compile your plugin into a `.jar` file.
+2. Locate your local DockTask installation folder.
+3. Open the `Data/plugins/` directory (if it doesn't exist, create it).
+4. Drop your `.jar` file directly into that folder.
+5. Run DockTask! 
+
+The `PluginManager` automatically scans the `Data/plugins/` directory on startup. If you implemented `ServiceLoader` correctly, your plugin will instantly appear in the Plugin Hub alongside your other installed plugins.
+
+### 4. Submitting to the Community Registry
+
+DockTask features a **"Browse Community Plugins"** hub that fetches directly from the official GitHub registry.
+
+To publish your plugin so any DockTask user can install it with one click:
+1. Upload your `.jar` file to a permanent link (e.g., as a GitHub Release asset on your repository).
+2. Go to the [DockTask-Plugins Repository](https://github.com/KSaifStack/DockTask-Plugins).
+3. Fork the repo, add your plugin to `plugin-registry.json`, and submit a Pull Request!
+
+```json
+{
+  "name": "My Hybrid Plugin",
+  "description": "An amazing plugin for DockTask.",
+  "version": "1.0.0",
+  "author": "YourName",
+  "type": "hybrid",
+  "url": "https://github.com/YourName/my-plugin",
+  "downloadUrl": "https://github.com/YourName/my-plugin/releases/download/v1.0/myplugin.jar"
 }
 ```
 
-That's it. `TaskUi` and `PluginUi` will automatically:
-- Render your widget on the home screen (if it's a `WidgetPlugin`)
-- Show it in the Plugin Hub card list (always)
-- Show an "Open Menu" button (if it's a `MenuPlugin`)
-- Show a "Show/Hide Widget" toggle (if it's a `WidgetPlugin`)
-- Save and restore position, size, and visibility per user
-
+When users click **Install** in DockTask, it will download your JAR from `downloadUrl`, save it to their `Data/plugins/` folder, and automatically load it on the next startup.
 ---
 
 ## Internal Architecture

@@ -8,7 +8,6 @@ import com.ksaifstack.docktask.util.WindowActions;
 import com.ksaifstack.docktask.util.themeManager;
 import com.ksaifstack.docktask.plugins.PluginManager;
 import com.ksaifstack.docktask.plugins.WidgetPlugin;
-import javafx.scene.Node;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
@@ -100,30 +99,33 @@ public class TaskUi {
         if(Visvalue.equals("textFalse")){Createtasktext.setVisible(false);}
         Createtasktext.setFont(setFont(14));
         Createtasktext.setPrefWidth(100);
+        Createtasktext.setTranslateX(5);
 
-        DraggableWidget.makeDraggable(
-            createtaskb, 
-            Createtasktext, 
-            widgetPos[0], 
-            widgetPos[1], 
-            widgetPos[2], 
-            (x, y, size) -> UserData.saveWidgetPosition(username, x, y, size),
-            () -> {
-                if (createTaskUi == null) {
-                    createTaskUi = new CreateTaskUi(username, () -> {
-                        currentTaskListUi.refreshTaskList();
-                        currentCalendar.updateCalender();
-                        rootStack.getChildren().remove(createOverlay);
-                    });
-                    createOverlay = createTaskUi.getContent();
-                }
-                if (!createTaskUi.isOpen()) {
-                    createOverlay.setVisible(true);
-                    if (!rootStack.getChildren().contains(createOverlay)) {
-                        rootStack.getChildren().add(createOverlay);
-                    }
+        Runnable openCreateTask = () -> {
+            if (createTaskUi == null) {
+                createTaskUi = new CreateTaskUi(username, () -> {
+                    currentTaskListUi.refreshTaskList();
+                    currentCalendar.updateCalender();
+                    rootStack.getChildren().remove(createOverlay);
+                });
+                createOverlay = createTaskUi.getContent();
+            }
+            if (!createTaskUi.isOpen()) {
+                createOverlay.setVisible(true);
+                if (!rootStack.getChildren().contains(createOverlay)) {
+                    rootStack.getChildren().add(createOverlay);
                 }
             }
+        };
+
+        DraggableWidget.makeDraggable(
+            createtaskb,
+            Createtasktext,
+            widgetPos[0],
+            widgetPos[1],
+            widgetPos[2],
+            (x, y, size) -> UserData.saveWidgetPosition(username, x, y, size),
+            openCreateTask::run
         );
         pane.getChildren().add(Createtasktext);
         pane.getChildren().add(createtaskb);
@@ -184,7 +186,7 @@ public class TaskUi {
         pluginsBtn.setPrefHeight(30.00);
         pluginsBtn.setOnAction(e -> {
             PluginUi pluginUi = new PluginUi(username);
-            Pane pluginPane = pluginUi.getContent(setFont(14), setFont(32));
+            Pane pluginPane = pluginUi.getContent();
             pane.getChildren().add(pluginPane);
         });
         pane.getChildren().add(pluginsBtn);
@@ -294,9 +296,7 @@ public class TaskUi {
 
         scene.addEventFilter(KeyEvent.KEY_PRESSED, ev -> {
             if (ev.isControlDown() && ev.isShiftDown() && ev.getCode() == KeyCode.C) {
-                if (createTaskUi == null || !createTaskUi.isOpen()) {
-                    createtaskb.fire();
-                }
+                openCreateTask.run();
                 ev.consume();
             }
         });

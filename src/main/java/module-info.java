@@ -11,6 +11,10 @@ module com.ksaifstack.docktask {
     requires SystemTray;
     requires com.dustinredmond.fxtrayicon;
     requires nfx.core;
+    requires java.net.http;
+    requires kotlin.stdlib;
+
+    uses com.ksaifstack.docktask.plugins.DockTaskPlugin;
 
     opens com.ksaifstack.docktask to javafx.graphics;
     opens com.ksaifstack.docktask.ui to javafx.graphics, javafx.fxml;
@@ -19,6 +23,7 @@ module com.ksaifstack.docktask {
     exports com.ksaifstack.docktask;
     exports com.ksaifstack.docktask.ui;
     exports com.ksaifstack.docktask.model;
+    exports com.ksaifstack.docktask.plugins;
     exports com.ksaifstack.docktask.util;
     opens com.ksaifstack.docktask.util to javafx.fxml, javafx.graphics;
 }

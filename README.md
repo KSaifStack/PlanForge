@@ -66,8 +66,14 @@ Download the self-contained installer — no JDK required, Java runtime is bundl
 
 
 ### v0.8.0 — Plugin System Foundation *(Planned)*
-
-- (Done) Plugin System — sandboxed `PluginContext` API for safe interaction with DockTask
+- [ ] Notifications button
+- [ ] Changelog button — click version number in settings to view update log (rendered Markdown)
+- [ ] Embedded pictures in task descriptions
+- [ ] Replace legacy notification system with Dorkbox (cross-platform support)
+- [ ] Add button to add button to add local plugins 
+- (Done) Cache system to save ram and to help speed up the update process on git
+- (Done) Plugin registry — GitHub-hosted JSON list for plugins Registry 
+- (Done) Plugin System — sandboxed `PluginContext` API for safety
 - (Done) Three plugin types: Menu, Widget, and Hybrid
 - (Done) `PluginManager` registry with listener-based widget visibility events
 - (Done) `PluginUi` — in-app Plugin Hub with scrollable plugin cards
@@ -75,11 +81,6 @@ Download the self-contained installer — no JDK required, Java runtime is bundl
 - (Done) Theme-aware plugin CSS via global `-dt-*` CSS variables
 - (Done) `PomodoroPlugin` — first-party Hybrid plugin (widget timer + settings menu)
 - (Done) `PluginState.txt` — isolated per-user, per-plugin key-value persistence
-- [ ] Plugin registry — GitHub-hosted JSON list for community plugins
-- [ ] Notifications button
-- [ ] Changelog button — click version number in settings to view update log (rendered Markdown)
-- [ ] Embedded pictures in task descriptions
-- [ ] Replace legacy notification system with Dorkbox (cross-platform support)
 - (Done) Redo data functions — each `data.txt` gets a `date.txt` for display history
 - (Done) Junit Testing + coverage
 - (Done) Revamp task handle from o(log^2n) to o(1)

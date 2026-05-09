@@ -21,17 +21,21 @@ public class PomodoroPlugin implements MenuPlugin, WidgetPlugin {
 
     @Override
     public String getName() {
-        return "Pomodoro Timer";
+        return "Stopwatch Timer ";
     }
 
     @Override
     public String getVersion() {
-        return "1.0.0";
+        return "0.0.1";
     }
 
     @Override
     public String getDescription() {
         return "A simple focus timer widget and menu settings.";
+    }
+    @Override
+    public String getType(){
+        return "Hybrid";
     }
 
     @Override
@@ -39,12 +43,12 @@ public class PomodoroPlugin implements MenuPlugin, WidgetPlugin {
         Pane pane = new Pane();
         pane.setPrefSize(400, 300);
 
-        Label title = new Label("Pomodoro Settings");
+        Label title = new Label("Stopwatch Settings");
         title.setFont(context.getFont(32));
         title.setLayoutX(20);
         title.setLayoutY(20);
 
-        Label info = new Label("Future feature: Adjust work and break times here.");
+        Label info = new Label("Settings will go here.");
         info.setFont(context.getFont(14));
         info.setLayoutX(20);
         info.setLayoutY(80);

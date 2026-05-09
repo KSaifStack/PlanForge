@@ -55,4 +55,20 @@ public class PluginContextImpl implements PluginContext {
     public boolean isDarkMode() {
         return themeManager.isDarkMode();
     }
+
+    @Override
+    public java.util.List<PluginTask> getTasks() {
+        java.util.List<PluginTask> pluginTasks = new java.util.ArrayList<>();
+        java.util.LinkedHashMap<String, String[]> rawTasks = com.ksaifstack.docktask.model.TaskManagement.getSortedTasks(username);
+        
+        if (rawTasks != null) {
+            for (String[] taskData : rawTasks.values()) {
+                // taskData format: [name, desc, date, color] (based on UserData)
+                if (taskData != null && taskData.length >= 4) {
+                    pluginTasks.add(new PluginTask(taskData[0], taskData[1], taskData[2], taskData[3]));
+                }
+            }
+        }
+        return pluginTasks;
+    }
 }

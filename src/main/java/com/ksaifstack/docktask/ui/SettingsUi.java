@@ -37,7 +37,7 @@ public class SettingsUi {
     public Pane getContent(Font lexend14, Font lexend32, WindowActions window, TaskUi t){
         //Allows for grayed out background
         Pane pane = new Pane();
-        pane.setPrefSize(2000, 2000);
+        pane.setPrefSize(980, 493);
         pane.setStyle("-fx-background-color: rgba(0, 0, 0, 0.15);");
 
         //Main Setting Region

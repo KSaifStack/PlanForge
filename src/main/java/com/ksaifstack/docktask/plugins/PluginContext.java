@@ -48,4 +48,9 @@ public interface PluginContext {
      * @return True if the application is currently in dark mode.
      */
     boolean isDarkMode();
+
+    /**
+     * @return A read-only list of the user's current tasks.
+     */
+    java.util.List<PluginTask> getTasks();
 }

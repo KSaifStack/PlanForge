@@ -370,11 +370,8 @@
 }
 
 /* Plugin UI */
-.plugin-pane {
-    -fx-background-color: -dt-overlay-bg;
-}
 
-.plugin-background {
+#plugin-background {
     -fx-background-color: -dt-bg-color;
     -fx-border-color: -dt-border-color;
     -fx-border-radius: 4px;
@@ -387,10 +384,15 @@
     -fx-border-radius: 5px;
     -fx-padding: 10px;
     -fx-background-color: -dt-card-bg;
+    transition: -fx-background-color 300ms ease-out,
+        -fx-scale-x 250ms ease-out,
+        -fx-scale-y 250ms ease-out;
 }
 
-.plugin-widget-label {
-    -fx-text-fill: -dt-success-color;
+.plugin-card:hover{
+    -fx-scale-x: 1.02;
+    -fx-scale-y: 1.02;
+    -fx-background-color: #e0e0e0;
 }
 
 .plugin-scroll {
@@ -398,11 +400,3 @@
     -fx-background: transparent;
 }
 
-/* Pomodoro Plugin */
-.pomodoro-box {
-    -fx-background-color: #ffffff;
-    -fx-border-color: #626262;
-    -fx-border-radius: 8px;
-    -fx-background-radius: 8px;
-    -fx-padding: 10px;
-}
