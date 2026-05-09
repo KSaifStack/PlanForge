@@ -55,7 +55,9 @@ Thumbs.db
 
 
 libs/*
-!libs/nfx-core-*.jar
+!libs/.gitkeep
+!libs/xss/
+!libs/xss/**
 
 
 

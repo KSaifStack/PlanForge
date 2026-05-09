@@ -29,10 +29,10 @@ DockTask started as a simple to-do list and has grown into a full-featured stude
 **Tech Stack:**
 | Component | Technology | Version |
 |-----------|-----------|---------|
-| Language | Java | 23 |
+| Language | Java | 25 |
 | UI Framework | JavaFX | 25 |
 | Styling | CSS3 (with custom `-dt-*` theme variables) | — |
-| Native UI | NFX Library (nfx-core) | 1.0.4 |
+| Native UI | NFX Library (nfx-core) | 1.0.5 |
 | System Tray | Dorkbox SystemTray | 3.8 |
 | Tray Icon | FXTrayIcon | 4.0.1 |
 | Build | Apache Maven | 3.x |
@@ -54,6 +54,23 @@ DockTask started as a simple to-do list and has grown into a full-featured stude
 2. Open the project in IntelliJ and let Maven resolve dependencies via `pom.xml`
 3. Set VM options for JavaFX modules
 4. Run `LoginUi.java` as the main entry point
+
+### Local Maven Repo for NFX (Option B)
+DockTask resolves `nfx-core` from the repo-local Maven path `libs/`.
+Make sure these files exist in the repo after pull:
+
+```text
+libs/
+└── xss/
+    └── it/
+        └── nfx/
+            └── nfx-core/
+                └── 1.0.5/
+                    ├── nfx-core-1.0.5.jar
+                    └── nfx-core-1.0.5.pom
+```
+
+If IntelliJ still shows unresolved dependencies, click **Reload Maven Project**.
 
 > **Note:** VS Code is not recommended without additional JavaFX configuration. See [this video](https://www.youtube.com/watch?app=desktop&v=IvsvjUq38Jc) for IntelliJ setup.
 

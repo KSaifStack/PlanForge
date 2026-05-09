@@ -18,9 +18,10 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <maven.compiler.source>23</maven.compiler.source>
-        <maven.compiler.target>23</maven.compiler.target>
+        <maven.compiler.source>25</maven.compiler.source>
+        <maven.compiler.target>25</maven.compiler.target>
         <javafx.version>25</javafx.version>
+        <nfx.jar.path>${project.basedir}/libs/nfx-core-1.0.5.jar</nfx.jar.path>
         <mainClass>com.ksaifstack.docktask/com.ksaifstack.docktask.Main</mainClass>
     </properties>
 
@@ -62,7 +63,7 @@
     <repositories>
         <repository>
             <id>project-local-repo</id>
-            <url>file://${project.basedir}/lib</url>
+            <url>file://${project.basedir}/libs</url>
         </repository>
     </repositories>
 
@@ -93,9 +94,11 @@
         </dependency>
 
         <dependency>
-            <groupId>xss.it</groupId>
+            <groupId>xss.it.nfx</groupId>
             <artifactId>nfx-core</artifactId>
-            <version>1.0.4</version>
+            <version>1.0.5</version>
+            <scope>system</scope>
+            <systemPath>${nfx.jar.path}</systemPath>
         </dependency>
 
         <dependency>
@@ -194,8 +197,8 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.13.0</version>
                 <configuration>
-                    <source>23</source>
-                    <target>23</target>
+                    <source>${maven.compiler.source}</source>
+                    <target>${maven.compiler.target}</target>
                     <compilerArgs>
                         <arg>--add-reads</arg>
                         <arg>com.ksaifstack.docktask=ALL-UNNAMED</arg>
