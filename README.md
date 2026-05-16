@@ -7,7 +7,7 @@
 <p align="center">
   <strong>Desktop task management with millisecond-accurate deadlines and intelligent notifications</strong>
   <br>
-  <em>Built for students and professionals who need precision, not just reminders</em>
+  <em>for those who need precision, not just reminders</em>
 </p>
 
 <p align="center">
