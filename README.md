@@ -24,11 +24,11 @@
 
 ##  Why DockTask?
 
-I built DockTask to solve my own problem of managing multiple classwork deadlines while learning JavaFX development. What started as a simple to-do list evolved into a full-featured task management system as I explored UI/UX design, data persistence strategies, and memory optimization techniques. 
+I built DockTask to solve my own problem of managing multiple classwork deadlines while learning JavaFX development. What started as a simple to-do list transformed into a full-featured task management system as I explored UI/UX design, data persistence, and memory optimization techniques. 
 
-The core challenge? Basic calendar apps treat "3 PM" and "3:00:47 PM" the same, but when you have multiple assignments due at midnight, lab reports due minutes apart, and group project submissions with precise timing requirements, **seconds matter**.
+The challenge? Basic calendar apps treat "3 PM" and "3:00:47 PM" the same, but when you have multiple assignments due at midnight, lab reports due minutes apart, and group project submissions with precise timing requirements, **seconds matter**.
 
-This project pushed me to think beyond basic functionality and focus on creating a polished, user-friendly experience. **Now it's the tool I use daily to keep my academic life neat and organized.**
+This project pushed me to think beyond basic functionality and focus on creating a user-friendly experience. **Now it's the tool I use daily to keep my work neat and organized.**
 
 ---
 
@@ -151,7 +151,7 @@ DockTask implements **Model-View-Controller (MVC)** architecture for maintainabl
 
 ## What I Learned
 
-Building DockTask taught me valuable software engineering lessons:
+Building DockTask taught me valuable lessons:
 
 ### Memory Optimization (63% Reduction)
 In version 0.1, countdown timers for completed or removed tasks continued running in the background, accumulating on the memory stack. This caused memory usage to grow from ~500MB to over 1000MB during extended sessions.
@@ -399,5 +399,4 @@ This project is licensed under the **MIT License** — see [LICENSE](LICENSE) fi
 <p align="center">
   <img src="https://github.com/user-attachments/assets/142dcb77-abfb-4551-86cd-4035ab3c019f" width="100" alt="DockTask Logo" />
   <br>
-  <em>Built with Java 25 and JavaFX 25</em>
 </p>
