@@ -453,6 +453,7 @@ public class PluginUi {
         settingsButton.setFont(FontLoader.setFont(14));
         settingsButton.setPrefSize(90, 28);
         settingsButton.setDisable(true);
+        settingsButton.setOnAction(e -> openPluginSettings(pane));
 
         widgetToggleButton = new Button("Widget");
         widgetToggleButton.setFont(FontLoader.setFont(14));
@@ -561,7 +562,7 @@ public class PluginUi {
             widgetToggleButton.setDisable(true);
         }
 
-        // Settings applies only to MenuPlugin implementations (no implementation yet)
+        // Settings applies only to MenuPlugin implementations
         settingsButton.setDisable(!(selectedPlugin instanceof MenuPlugin));
     }
 
@@ -575,6 +576,33 @@ public class PluginUi {
 
         widgetToggleButton.setText(newState ? "Hide Widget" : "Show Widget");
         PluginManager.notifyWidgetVisibilityChanged();
+    }
+
+    /**
+     * Replaces the right-pane content with the selected MenuPlugin's settings UI.
+     * A "Back" button is injected at the top of the plugin-provided pane to
+     * restore the original info view.
+     */
+    private void openPluginSettings(Pane rightPane) {
+        if (!(selectedPlugin instanceof MenuPlugin menuPlugin)) return;
+
+        PluginContext ctx = new PluginContextImpl(username, selectedPlugin.getName());
+        Pane pluginContent = menuPlugin.getMenuContent(ctx);
+
+        // Back button – restores info view
+        Button backBtn = new Button("Back");
+        backBtn.setFont(FontLoader.setFont(13));
+        backBtn.setPrefSize(80, 26);
+        backBtn.setOnAction(ev -> {
+            rightPane.getChildren().setAll(infoContent, placeholder);
+        });
+
+        // Wrap: back button on top, then plugin content below
+        VBox wrapper = new VBox(8, backBtn, pluginContent);
+        wrapper.setPadding(new Insets(8));
+        wrapper.setPrefSize(440, 280);
+
+        rightPane.getChildren().setAll(wrapper);
     }
 
     private void openJarFileChooser() {
